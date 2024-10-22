@@ -24,3 +24,9 @@ Status of v0.3:
 - Restructured the program to look a lot like mathematical induction
 - Message array is the same -> 
   - Agents still occasionally talk about themselves or others in third person. 
+
+Status of v0.4:
+- HUGE overhaul (kinda)
+- No signs of bots talking about themselves (yet) from skimming the work
+- Added ability to iterate through all possible personality types. 
+- Need for a conversation limit or a neutral third party that judges the AIs impartially. 
