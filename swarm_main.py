@@ -7,7 +7,8 @@ from itertools import product
 from copy import deepcopy
 
 version = "0.4"
-timestamp = datetime.now()
+# timestamp = datetime.now()
+timestamp = "placeholder"
 ###############################################################################################
 # AGENT DEFINITIONS (base definitions)
 ###############################################################################################
@@ -126,6 +127,7 @@ def run_loop(
     with open(f"Warehouse/{version}_output_{timestamp}.json", "a") as file:
         json.dump(messages, file)
         file.write("\n\nLOOP DONE. GOING TO NEXT ITERATION\n\n")
+
 
 if __name__ == "__main__":
     # the sets of possible personalities for both bob and alice
