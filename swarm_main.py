@@ -20,7 +20,8 @@ agent_bob = Agent(
 
 )
 
-initial_prompt = [
+# the initial prompt
+messages = [
     {
         "role": "user",
         "content": "You just got into the meeting room, and see bob unpacking their things."
@@ -59,12 +60,12 @@ def run_loop(
     ###########
     response = client.run(
         agent=agent_alice,
-        messages = initial_prompt
+        messages = messages
     )
-    starting_message = response.messages[-1]["content"]
+    # starting_message = response.messages[-1]["content"]
+    messages.extend(response.messages)
 
     # add that message to the current messages
-    messages = [{"role": "user", "content": starting_message}]
 
     # actual time to loop
     while True:
@@ -116,9 +117,8 @@ def run_loop(
         agent = response.agent
     
     # THE LOOP HAS BEEN EXITED AT THIS POINT!!!!
-    with open(f"output_{datetime.now()}.json", "w") as file:
-        json.dump(messages, file)
-
+    with open(f"Warehouse/output_{datetime.now()}.json", "w") as file:
+        json.dumps(messages, file)
 
 if __name__ == "__main__":
     run_loop(agent_alice, agent_bob)
