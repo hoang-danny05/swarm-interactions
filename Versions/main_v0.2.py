@@ -2,10 +2,9 @@ from swarm import Swarm, Agent
 from other.utils import pretty_print_messages
 import json
 from datetime import datetime
-from typing import List
 
 ###############################################################################################
-# AGENT DEFINITIONS (base definitions)
+# AGENT DEFINITIONS
 ###############################################################################################
 
 # client = Swarm()
@@ -41,33 +40,45 @@ agent_bob   .functions.append(end_conversation)
 
 # with open("output.txt", "w") as file:
 #     json.dump(response.messages, file)
-
 ###############################################################################################
-# DEFINE LOOP (iteration based on last state)
+# LOOP DEFINITION
 ###############################################################################################
 
 def run_loop(
         starting_agent, 
         responding_agent,
-        messages,
         context_variables=False,
         stream=False,
         debug=False,
     ) -> None:
     """Defines the loop that the agents will go through."""
-
     client = Swarm()
     print("Starting Custom Swarm CLI 🐝")
 
-    #define a step for a certain user. 
-    def iterate_conversation_with(agent, messages) -> tuple[Agent, List]:
-        """
-        Used multiple times in the while loop. 
-        iterates the messages with the input agent. 
-        """
+    ###########
+    # Gets the response of the starting agent
+    ###########
+    response = client.run(
+        agent=agent_alice,
+        messages = messages
+    )
+    # starting_message = response.messages[-1]["content"]
+    messages.extend(response.messages)
+
+    # add that message to the current messages
+
+    # actual time to loop
+    while True:
+
+        # ask the user if they want to continue the loop
+        try:
+            user_continue = input("Enter to continue > ")
+        except KeyboardInterrupt:
+            break;
+
         # get a response
         response = client.run(
-            agent=agent,
+            agent=responding_agent,
             messages=messages,
             context_variables=context_variables or {},
             stream=stream,
@@ -76,35 +87,41 @@ def run_loop(
 
         # i removed stream implementation here. If we end up doing streams, return to swarms.
         pretty_print_messages(response.messages)
+
         # update the conversation
         messages.extend(response.messages)
         # in case they switch
-        return (response.agent, messages)
+        agent = response.agent
 
-
-
-    # actual time to loop
-    while True:
+        ######################################################
+        # Again, but get the starting_agent's response
+        ######################################################
 
         # ask the user if they want to continue the loop
         try:
-            _ = input("Enter to continue > ")
+            user_continue = input("Enter to continue > ")
         except KeyboardInterrupt:
             break;
 
-        # we still manually set the agent. We will soon experiment with allowing the AI figure out when to swap agents.
-        agent = starting_agent
-        (agent, messages) = iterate_conversation_with(agent, messages)
-        agent = responding_agent
-        (agent, messages) = iterate_conversation_with(agent, messages)
+        # get a response
+        response = client.run(
+            agent=starting_agent,
+            messages=messages,
+            context_variables=context_variables or {},
+            stream=stream,
+            debug=debug,
+        )
 
-   
+        pretty_print_messages(response.messages)
+        messages.extend(response.messages)
+        agent = response.agent
+    
     # THE LOOP HAS BEEN EXITED AT THIS POINT!!!!
     with open(f"Warehouse/output_{datetime.now()}.json", "w") as file:
-        json.dump(messages, file)
+        json.dumps(messages, file)
 
 if __name__ == "__main__":
-    run_loop(agent_alice, agent_bob, messages)
+    run_loop(agent_alice, agent_bob)
 
 
 

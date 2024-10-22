@@ -5,7 +5,7 @@ Both bots have the chance to end conversation by calling the end_conversation() 
 
 All conversations are stored in the Warehouse directory. Sorry if they aren't formatted nicely. 
 
-## Development Notes. (v0.2 is the latest)
+## Development Notes. (v0.3 is the latest)
 Making the bots play their own roles is complicated. The bots don't expect to be addressed in the third person. So, when the system prompt is added to the messages, it bugs everything out.
 
 Messages as of v0.1:
@@ -18,3 +18,9 @@ Status of v0.2:
 - Initial system prompt visible to both bots
 - Message Array = [Initial Prompt(user), alice, bob, alice...]
 - Agents would lose their sense of self and start talking about Alice and Bob in third person. 
+
+Status of v0.3:
+- Code readability significantly improved
+- Restructured the program to look a lot like mathematical induction
+- Message array is the same -> 
+  - Agents still occasionally talk about themselves or others in third person. 
