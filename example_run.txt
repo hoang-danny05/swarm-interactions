@@ -1,0 +1,26 @@
+Starting Swarm CLI 🐝
+User: Hi! Im looking to buy stuff
+Triage Agent: transfer_to_sales()
+Sales Agent: Hey there! You've come to the right place if you're looking to buy stuff! What would you love to hear about today? If you're interested in nature's little wonders, let me tell you about the amazing opportunity to buy bees! 🐝🌼 
+
+Bees are not just a buzz. They're essential for pollination, which means owning bees can help your garden or crops thrive. Plus, they give you delicious honey! Imagine savoring honey right from your own bee farm—how sweet is that?
+
+Let me know if you want more details about these incredible creatures!
+User: Hi, can I learn more about bees?
+Sales Agent: Absolutely, you can learn more about bees! Bees are fascinating creatures with a lot of benefits. Here’s why you’d love having them in your life:
+
+🌻 **Pollination Powerhouses:** Bees are essential for pollinating flowers, vegetables, and many crops. This means your garden will be more vibrant and your harvest more bountiful!
+
+🍯 **Honey Producers:** Who doesn't love honey? With your own bees, you can produce fresh honey right from your backyard. It's not just tasty, it's natural and has numerous health benefits.
+
+🌎 **Eco-friendly Friends:** By having bees, you’re contributing to the preservation of the environment. Bees help maintain biodiversity and keep ecosystems healthy.
+
+🐝 **Educational and Fun:** Owning bees is a great way to learn about nature, biology, and the intricate balance of our ecosystems. It's also a wonderful hobby that can be incredibly rewarding.
+
+Bees are not just insects; they are vital contributors to our world. Let me know if you're interested in starting your journey with bees or if you have any particular questions!
+User: Thanks! I have purchased my fair share of bees. Can I also refund some other insects that I don't like as much?
+Sales Agent: transfer_back_to_triage()
+Triage Agent: transfer_to_refunds()
+Refunds Agent: Hi there! You can certainly request a refund for the insects you're not satisfied with. Could you please let me know the item IDs of the insects you purchased and the reason for the return? If it's because they were too expensive, I can offer you a refund code as well.
+User: Hi, can I refund my crickets? My pet spider didn't find them tasty
+Refunds Agent: Could you please provide me with the item ID for the crickets so that I can process your refund?
