@@ -3,13 +3,16 @@ from other.utils import pretty_print_messages
 import json
 from datetime import datetime
 from typing import List
-from itertools import product
+from itertools import product as cartesian_product
 from copy import deepcopy
+from utils.json_formatter import write_base_configs_to, add_iteration_to
 import time
 
 version = "v0.4"
 filename = datetime.now().strftime(f"{version}_output_on_%m_%d_%Y_at_%H_%M.json")
 print(str(filename))
+filename = datetime.now().strftime(f"{version} output on %m-%d-%Y at %H:%M.json")
+filename = f"Warehouse/{filename}"
 ###############################################################################################
 # AGENT DEFINITIONS (base definitions)
 ###############################################################################################
@@ -20,7 +23,7 @@ print(str(filename))
 # Opinion       : What the bot is meant to argue.
 # Personality   : Defines how the bot will act. Affects its assertiveness.
 
-alice_possibilities = {
+alice_config = {
     "Context": "You are playing the role of Alice, a movie writer. You are about to propose your ideas in this very important meeting that can decide your career. ",
     "Opinion": "You believe the movie should be a pollitical Thriller about a bear society where the bears are trying to overturn a rulling that segregated hibernators from nonhibernators. ",
     "Personalities": [
@@ -29,7 +32,7 @@ alice_possibilities = {
     ]
 }
 
-bob_possibilities = {
+bob_config = {
     "Context": "You are playing the role of Bob, a movie writer. You are about to propose your ideas in this very important meeting that can decide your career. ",
     "Opinion": "You believe the movie should be a summer blockbuster war film about factions of bears overturning the oppressive rulling class of the forest. ",
     "Personalities": [
@@ -113,24 +116,40 @@ def run_loop(
     except KeyboardInterrupt:
         print("\nConversation has been manually ended.")
 
-    # Save messages at the end of the conversation
-    with open(f"Warehouse/{filename}", "a") as file:
+   
+    # THE LOOP HAS BEEN EXITED AT THIS POINT!!!!
+    with open(filename, "a") as file:
         json.dump(messages, file)
         file.write("\n\nLOOP DONE. GOING TO NEXT ITERATION\n\n")
 
 
+###############################################################################################
+# THE MAIN FUNCTION : finally doing things
+###############################################################################################
+
 if __name__ == "__main__":
     # the sets of possible personalities for both bob and alice
-    A = alice_possibilities["Personalities"]
-    B = bob_possibilities["Personalities"]
+    alice_possible_personalities = alice_config["Personalities"]
+    bob_possible_personalities = alice_config["Personalities"]
 
     #cycle through each combination of personality
-    for (alice_personality, bob_personality) in product(A,B,repeat=1):
-        agent_alice.instructions = f"{alice_possibilities['Context']}{alice_possibilities['Opinion']}{alice_personality}"
-        agent_bob.instructions = f"{bob_possibilities['Context']}{bob_possibilities['Opinion']}{bob_personality}"
+    for (alice_personality, bob_personality) in cartesian_product(alice_possible_personalities,bob_possible_personalities,repeat=1):
+
+        # set their instructions based on the configuration. 
+        agent_alice.instructions = f"""
+            {alice_config['Context']}
+            {alice_config['Opinion']}
+            {alice_personality}
+        """
+
+        agent_bob.instructions = f"""
+            {bob_config['Context']}
+            {bob_config['Opinion']}
+            {bob_personality}
+        """
 
         # record configuration to output file
-        with open("Warehouse/"+filename, "a") as file:
+        with open(filename, "a") as file:
             json.dump(
                 {
                     "alice_instructions" : agent_alice.instructions,
