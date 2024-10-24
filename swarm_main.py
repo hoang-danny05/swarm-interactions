@@ -6,9 +6,8 @@ from typing import List
 from itertools import product
 from copy import deepcopy
 
-version = "0.4"
-# timestamp = datetime.now()
-timestamp = "placeholder"
+version = "v0.4"
+filename = datetime.now().strftime(f"{version} output on %m-%d-%Y at %H:%M.json")
 ###############################################################################################
 # AGENT DEFINITIONS (base definitions)
 ###############################################################################################
@@ -124,7 +123,7 @@ def run_loop(
 
    
     # THE LOOP HAS BEEN EXITED AT THIS POINT!!!!
-    with open(f"Warehouse/{version}_output_{timestamp}.json", "a") as file:
+    with open(f"Warehouse/{filename}", "a") as file:
         json.dump(messages, file)
         file.write("\n\nLOOP DONE. GOING TO NEXT ITERATION\n\n")
 
@@ -140,7 +139,7 @@ if __name__ == "__main__":
         agent_bob.instructions = f"{bob_possibilities['Context']}{bob_possibilities['Opinion']}{bob_personality}"
 
         # record configuration to output file
-        with open(f"Warehouse/{version}_output_{timestamp}.json", "a") as file:
+        with open(f"Warehouse/{filename}", "a") as file:
             json.dump(
                 {
                     "alice_instructions" : agent_alice.instructions,
