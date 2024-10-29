@@ -7,7 +7,8 @@ from itertools import product
 from copy import deepcopy
 
 version = "v0.4"
-filename = datetime.now().strftime(f"{version} output on %m-%d-%Y at %H:%M.json")
+filename = datetime.now().strftime(f"{version}_output_on_%m_%d_%Y_at_%H_%M.json")
+print(str(filename))
 ###############################################################################################
 # AGENT DEFINITIONS (base definitions)
 ###############################################################################################
@@ -113,8 +114,7 @@ def run_loop(
         try:
             _ = input("Enter to continue > ")
         except KeyboardInterrupt:
-            break;
-
+            break
         # we still manually set the agent. We will soon experiment with allowing the AI figure out when to swap agents.
         agent = starting_agent
         (agent, messages) = iterate_conversation_with(agent, messages)
@@ -139,7 +139,7 @@ if __name__ == "__main__":
         agent_bob.instructions = f"{bob_possibilities['Context']}{bob_possibilities['Opinion']}{bob_personality}"
 
         # record configuration to output file
-        with open(f"Warehouse/{filename}", "a") as file:
+        with open("Warehouse/"+filename, "a") as file:
             json.dump(
                 {
                     "alice_instructions" : agent_alice.instructions,
@@ -153,6 +153,6 @@ if __name__ == "__main__":
 
         run_loop(agent_alice, agent_bob, messages)
 
-
+    file.close()
 
 
