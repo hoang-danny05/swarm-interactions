@@ -60,7 +60,7 @@ initial_prompt = [
 def end_conversation():
     """Call this function if you feel you have fully discussed everything."""
     print("ENDING CONVERSATION!!!!!!!!!!!!!!!!!!!!!")
-    time.sleep(5)
+    time.sleep(1)
     raise KeyboardInterrupt
     
 
