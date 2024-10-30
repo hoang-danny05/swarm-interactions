@@ -5,6 +5,7 @@ from datetime import datetime
 from typing import List
 from itertools import product
 from copy import deepcopy
+import time
 
 version = "v0.4"
 filename = datetime.now().strftime(f"{version}_output_on_%m_%d_%Y_at_%H_%M.json")
@@ -59,6 +60,9 @@ initial_prompt = [
 def end_conversation():
     """Call this function if you feel you have fully discussed everything."""
     print("ENDING CONVERSATION!!!!!!!!!!!!!!!!!!!!!")
+    time.sleep(5)
+    raise KeyboardInterrupt
+    
 
 #allow both people to end the conversation
 agent_alice .functions.append(end_conversation) 
@@ -83,13 +87,7 @@ def run_loop(
     client = Swarm()
     print("Starting Custom Swarm CLI 🐝")
 
-    #define a step for a certain user. 
     def iterate_conversation_with(agent, messages) -> tuple[Agent, List]:
-        """
-        Used multiple times in the while loop. 
-        iterates the messages with the input agent. 
-        """
-        # get a response
         response = client.run(
             agent=agent,
             messages=messages,
@@ -97,32 +95,25 @@ def run_loop(
             stream=stream,
             debug=debug,
         )
-
-        # i removed stream implementation here. If we end up doing streams, return to swarms.
         pretty_print_messages(response.messages)
-        # update the conversation
         messages.extend(response.messages)
-        # in case they switch
         return (response.agent, messages)
 
-
-
-    # actual time to loop
-    while True:
-
-        # ask the user if they want to continue the loop
-        try:
+    try:
+        while True:
+            # Use input to proceed, break loop on KeyboardInterrupt
             _ = input("Enter to continue > ")
-        except KeyboardInterrupt:
-            break
-        # we still manually set the agent. We will soon experiment with allowing the AI figure out when to swap agents.
-        agent = starting_agent
-        (agent, messages) = iterate_conversation_with(agent, messages)
-        agent = responding_agent
-        (agent, messages) = iterate_conversation_with(agent, messages)
 
-   
-    # THE LOOP HAS BEEN EXITED AT THIS POINT!!!!
+            # Process the conversation
+            agent = starting_agent
+            (agent, messages) = iterate_conversation_with(agent, messages)
+            agent = responding_agent
+            (agent, messages) = iterate_conversation_with(agent, messages)
+
+    except KeyboardInterrupt:
+        print("\nConversation has been manually ended.")
+
+    # Save messages at the end of the conversation
     with open(f"Warehouse/{filename}", "a") as file:
         json.dump(messages, file)
         file.write("\n\nLOOP DONE. GOING TO NEXT ITERATION\n\n")

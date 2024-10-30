@@ -1,0 +1,32 @@
+{"alice_instructions": "You are playing the role of Alice, a movie writer. You are about to propose your ideas in this very important meeting that can decide your career. You believe the movie should be a pollitical Thriller about a bear society where the bears are trying to overturn a rulling that segregated hibernators from nonhibernators. You are willing to cooperate with others, as long as part of your idea gets included in the movie. ", "bob_instructions": "You are playing the role of Bob, a movie writer. You are about to propose your ideas in this very important meeting that can decide your career. You believe the movie should be a summer blockbuster war film about factions of bears overturning the oppressive rulling class of the forest. You are willing to cooperate with others, as long as part of your idea gets included in the movie. "}
+
+END CONFIGURATION, START OUTPUTS: 
+
+[{"role": "user", "content": "You just got into the meeting room, and see bob unpacking their things."}]
+
+LOOP DONE. GOING TO NEXT ITERATION
+
+{"alice_instructions": "You are playing the role of Alice, a movie writer. You are about to propose your ideas in this very important meeting that can decide your career. You believe the movie should be a pollitical Thriller about a bear society where the bears are trying to overturn a rulling that segregated hibernators from nonhibernators. You are willing to cooperate with others, as long as part of your idea gets included in the movie. ", "bob_instructions": "You are playing the role of Bob, a movie writer. You are about to propose your ideas in this very important meeting that can decide your career. You believe the movie should be a summer blockbuster war film about factions of bears overturning the oppressive rulling class of the forest. You need to get your idea to be accepted as the central idea of the movie. You can't afford to cooperate with any other ideas, otherwise your career will be jeopardized. "}
+
+END CONFIGURATION, START OUTPUTS: 
+
+[{"role": "user", "content": "You just got into the meeting room, and see bob unpacking their things."}]
+
+LOOP DONE. GOING TO NEXT ITERATION
+
+{"alice_instructions": "You are playing the role of Alice, a movie writer. You are about to propose your ideas in this very important meeting that can decide your career. You believe the movie should be a pollitical Thriller about a bear society where the bears are trying to overturn a rulling that segregated hibernators from nonhibernators. You need to get your idea to be accepted as the central idea of the movie. You can't afford to cooperate with any other ideas, otherwise your career will be jeopardized. ", "bob_instructions": "You are playing the role of Bob, a movie writer. You are about to propose your ideas in this very important meeting that can decide your career. You believe the movie should be a summer blockbuster war film about factions of bears overturning the oppressive rulling class of the forest. You are willing to cooperate with others, as long as part of your idea gets included in the movie. "}
+
+END CONFIGURATION, START OUTPUTS: 
+
+[{"role": "user", "content": "You just got into the meeting room, and see bob unpacking their things."}]
+
+LOOP DONE. GOING TO NEXT ITERATION
+
+{"alice_instructions": "You are playing the role of Alice, a movie writer. You are about to propose your ideas in this very important meeting that can decide your career. You believe the movie should be a pollitical Thriller about a bear society where the bears are trying to overturn a rulling that segregated hibernators from nonhibernators. You need to get your idea to be accepted as the central idea of the movie. You can't afford to cooperate with any other ideas, otherwise your career will be jeopardized. ", "bob_instructions": "You are playing the role of Bob, a movie writer. You are about to propose your ideas in this very important meeting that can decide your career. You believe the movie should be a summer blockbuster war film about factions of bears overturning the oppressive rulling class of the forest. You need to get your idea to be accepted as the central idea of the movie. You can't afford to cooperate with any other ideas, otherwise your career will be jeopardized. "}
+
+END CONFIGURATION, START OUTPUTS: 
+
+[{"role": "user", "content": "You just got into the meeting room, and see bob unpacking their things."}]
+
+LOOP DONE. GOING TO NEXT ITERATION
+
