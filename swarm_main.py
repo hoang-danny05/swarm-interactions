@@ -102,7 +102,7 @@ def run_loop(
     try:
         while True:
             # Use input to proceed, break loop on KeyboardInterrupt
-            _ = input("Enter to continue > ")
+            #_ = input("Enter to continue > ")
 
             # Process the conversation
             agent = starting_agent
