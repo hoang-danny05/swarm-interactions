@@ -1,31 +1,15 @@
-import json
 import tkinter as tk
 from tkinter import filedialog, scrolledtext
+from model import read_encoded_file
 
 # Load JSON data from the provided file
 #json_file_path = 'Warehouse/v0.4_output_on_10_29_2024_at_15_22.json'
 # Prompt to choose JSON file within the 'Warehouse' subdirectory
 json_file_path = filedialog.askopenfilename(initialdir="Warehouse", title="Select JSON File",
                                             filetypes=(("JSON files", "*.json"), ("All files", "*.*")))
-data_list = []
-convo_list = []
-with open(json_file_path, 'r') as file:
-    # Read all lines, assuming each JSON object starts with '{' on a new line
-    for line in file:
-        line = line.strip()
-        if line.startswith("{"):  # Check if line begins with a JSON object
-            try:
-                data = json.loads(line)
-                data_list.append(data)
-            except json.JSONDecodeError as e:
-                print(f"Skipping invalid JSON object: {e}")
 
-        if line.startswith("["):
-            try:
-                data = json.loads(line)
-                convo_list.append(data)
-            except json.JSONDecodeError as e:
-                print(f"Skipping invalid JSON object: {e}")
+(convo_list, data_list) = read_encoded_file(json_file_path)
+
 #print(convo_list)
 # Set up the GUI
 root = tk.Tk()
