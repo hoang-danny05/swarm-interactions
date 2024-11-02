@@ -4,14 +4,13 @@ import json
 from datetime import datetime
 from typing import List
 from itertools import product as cartesian_product
+from os import remove
+import traceback
 from copy import deepcopy
-from utils.json_formatter import write_base_configs_to, add_iteration_to
 import time
 
 version = "v0.4"
-filename = datetime.now().strftime(f"{version}_output_on_%m_%d_%Y_at_%H_%M.json")
-print(str(filename))
-filename = datetime.now().strftime(f"{version} output on %m-%d-%Y at %H:%M.json")
+filename = datetime.now().strftime(f"{version} %m-%d-%Y at %H:%M.json")
 filename = f"Warehouse/{filename}"
 ###############################################################################################
 # AGENT DEFINITIONS (base definitions)
@@ -127,7 +126,7 @@ def run_loop(
 # THE MAIN FUNCTION : finally doing things
 ###############################################################################################
 
-if __name__ == "__main__":
+def main():
     # the sets of possible personalities for both bob and alice
     alice_possible_personalities = alice_config["Personalities"]
     bob_possible_personalities = alice_config["Personalities"]
@@ -166,3 +165,11 @@ if __name__ == "__main__":
     file.close()
 
 
+if __name__ == "__main__":
+    try:
+        main()
+    except KeyboardInterrupt:
+        pass
+    except Exception:
+        remove(filename)
+        print(traceback.format_exc())

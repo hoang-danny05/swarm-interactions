@@ -1,7 +1,8 @@
 # The model of the GUI
 import json
+from typing import List
 
-def read_encoded_file(json_file_path : str) -> (convo_list, data_list):
+def read_encoded_file(json_file_path : str) -> tuple[List, List]:
     convo_list = []
     data_list = []
     with open(json_file_path, 'r') as file:
@@ -20,3 +21,4 @@ def read_encoded_file(json_file_path : str) -> (convo_list, data_list):
                     convo_list.append(data)
                 except json.JSONDecodeError as e:
                     print(f"Skipping invalid JSON object: {e}")
+    return (convo_list, data_list)
