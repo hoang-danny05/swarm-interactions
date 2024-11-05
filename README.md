@@ -45,3 +45,8 @@ Status of v0.4:
 - No signs of bots talking about themselves (yet) from skimming the work
 - Added ability to iterate through all possible personality types. 
 - Need for a conversation limit or a neutral third party that judges the AIs impartially. 
+
+Status of v0.5:
+- Allows users to change the model in a variable
+- Bots are now told to give reasons for ending the conversations. Ending conversation is no longer omitted. 
+
