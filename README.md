@@ -5,6 +5,18 @@ Both bots have the chance to end conversation by calling the end_conversation() 
 
 All conversations are stored in the Warehouse directory. Sorry if they aren't formatted nicely. 
 
+## setup notes
+
+Create a virtual environment in this directory
+```
+python -m venv venv-chatproj
+```
+to use gpt-3.5 turbo
+
+```
+cp ./other/types.py ./venv-chatproj/lib/python3.10/site-packages/swarm/types.py
+```
+
 ## Development Notes. (v0.3 is the latest)
 Making the bots play their own roles is complicated. The bots don't expect to be addressed in the third person. So, when the system prompt is added to the messages, it bugs everything out.
 
