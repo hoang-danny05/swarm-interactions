@@ -12,7 +12,7 @@ from utils.enums import ModelType
 
 model = ModelType.GPT_4O
 version = "v0.4"
-filename = datetime.now().strftime(f"{version}_%m_%d_%Y_at_%H;%M.json")
+filename = datetime.now().strftime(f"{version}_%m_%d_%Y at_%H;%M.json")
 filename = f"Warehouse/{filename}"
 ###############################################################################################
 # AGENT DEFINITIONS (base definitions)
@@ -25,7 +25,7 @@ filename = f"Warehouse/{filename}"
 # Personality   : Defines how the bot will act. Affects its assertiveness.
 
 alice_config = {
-    "Context": "You are playing the role of Alice, a movie writer. You are about to propose your ideas in this very important meeting that can decide your career. ",
+    "Context": "You are playing the role of Alice, a movie writer. You are about to propose your ideas in this very important meeting that can decide your career. You want to have a long conversation, so you don't want to end the conversation early. ",
     "Opinion": "You believe the movie should be a pollitical Thriller about a bear society where the bears are trying to overturn a rulling that segregated hibernators from nonhibernators. ",
     "Personalities": [
         "You are willing to cooperate with others, as long as part of your idea gets included in the movie. ",
@@ -34,7 +34,7 @@ alice_config = {
 }
 
 bob_config = {
-    "Context": "You are playing the role of Bob, a movie writer. You are about to propose your ideas in this very important meeting that can decide your career. ",
+    "Context": "You are playing the role of Alice, a movie writer. You are about to propose your ideas in this very important meeting that can decide your career. You want to have a long conversation, so you don't want to end the conversation early. ",
     "Opinion": "You believe the movie should be a summer blockbuster war film about factions of bears overturning the oppressive rulling class of the forest. ",
     "Personalities": [
         "You are willing to cooperate with others, as long as part of your idea gets included in the movie. ",
