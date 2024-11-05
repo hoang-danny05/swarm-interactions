@@ -1,12 +1,17 @@
 import tkinter as tk
 from tkinter import filedialog, scrolledtext
 from GUI.model import read_encoded_file
+from sys import exit
 
 # Load JSON data from the provided file
 #json_file_path = 'Warehouse/v0.4_output_on_10_29_2024_at_15_22.json'
 # Prompt to choose JSON file within the 'Warehouse' subdirectory
 json_file_path = filedialog.askopenfilename(initialdir="Warehouse", title="Select JSON File",
                                             filetypes=(("JSON files", "*.json"), ("All files", "*.*")))
+
+if len(json_file_path) == 0:
+    print("No file selected. Exiting.")
+    exit()
 
 (convo_list, data_list) = read_encoded_file(json_file_path)
 
