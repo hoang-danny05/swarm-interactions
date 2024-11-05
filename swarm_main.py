@@ -8,7 +8,9 @@ from os import remove
 import traceback
 from copy import deepcopy
 import time
+from types.enums import ModelType
 
+model = ModelType.GPT_3_5_TURBO
 version = "v0.4"
 filename = datetime.now().strftime(f"{version} %m-%d-%Y at %H:%M.json")
 filename = f"Warehouse/{filename}"
@@ -42,11 +44,13 @@ bob_config = {
 
 agent_alice = Agent(
     name="Alice",
+    model=model,
     # instructions="You are enthusiastic to propose your movie ideas regarding a bear society in the meeting. You propose a pollitical Thriller, where the bears are trying to overturn a rulling that segregated hibernators from nonhibernators. You are willing to talk for a while before ending the conversation.",
 )
 
 agent_bob = Agent(
     name = "Bob",
+    model=model,
     # instructions="You just arrived to the meeting room late. The meeting is about the bear society movie porject. You want to propose a summer blockbuster war film about factions of bears overturning the oppressive rulling class of the forest. Alice begins talking to you about her ideas for the project. You are willing to talk for a while before ending the conversation."
 )
 
