@@ -11,8 +11,11 @@ Create a virtual environment in this directory
 ```
 python -m venv venv-chatproj
 ```
-to use gpt-3.5 turbo
 
+-install swarms
+- install requirements.txt
+
+to use gpt-3.5 turbo
 ```
 cp ./other/types.py ./venv-chatproj/lib/python3.10/site-packages/swarm/types.py
 ```

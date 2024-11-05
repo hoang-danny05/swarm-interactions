@@ -8,7 +8,7 @@ from os import remove
 import traceback
 from copy import deepcopy
 import time
-from types.enums import ModelType
+from utils.enums import ModelType
 
 model = ModelType.GPT_3_5_TURBO
 version = "v0.4"
