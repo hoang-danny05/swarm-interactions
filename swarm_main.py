@@ -10,7 +10,7 @@ from copy import deepcopy
 import time
 from utils.enums import ModelType
 
-model = ModelType.GPT_3_5_TURBO
+model = ModelType.GPT_4O
 version = "v0.4"
 filename = datetime.now().strftime(f"{version}_%m_%d_%Y_at_%H;%M.json")
 filename = f"Warehouse/{filename}"
