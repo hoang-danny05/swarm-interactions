@@ -3,21 +3,24 @@
 I recently saw swarms and thought this would be a good idea to include to our project! Still under development, of course. Our system is of two users, alice and bob. Alice talks first, and Bob responds. 
 Both bots have the chance to end conversation by calling the end_conversation() method given to them. (yes, swarms is pretty cool, right?). 
 
-All conversations are stored in the Warehouse directory. Sorry if they aren't formatted nicely. 
+All conversations are stored in the Warehouse directory. View.py allows easy parsing of each output file. 
+Note: we are using openai/swarms, but there exists an enterprise-ready version of swarms at [kyegomez/swarms](https://github.com/kyegomez/swarms).
 
-## setup notes
+## How to setup
 
-Create a virtual environment in this directory
-```
+1) Clone or download this repository
+2) Create a virtual environment and use it (OPTIONAL)
+```bash
 python -m venv venv-chatproj
+source venv-chatproj/bin/activate
 ```
-
--install swarms
-- install requirements.txt
-
-to use gpt-3.5 turbo
+3) Install the required dependencies
+```cmd
+pip install -r requirements.txt
 ```
-cp ./other/types.py ./venv-chatproj/lib/python3.10/site-packages/swarm/types.py
+- if installing swarms fails, try this command: (this uses https instead of ssh)
+```
+pip install git+https://github.com/openai/swarm.git
 ```
 
 ## Development Notes. (v0.3 is the latest)
@@ -45,3 +48,9 @@ Status of v0.4:
 - No signs of bots talking about themselves (yet) from skimming the work
 - Added ability to iterate through all possible personality types. 
 - Need for a conversation limit or a neutral third party that judges the AIs impartially. 
+
+Status of v0.5:
+- Allows users to change the model in a variable
+- Bots are now told to give reasons for ending the conversations. Ending conversation is no longer omitted.
+- Bots are generally more coherent because the initial prompt was changed to be from bob. 
+

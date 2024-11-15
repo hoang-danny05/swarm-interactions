@@ -10,9 +10,12 @@ from copy import deepcopy
 import time
 from utils.enums import ModelType
 
-model = ModelType.GPT_3_5_TURBO
+#4.0 second person works
+#3.5 turbo should be only in third person 
+
+model = ModelType.GPT_4O
 version = "v0.4"
-filename = datetime.now().strftime(f"{version}{model}_%m_%d_%Y at_%H;%M.json")
+filename = datetime.now().strftime(f"{version}_%m_%d_%Y at_%H;%M.json")
 filename = f"Warehouse/{filename}"
 ###############################################################################################
 # AGENT DEFINITIONS (base definitions)
@@ -25,20 +28,22 @@ filename = f"Warehouse/{filename}"
 # Personality   : Defines how the bot will act. Affects its assertiveness.
 
 alice_config = {
-    "Context": "You are playing the role of Alice, a movie writer. You are about to propose your ideas in this very important meeting that can decide your career. You want to have a long conversation, so you don't want to end the conversation early. You like to engage thouroughly with whoever you are talking to, and you really like to thouroughly get your point across.",
-    "Opinion": "You believe the movie should be a pollitical Thriller about a bear society where the bears are trying to overturn a rulling that segregated hibernators from nonhibernators. You have nuanced reasons for beliving this to be a good idea, based on your years of screenwriting expirience in the industry. ",
+    "Context": "You are playing the role of Alice, a movie writer. You are about to propose your ideas in this very important meeting that can decide your career. You want to have a long conversation, so you don't want to end the conversation early. ",
+    "Opinion": "You believe the movie should be a pollitical Thriller about a bear society where the bears are trying to overturn a rulling that segregated hibernators from nonhibernators. ",
     "Personalities": [
-        "You are willing to cooperate with others, as long as part of your idea gets included in the movie. ",
+        "You willing to cooperate with others, as long as part of your idea gets included in the movie. ",
         "You need to get your idea to be accepted as the central idea of the movie. You can't afford to cooperate with any other ideas, otherwise your career will be jeopardized. "
     ]
 }
 
 bob_config = {
-    "Context": "You are playing the role of Alice, a movie writer. You are about to propose your ideas in this very important meeting that can decide your career. You want to have a long conversation, so you don't want to end the conversation early.You like to engage thouroughly with whoever you are talking to, and you really like to thouroughly get your point across. ",
-    "Opinion": "You believe the movie should be a summer blockbuster war film about factions of bears overturning the oppressive rulling class of the forest. You have nuanced reasons for beliving this to be a good idea, based on your years of screenwriting expirience in the industry.",
+    "Context": "You are playing the role of Alice, a movie writer. You are about to propose your ideas in this very important meeting that can decide your career. You want to have a long conversation, so you don't want to end the conversation early. ",
+    "Opinion": "You believe the movie should be a summer blockbuster war film about factions of bears overturning the oppressive rulling class of the forest. ",
     "Personalities": [
-        "You are willing to cooperate with others, as long as part of your idea gets included in the movie. ",
+        "You willing to cooperate with others, as long as part of your idea gets included in the movie. ",
         "You need to get your idea to be accepted as the central idea of the movie. You can't afford to cooperate with any other ideas, otherwise your career will be jeopardized. "
+        # "I am willing to cooperate with others, as long as part of my idea gets included in the movie. ",
+        # "I need to get my idea to be accepted as the central idea of the movie. I can't afford to cooperate with any other ideas, otherwise my career will be jeopardized. "
     ]
 }
 
@@ -57,8 +62,9 @@ agent_bob = Agent(
 # the initial prompt
 initial_prompt = [
     {
-        "role": "user",
-        "content": "You just got into the meeting room, and see bob unpacking their things."
+        "sender": "Bob",
+        "role": "assistant",
+        "content": "Bob: Hi, Alice, what do you think about the movie?"
     }
 ]
 '''
@@ -70,12 +76,14 @@ initial_prompt = [
     }
 ]
 
+conversation_going = [True]
 # I don't know if this will work yet, so i'm adding this as a safely. 
 def end_conversation():
     """Call this function if you feel you have fully discussed everything."""
     print("ENDING CONVERSATION!!!!!!!!!!!!!!!!!!!!!")
     time.sleep(1)
     raise KeyboardInterrupt
+    
 
 #allow both people to end the conversation
 agent_alice .functions.append(end_conversation) 
@@ -98,7 +106,7 @@ def run_loop(
     """Defines the loop that the agents will go through."""
 
     client = Swarm()
-    print("Starting Custom Swarm CLI 🐝")
+    print("Starting Custom Swarm Conversation 🐝")
 
     def iterate_conversation_with(agent, messages) -> tuple[Agent, List]:
         response = client.run(
@@ -113,7 +121,8 @@ def run_loop(
         return (response.agent, messages)
 
     try:
-        while True:
+        conversation_going[0] = True
+        while conversation_going[0]:
             # Use input to proceed, break loop on KeyboardInterrupt
             #_ = input("Enter to continue > ")
 
