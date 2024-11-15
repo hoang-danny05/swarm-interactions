@@ -14,7 +14,7 @@ from utils.enums import ModelType
 #3.5 turbo should be only in third person 
 
 model = ModelType.GPT_3_5_TURBO
-version = "v0.4"
+version = "v0.6"
 filename = datetime.now().strftime(f"{version}_%m_%d_%Y at_%H;%M.json")
 filename = f"Warehouse/{filename}"
 ###############################################################################################
@@ -40,7 +40,7 @@ alice_config = {
 bob_config = {
     # "Context": "You are playing the role of Alice, a movie writer. You are about to propose your ideas in this very important meeting that can decide your career. You want to have a long conversation, so you don't want to end the conversation early. You thuroughly communicate your nuanced opinions. ",
     # "Opinion": "You believe the movie should be a summer blockbuster war film about factions of bears overturning the oppressive rulling class of the forest.  This is a nuanced opion based on your years of industry expirience as a screen writer. ",
-    "Context": "Your name is Bob, a movie writer. You are about to propose ideas in this simple brainstorming meeting. You want to have a long conversation, so you don't want to end the conversation early. If you want to end the conversation for any reason, please tell Alice that the reason for ending the meeting. ",
+    "Context": "Your name is Bob, a movie writer. You are about to propose ideas in this simple brainstorming meeting. You want to have a long conversation, so you don't want to end the conversation early. ",
     # "Opinion": "You believe the movie should be a summer blockbuster war film about factions of bears overturning the oppressive rulling class of the forest. ",
     "Opinion": "A group of teenagers is stuck in a rural cabin with no internet. They never resolve the issue or do anything interesting.",
     # "Opinion": "I believe the movie should be a summer blockbuster war film about factions of bears overturning the oppressive rulling class of the forest. ",
@@ -77,7 +77,10 @@ initial_prompt = [
 initial_prompt = [
     {
         "role":"user",
-        "content": "Both Alice and Bob arrive in the meeting room. They are to discuss their movie ideas and agree on an idea for the movie. "
+        # "content": "Both Alice and Bob arrive in the meeting room. They are to discuss their movie ideas and agree on an idea for the movie. Please only end the conversation when both Alice and Bob come to a consensus."
+        "content": "You are in the meeting room. You are about to discuss your movie ideas. Your ideas are based on years of industry experience as screenwriters. Please only end the conversation when ALL questions are answered and both parties come to a consensus. If you want to end the conversation for any reason, please say the reason for ending the meeting."
+        # "content": "You are in the meeting room. You are about to discuss your movie ideas. Your ideas are based on years of industry experience as screenwriters. Please only end the conversation when ALL questions are answered and both parties come to a consensus. If you want to end the conversation for any reason, please say the reason for ending the meeting."
+        # "content": "You never wish to end the conversation."
     },
     {
         "sender": "Bob",
@@ -86,18 +89,34 @@ initial_prompt = [
     }
 ]
 
-conversation_going = [True]
-# I don't know if this will work yet, so i'm adding this as a safely. 
-def end_conversation():
-    """Call this function if you feel you have fully discussed everything."""
+conversation_going = [True, True]
+
+def alice_thinks_conversation_has_ended():
+    """This function should be called when alice wants to end the conversation"""
     print("ENDING CONVERSATION!!!!!!!!!!!!!!!!!!!!!")
     time.sleep(1)
-    raise KeyboardInterrupt
-    
+    conversation_going[0] = False
+
+def bob_thinks_conversation_has_ended():
+    """This function should be called when bob wants to end the conversation"""
+    print("BOB ENDING CONVERSATION!!!!!!!!!!!!!!!!!!!!!")
+    time.sleep(1)
+    conversation_going[1] = False
+
+def alice_wants_to_keep_taking():
+    conversation_going[0] = True
+
+def bob_wants_to_keep_taking():
+    conversation_going[0] = True
+
 
 #allow both people to end the conversation
-agent_alice .functions.append(end_conversation) 
-agent_bob   .functions.append(end_conversation) 
+agent_alice .functions.append(alice_thinks_conversation_has_ended) 
+agent_bob   .functions.append(bob_thinks_conversation_has_ended) 
+agent_alice .functions.append(alice_wants_to_keep_taking) 
+agent_bob   .functions.append(bob_wants_to_keep_taking) 
+# agent_alice .functions.append(say_hello) 
+# agent_bob   .functions.append(say_hello) 
 
 
 
@@ -131,8 +150,11 @@ def run_loop(
         return (response.agent, messages)
 
     try:
+        #both bots want to start talking
         conversation_going[0] = True
-        while conversation_going[0]:
+        conversation_going[1] = True
+        # if either bot wants to keep talking
+        while conversation_going[0] or conversation_going[1]:
             # Use input to proceed, break loop on KeyboardInterrupt
             #_ = input("Enter to continue > ")
 
