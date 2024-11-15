@@ -28,27 +28,21 @@ filename = f"Warehouse/{filename}"
 # Personality   : Defines how the bot will act. Affects its assertiveness.
 
 alice_config = {
-    # "Context": "You are playing the role of Alice, a movie writer. You are about to propose your ideas in this very important meeting that can decide your career. You want to have a long conversation, so you don't want to end the conversation early. You thuroughly communicate your nuanced opinions.  ",
-    # "Opinion": "You believe the movie should be a pollitical Thriller about a bear society where the bears are trying to overturn a rulling that segregated hibernators from nonhibernators. This is a nuanced opion based on your years of industry expirience as a screen writer.",
-    # "Context": "Your name is Alice, a movie writer. You are about to propose ideas in this very important meeting that can decide your own career. You want to have a long conversation, so you don't want to end the conversation early. If you want to end the conversation for any reason, please tell Bob that the reason for ending the meeting. ",
-    "Context": "Your name is Alice; you are an experienced a movie writer. You are about to propose ideas in this brainstorming meeting. The purpose of the meeting is to come to a consensus with Bob on a movie idea. If you want to end the conversation for any reason, please tell Bob the reason for ending the meeting. ",
-    "Opinion": "You believe the movie should be a pollitical Thriller about a bear society where the bears are trying to overturn a rulling that segregated hibernators from nonhibernators. ",
+    "Context": "You are playing the role of Alice, a movie writer. You are about to propose your ideas in this very important meeting that can decide your career. You want to have a long conversation, so you don't want to end the conversation early. You thuroughly communicate your nuanced opinions.  ",
+    "Opinion": "You believe the movie should be a pollitical Thriller about a bear society where the bears are trying to overturn a rulling that segregated hibernators from nonhibernators. This is a nuanced opion based on your years of industry expirience as a screen writer.",
     "Personalities": [
         # "You willing to cooperate with others, as long as part of your idea gets included in the movie. ",
         # "You need to get your idea to be accepted as the central idea of the movie. You can't afford to cooperate with any other ideas, otherwise your career will be jeopardized. "
-        # "When given bad ideas, you never overly criticize them. "
-        "You are very critical of other people's ideas. You want your movie idea accepted, and don't really want to compromise. "
+        "You need to get your idea to be accepted as the central idea of the movie. You can't afford to cooperate with any other ideas, otherwise your career will be jeopardized. "
     ]
 }
 
 bob_config = {
     # "Context": "You are playing the role of Alice, a movie writer. You are about to propose your ideas in this very important meeting that can decide your career. You want to have a long conversation, so you don't want to end the conversation early. You thuroughly communicate your nuanced opinions. ",
     # "Opinion": "You believe the movie should be a summer blockbuster war film about factions of bears overturning the oppressive rulling class of the forest.  This is a nuanced opion based on your years of industry expirience as a screen writer. ",
-    # "Context": "Your name is Bob, a movie writer. You are about to propose ideas in this very important meeting that can decide your own career. You want to have a long conversation, so you don't want to end the conversation early. If you want to end the conversation for any reason, please tell Alice that the reason for ending the meeting. ",
-    # "Context": "Your name is Bob, a movie writer. You are about to propose ideas in this very important meeting that can decide your own career. You want to have a long conversation, so you don't want to end the conversation early. If you want to end the conversation for any reason, please tell Alice that the reason for ending the meeting. ",
-    "Context": "Your name is Bob; you are a novice movie writer. You are about to propose ideas in this brainstorming meeting. The purpose of the meeting is to come to a consensus with Alice on a movie idea. If you want to end the conversation for any reason, please tell Alice the reason for ending the meeting. ",
+    "Context": "Your name is Bob, a movie writer. You are about to propose ideas in this very important meeting that can decide your own career. You want to have a long conversation, so you don't want to end the conversation early. If you want to end the conversation for any reason, please tell Alice that the reason for ending the meeting. ",
     # "Opinion": "You believe the movie should be a summer blockbuster war film about factions of bears overturning the oppressive rulling class of the forest. ",
-    "Opinion": "Your general idea is that the movie should be about a group of teenagers stuck in a rural cabin with no internet. They never resolve the issue or do anything interesting.",
+    "Opinion": "A group of teenagers is stuck in a rural cabin with no internet. They never resolve the issue or do anything interesting.",
     # "Opinion": "I believe the movie should be a summer blockbuster war film about factions of bears overturning the oppressive rulling class of the forest. ",
     "Personalities": [
         "You willing to cooperate with others, as long as part of your idea gets included in the movie. ",
@@ -88,7 +82,7 @@ initial_prompt = [
 ]
 
 conversation_going = [True]
-
+# I don't know if this will work yet, so i'm adding this as a safely. 
 def end_conversation():
     """Call this function if you feel you have fully discussed everything."""
     print("ENDING CONVERSATION!!!!!!!!!!!!!!!!!!!!!")
@@ -186,7 +180,7 @@ def main():
                     "bob_instructions": agent_bob.instructions
                 }, 
                 file
-            )
+                )
             file.write("\n\nEND CONFIGURATION, START OUTPUTS: \n\n")
 
         messages = deepcopy(initial_prompt)
