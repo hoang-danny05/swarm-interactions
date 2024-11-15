@@ -10,9 +10,9 @@ from copy import deepcopy
 import time
 from utils.enums import ModelType
 
-model = ModelType.GPT_4O
+model = ModelType.GPT_3_5_TURBO
 version = "v0.4"
-filename = datetime.now().strftime(f"{version}_%m_%d_%Y at_%H;%M.json")
+filename = datetime.now().strftime(f"{version}{model}_%m_%d_%Y at_%H;%M.json")
 filename = f"Warehouse/{filename}"
 ###############################################################################################
 # AGENT DEFINITIONS (base definitions)
@@ -25,8 +25,8 @@ filename = f"Warehouse/{filename}"
 # Personality   : Defines how the bot will act. Affects its assertiveness.
 
 alice_config = {
-    "Context": "You are playing the role of Alice, a movie writer. You are about to propose your ideas in this very important meeting that can decide your career. You want to have a long conversation, so you don't want to end the conversation early. ",
-    "Opinion": "You believe the movie should be a pollitical Thriller about a bear society where the bears are trying to overturn a rulling that segregated hibernators from nonhibernators. ",
+    "Context": "You are playing the role of Alice, a movie writer. You are about to propose your ideas in this very important meeting that can decide your career. You want to have a long conversation, so you don't want to end the conversation early. You like to engage thouroughly with whoever you are talking to, and you really like to thouroughly get your point across.",
+    "Opinion": "You believe the movie should be a pollitical Thriller about a bear society where the bears are trying to overturn a rulling that segregated hibernators from nonhibernators. You have nuanced reasons for beliving this to be a good idea, based on your years of screenwriting expirience in the industry. ",
     "Personalities": [
         "You are willing to cooperate with others, as long as part of your idea gets included in the movie. ",
         "You need to get your idea to be accepted as the central idea of the movie. You can't afford to cooperate with any other ideas, otherwise your career will be jeopardized. "
@@ -34,8 +34,8 @@ alice_config = {
 }
 
 bob_config = {
-    "Context": "You are playing the role of Alice, a movie writer. You are about to propose your ideas in this very important meeting that can decide your career. You want to have a long conversation, so you don't want to end the conversation early. ",
-    "Opinion": "You believe the movie should be a summer blockbuster war film about factions of bears overturning the oppressive rulling class of the forest. ",
+    "Context": "You are playing the role of Alice, a movie writer. You are about to propose your ideas in this very important meeting that can decide your career. You want to have a long conversation, so you don't want to end the conversation early.You like to engage thouroughly with whoever you are talking to, and you really like to thouroughly get your point across. ",
+    "Opinion": "You believe the movie should be a summer blockbuster war film about factions of bears overturning the oppressive rulling class of the forest. You have nuanced reasons for beliving this to be a good idea, based on your years of screenwriting expirience in the industry.",
     "Personalities": [
         "You are willing to cooperate with others, as long as part of your idea gets included in the movie. ",
         "You need to get your idea to be accepted as the central idea of the movie. You can't afford to cooperate with any other ideas, otherwise your career will be jeopardized. "
@@ -53,12 +53,20 @@ agent_bob = Agent(
     model=model,
     # instructions="You just arrived to the meeting room late. The meeting is about the bear society movie porject. You want to propose a summer blockbuster war film about factions of bears overturning the oppressive rulling class of the forest. Alice begins talking to you about her ideas for the project. You are willing to talk for a while before ending the conversation."
 )
-
+'''
 # the initial prompt
 initial_prompt = [
     {
         "role": "user",
         "content": "You just got into the meeting room, and see bob unpacking their things."
+    }
+]
+'''
+#initial prompt
+initial_prompt = [
+    {
+        "role":"user",
+        "content": "You are part of a movie pitch meeting where you want to pitch your idea."
     }
 ]
 
@@ -68,7 +76,6 @@ def end_conversation():
     print("ENDING CONVERSATION!!!!!!!!!!!!!!!!!!!!!")
     time.sleep(1)
     raise KeyboardInterrupt
-    
 
 #allow both people to end the conversation
 agent_alice .functions.append(end_conversation) 
