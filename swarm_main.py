@@ -107,7 +107,7 @@ def alice_wants_to_keep_taking():
     conversation_going[0] = True
 
 def bob_wants_to_keep_taking():
-    conversation_going[0] = True
+    conversation_going[1] = True
 
 
 #allow both people to end the conversation
