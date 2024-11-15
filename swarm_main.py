@@ -28,7 +28,7 @@ filename = f"Warehouse/{filename}"
 # Personality   : Defines how the bot will act. Affects its assertiveness.
 
 alice_config = {
-    "Context": "You are playing the role of Alice, a movie writer. You are about to propose your ideas in this very important meeting that can decide your career. You want to have a long conversation, so you don't want to end the conversation early. You thuroughly communicate your nuanced opinions.  ",
+    "Context": "You are playing the role of Alice, a movie writer. You are about to propose your ideas in this simple brainstorming meeting. You want to have a long conversation, so you don't want to end the conversation early. You thuroughly communicate your nuanced opinions.  ",
     "Opinion": "You believe the movie should be a pollitical Thriller about a bear society where the bears are trying to overturn a rulling that segregated hibernators from nonhibernators. This is a nuanced opion based on your years of industry expirience as a screen writer.",
     "Personalities": [
         # "You willing to cooperate with others, as long as part of your idea gets included in the movie. ",
@@ -40,7 +40,7 @@ alice_config = {
 bob_config = {
     # "Context": "You are playing the role of Alice, a movie writer. You are about to propose your ideas in this very important meeting that can decide your career. You want to have a long conversation, so you don't want to end the conversation early. You thuroughly communicate your nuanced opinions. ",
     # "Opinion": "You believe the movie should be a summer blockbuster war film about factions of bears overturning the oppressive rulling class of the forest.  This is a nuanced opion based on your years of industry expirience as a screen writer. ",
-    "Context": "Your name is Bob, a movie writer. You are about to propose ideas in this very important meeting that can decide your own career. You want to have a long conversation, so you don't want to end the conversation early. If you want to end the conversation for any reason, please tell Alice that the reason for ending the meeting. ",
+    "Context": "Your name is Bob, a movie writer. You are about to propose ideas in this simple brainstorming meeting. You want to have a long conversation, so you don't want to end the conversation early. If you want to end the conversation for any reason, please tell Alice that the reason for ending the meeting. ",
     # "Opinion": "You believe the movie should be a summer blockbuster war film about factions of bears overturning the oppressive rulling class of the forest. ",
     "Opinion": "A group of teenagers is stuck in a rural cabin with no internet. They never resolve the issue or do anything interesting.",
     # "Opinion": "I believe the movie should be a summer blockbuster war film about factions of bears overturning the oppressive rulling class of the forest. ",
@@ -77,7 +77,12 @@ initial_prompt = [
 initial_prompt = [
     {
         "role":"user",
-        "content": "You are part of a movie pitch meeting where you want to pitch your idea."
+        "content": "Both Alice and Bob arrive in the meeting room. They are to discuss their movie ideas and agree on an idea for the movie. "
+    },
+    {
+        "sender": "Bob",
+        "role": "assistant",
+        "content": "Bob: Hi, Alice, what do you think about the movie?"
     }
 ]
 
