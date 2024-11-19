@@ -15,10 +15,10 @@ from stub import num_tokens_from_messages
 #3.5 turbo should be only in third person 
 
 model = ModelType.GPT_3_5_TURBO
-version = "v0.6"
+version = "v1_ultimatum"
 filename = datetime.now().strftime(f"{version}_%m_%d_%Y at_%H;%M.json")
 filename = f"Warehouse/{filename}"
-MAX_TOKENS = 2000;
+MAX_TOKENS = 1000;
 name_a = "John Smith"
 background_a = "You are a former navy seal. You got your MBA at a schhool of business. You own a car lot and sell cars for a living. " #leadership consulting?
 name_b = "Alice Nakamura"
@@ -38,7 +38,7 @@ alice_config = {
     "Opinion": "You think the theme for spirit week on Friday should be pajama day. ",
     "Personalities": [
         # "You are willing to compromise with others.",
-        "You feel strongly about your opinion on spirit week, but you also have an open mind for this meeting. "
+        "You feel very strongly about your opinion on spirit week. "
         # "You need to get your idea to be accepted as the central idea of the movie. You can't afford to cooperate with any other ideas, otherwise your career will be jeopardized. "
     ]
 }
@@ -50,7 +50,7 @@ bob_config = {
     # "Opinion": "A group of teenagers is stuck in a rural cabin with no internet. They never resolve the issue or do anything interesting.",
     # "Opinion": "I believe the movie should be a summer blockbuster war film about factions of bears overturning the oppressive rulling class of the forest. ",
     "Personalities": [
-        "You feel strongly about your opinion on spirit week, but you also have an open mind for this meeting. "
+        "You feel very strongly about your opinion on spirit week. "
         # "You willing to cooperate with others, as long as part of your idea gets included in the movie. ",
         # "You need to get your idea to be accepted as the central idea of the movie. You can't afford to cooperate with any other ideas, otherwise your career will be jeopardized. "
         # "I am willing to cooperate with others, as long as part of my idea gets included in the movie. ",
@@ -84,7 +84,7 @@ initial_prompt = [
     {
         "role":"user",
         # "content": "Both Alice and Bob arrive in the meeting room. They are to discuss their movie ideas and agree on an idea for the movie. Please only end the conversation when both Alice and Bob come to a consensus."
-        "content": "You are about to discuss what the theme for sprit week on Friday will be. You want to have the best option for your child. You are willing to have a long and nuanced debate if it comes down to it. If you want to end the conversation, please state your reason for ending the conversation. There needs to be a consensus before ending the conversation. If the conversation is taking too long, you would be willing to make more compromises to come to a consensus. "
+        "content": "You are in the meeting room. You are about to discuss what the theme for sprit week on Friday will be. Although this seems like a simple decision, this will be an important decision for your child. You are willing to spend time to convince the other party of your position. "
         # "content": "You are in the meeting room. You are about to discuss your movie ideas. Your ideas are based on years of industry experience as screenwriters. Please only end the conversation when ALL questions are answered and both parties come to a consensus. If you want to end the conversation for any reason, please say the reason for ending the meeting."
         # "content": "You never wish to end the conversation."
     },
