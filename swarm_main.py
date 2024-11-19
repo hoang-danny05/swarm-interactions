@@ -18,6 +18,7 @@ model = ModelType.GPT_3_5_TURBO
 version = "v0.6"
 filename = datetime.now().strftime(f"{version}_%m_%d_%Y at_%H;%M.json")
 filename = f"Warehouse/{filename}"
+MAX_TOKENS = 1000;
 ###############################################################################################
 # AGENT DEFINITIONS (base definitions)
 ###############################################################################################
@@ -148,6 +149,11 @@ def run_loop(
         )
         pretty_print_messages(response.messages)
         messages.extend(response.messages)
+        # if token count is too high
+        if num_tokens_from_messages(messages) >= MAX_TOKENS:
+            print("TOKEN LIMIT EXCEEDED")
+            conversation_going[0] = False
+            conversation_going[1] = False
         return (response.agent, messages)
 
     try:
@@ -162,7 +168,6 @@ def run_loop(
             # Process the conversation
             agent = starting_agent
             (agent, messages) = iterate_conversation_with(agent, messages)
-            print(num_tokens_from_messages(messages=messages))
             agent = responding_agent
             (agent, messages) = iterate_conversation_with(agent, messages)
 
