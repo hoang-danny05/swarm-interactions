@@ -45,6 +45,8 @@ for idx, data in enumerate(data_list):
     for entry in convo_list[idx]:
         sender = entry.get("sender", "Unknown")
         content = entry.get("content", "No content available")
+        print(content)
+        # print(num_tokens_from_messages(content))
         # Display the sender and content in the format "Sender: Content"
         text_area.insert(tk.END, f"{sender}: {content}\n\n")
 

@@ -38,6 +38,11 @@ def num_tokens_from_messages(messages, model="gpt-4o-mini-2024-07-18"):
     for message in messages:
         num_tokens += tokens_per_message
         for key, value in message.items():
+            # print("\n>", key, value)
+            if value == None:
+                continue
+            if key == "tool_calls":
+                continue
             num_tokens += len(encoding.encode(value))
             if key == "name":
                 num_tokens += tokens_per_name

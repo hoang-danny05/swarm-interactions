@@ -9,6 +9,7 @@ import traceback
 from copy import deepcopy
 import time
 from utils.enums import ModelType
+from stub import num_tokens_from_messages
 
 #4.0 second person works
 #3.5 turbo should be only in third person 
@@ -161,6 +162,7 @@ def run_loop(
             # Process the conversation
             agent = starting_agent
             (agent, messages) = iterate_conversation_with(agent, messages)
+            print(num_tokens_from_messages(messages=messages))
             agent = responding_agent
             (agent, messages) = iterate_conversation_with(agent, messages)
 
