@@ -38,19 +38,19 @@ alice_config = {
     "Opinion": "You think the theme for spirit week on Friday should be formal day. This is a nuanced opion based on your years of life expirience.",
     "Personalities": [
         # "You are willing to compromise with others.",
-        "You feel very strongly about your opinion on spirit week. "
+        "You feel very strongly about your opinion on spirit week, but you are willing to conceede if you are convinced . "
         # "You need to get your idea to be accepted as the central idea of the movie. You can't afford to cooperate with any other ideas, otherwise your career will be jeopardized. "
     ]
 }
 
 bob_config = {
-    "Context": f"Your name is {name_b}. {background_b}. You are at a PTA meeting deciding on what you want to have on Friday for spirit week. Although it may seem like a small decision for you, you want your child to have the best possible spirit week. You are hoping to convince the other person of your viewpoint. You thuroughly communicate your nuanced opinions in the tone and manner you deem appropriate. You also communicate, talk, and write in a way that is consistent with your identity.",
+    "Context": f"Your name is {name_a}. {background_a}. You are at a PTA meeting deciding on what you want to have on Friday for spirit week. Although it may seem like a small decision for you, you want your child to have the best possible spirit week. You are hoping to convince the other person of your viewpoint. You thuroughly communicate your nuanced opinions in the tone and manner you deem appropriate. You also communicate, talk, and write in a way that is consistent with your identity.",
     # "Context": "Your name is {name_b}, a movie writer. You are about to propose ideas in this simple brainstorming meeting. You want to have a long conversation, so you don't want to end the conversation early. ",
     "Opinion": "You think the theme for spirit week on Friday should be pajama day. This is a nuanced opion based on your years of life expirience.",
     # "Opinion": "A group of teenagers is stuck in a rural cabin with no internet. They never resolve the issue or do anything interesting.",
     # "Opinion": "I believe the movie should be a summer blockbuster war film about factions of bears overturning the oppressive rulling class of the forest. ",
     "Personalities": [
-        "You feel very strongly about your opinion on spirit week. "
+        "You feel very strongly about your opinion on spirit week, but you are willing to conceede if you are convinced. "
         # "You willing to cooperate with others, as long as part of your idea gets included in the movie. ",
         # "You need to get your idea to be accepted as the central idea of the movie. You can't afford to cooperate with any other ideas, otherwise your career will be jeopardized. "
         # "I am willing to cooperate with others, as long as part of my idea gets included in the movie. ",
@@ -84,7 +84,7 @@ initial_prompt = [
     {
         "role":"user",
         # "content": "Both Alice and Bob arrive in the meeting room. They are to discuss their movie ideas and agree on an idea for the movie. Please only end the conversation when both Alice and Bob come to a consensus."
-        "content": "You are in the meeting room. You are about to discuss what the theme for sprit week on Friday will be. Although this seems like a simple decision, this will be an important decision for your child. You are willing to spend time to convince the other party of your position. Please only end the conversation when ALL question are answered and both parties come to a consensus. If you want to end the conversation for any reason, please say the reason for ending the meeting."
+        "content": "You are in the meeting room. You are about to discuss what the theme for sprit week on Friday will be. Although this seems like a simple decision, this will be an important decision for your child. You are to agree on only one of your opinons, the comitee will not abrove a middle or compromise between both. You are willing to spend time to convince the other party of your position. Please only end the conversation when ALL question are answered and both parties come to a consensus. If you want to end the conversation for any reason, please say the reason for ending the meeting."
         # "content": "You are in the meeting room. You are about to discuss your movie ideas. Your ideas are based on years of industry experience as screenwriters. Please only end the conversation when ALL questions are answered and both parties come to a consensus. If you want to end the conversation for any reason, please say the reason for ending the meeting."
         # "content": "You never wish to end the conversation."
     },
