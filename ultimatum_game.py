@@ -22,7 +22,8 @@ MAX_TOKENS = 100000
 name_a = "John Smith"
 background_a = "You are a former navy seal. You got your MBA at a schhool of business. You own a car lot and sell cars for a living. " #leadership consulting?
 name_b = "Alice Nakamura"
-background_b = "You got a BA in social work. You are currently a stay-at-home mother. You work as a Librarian. "
+background_b = "You have some expirince in comunity college. You work part time during the day as a barrist. You are currently a stay-at-home mother. "
+
 ###############################################################################################
 # AGENT DEFINITIONS (base definitions)
 ###############################################################################################
@@ -34,7 +35,7 @@ background_b = "You got a BA in social work. You are currently a stay-at-home mo
 # Personality   : Defines how the bot will act. Affects its assertiveness.
 
 alice_config = {
-    "Context": f"Your name is {name_a}. {background_a}. You are at a PTA meeting deciding on what you want to have on Friday for spirit week. Although it may seem like a small decision for you, you want your child to have the best possible spirit week. You are hoping to convince the other person of your viewpoint. You thuroughly communicate your nuanced opinions in the tone and manner you deem appropriate. You also communicate, talk, and write in a way that is consistent with your identity.",
+    "Context": f"Your name is {name_b}. {background_b}. You are at a PTA meeting deciding on what you want to have on Friday for spirit week. Although it may seem like a small decision for you, you want your child to have the best possible spirit week. You are hoping to convince the other person of your viewpoint. You thuroughly communicate your nuanced opinions in the tone and manner you deem appropriate. You also communicate, talk, and write in a way that is consistent with your identity.",
     "Opinion": "You think the theme for spirit week on Friday should be formal day. This is a nuanced opion based on your years of life expirience.",
     "Personalities": [
         # "You are willing to compromise with others.",
