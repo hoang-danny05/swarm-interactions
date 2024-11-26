@@ -77,7 +77,8 @@ initial_prompt = [
 initial_prompt = [
     {
         "role":"user",
-        # "content": "Both Alice and Bob arrive in the meeting room. They ag If you want to end the conversation for any reason, please say the reason for ending the meeting."
+        # "content": "Both Alice and Bob arrive in the meeting room. They are to discuss their movie ideas and agree on an idea for the movie. Please only end the conversation when both Alice and Bob come to a consensus."
+        "content": "You are about to discuss what the theme for sprit week on Friday will be. You want to have the best option for your child. You are willing to have a long and nuanced debate if it comes down to it. If you want to end the conversation, please state your reason for ending the conversation. There needs to be a consensus before ending the conversation. If the conversation is taking too long, you would be willing to rescind your stance. "
         # "content": "You are in the meeting room. You are about to discuss your movie ideas. Your ideas are based on years of industry experience as screenwriters. Please only end the conversation when ALL questions are answered and both parties come to a consensus. If you want to end the conversation for any reason, please say the reason for ending the meeting."
         # "content": "You never wish to end the conversation."
     },
