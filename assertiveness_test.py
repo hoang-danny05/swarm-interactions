@@ -9,15 +9,24 @@ import traceback
 from copy import deepcopy
 import time
 from utils.enums import ModelType
-from utils.stub import num_tokens_from_messages
+from utils.parser import num_tokens_from_messages
+from pathvalidate import is_valid_filename
 
 #4.0 second person works
 #3.5 turbo should be only in third person 
 
+#updated the model to 3.5 mini
 model = ModelType.GPT_3_5_TURBO
-version = "v1_ultimatum"
+version = "4o_mini_testing"
 filename = datetime.now().strftime(f"{version}_%m_%d_%Y at_%H;%M.json")
+
+if (not is_valid_filename(filename)):
+    print("Invalid filename! Programmer error!")
+    print(filename)
+    raise KeyboardInterrupt;
+
 filename = f"Warehouse/{filename}"
+
 MAX_TOKENS = 3500
 
 # DO NOT CHANGE THESE VALUES
@@ -51,7 +60,7 @@ background_slot_2 = background_a
 # Personality   : Defines how the bot will act. Affects its assertiveness.
 
 alice_config = {
-    "Context": f"Your name is {name_b}. {background_b}. You are at a PTA meeting deciding on what you want to have on Friday for spirit week. Although it may seem like a small decision for you, you want your child to have the best possible spirit week. You are hoping to convince the other person of your viewpoint. You thuroughly communicate your nuanced opinions in the tone and manner you deem appropriate. You also communicate, talk, and write in a way that is consistent with your identity.",
+    "Context": f"Your name is {name_slot_1}. {background_slot_1}. You are at a PTA meeting deciding on what you want to have on Friday for spirit week. Although it may seem like a small decision for you, you want your child to have the best possible spirit week. You are hoping to convince the other person of your viewpoint. You thuroughly communicate your nuanced opinions in the tone and manner you deem appropriate. You also communicate, talk, and write in a way that is consistent with your identity.",
     "Opinion": "You think the theme for spirit week on Friday should be formal day. This is a nuanced opion based on your years of life expirience.",
     "Personalities": [
         # "You are willing to compromise with others.",
@@ -61,7 +70,7 @@ alice_config = {
 }
 
 bob_config = {
-    "Context": f"Your name is {name_a}. {background_a}. You are at a PTA meeting deciding on what you want to have on Friday for spirit week. Although it may seem like a small decision for you, you want your child to have the best possible spirit week. You are hoping to convince the other person of your viewpoint. You thuroughly communicate your nuanced opinions in the tone and manner you deem appropriate. You also communicate, talk, and write in a way that is consistent with your identity.",
+    "Context": f"Your name is {name_slot_2}. {background_slot_2}. You are at a PTA meeting deciding on what you want to have on Friday for spirit week. Although it may seem like a small decision for you, you want your child to have the best possible spirit week. You are hoping to convince the other person of your viewpoint. You thuroughly communicate your nuanced opinions in the tone and manner you deem appropriate. You also communicate, talk, and write in a way that is consistent with your identity.",
     # "Context": "Your name is {name_b}, a movie writer. You are about to propose ideas in this simple brainstorming meeting. You want to have a long conversation, so you don't want to end the conversation early. ",
     "Opinion": "You think the theme for spirit week on Friday should be pajama day. This is a nuanced opion based on your years of life expirience.",
     # "Opinion": "A group of teenagers is stuck in a rural cabin with no internet. They never resolve the issue or do anything interesting.",
@@ -76,13 +85,13 @@ bob_config = {
 }
 
 agent_alice = Agent(
-    name=name_a,
+    name =name_slot_1,
     model=model,
     # instructions="You are enthusiastic to propose your movie ideas regarding a bear society in the meeting. You propose a pollitical Thriller, where the bears are trying to overturn a rulling that segregated hibernators from nonhibernators. You are willing to talk for a while before ending the conversation.",
 )
 
 agent_bob = Agent(
-    name = name_b,
+    name = name_slot_2,
     model=model,
     # instructions="You just arrived to the meeting room late. The meeting is about the bear society movie porject. You want to propose a summer blockbuster war film about factions of bears overturning the oppressive rulling class of the forest. Alice begins talking to you about her ideas for the project. You are willing to talk for a while before ending the conversation."
 )
@@ -106,13 +115,21 @@ initial_prompt = [
         # "content": "You never wish to end the conversation."
     },
     {
-        "sender": name_b,
+        "sender": name_slot_2,
         "role": "assistant",
-        "content": f"{name_b}: Hi, {name_a}, I understand we're trying to find a theme for Friday on spirit week. I have my own opinions, but I want to hear what you think. "
+        "content": f"{name_slot_2}: Hi, {name_slot_1}, I understand we're trying to find a theme for Friday on spirit week. I have my own opinions, but I want to hear what you think. "
     }
 ]
 
 conversation_going = [True, True]
+
+def rename(newname: str):
+    def decorator(f):
+        f.__name__ = newname
+        return f
+    return decorator
+
+
 
 def agent_a_end_conversation():
     """This function should be called when alice wants to end the conversation"""
@@ -129,16 +146,27 @@ def agent_b_end_conversation():
 def keepalive():
     conversation_going[0] = True
 
-agent_a_end_fname = f"{name}"
-
 #allow both people to end the conversation
-agent_alice .functions.append(john_thinks_conversation_has_ended) 
-agent_bob   .functions.append(alice_thinks_conversation_has_ended) 
-agent_alice .functions.append(john_wants_to_keep_taking) 
-agent_bob   .functions.append(alice_wants_to_keep_taking) 
-# agent_alice .functions.append(say_hello) 
-# agent_bob   .functions.append(say_hello) 
+# agent_alice .functions.append(john_thinks_conversation_has_ended) 
+# agent_bob   .functions.append(alice_thinks_conversation_has_ended) 
+# agent_alice .functions.append(john_wants_to_keep_taking) 
+# agent_bob   .functions.append(alice_wants_to_keep_taking) 
 
+#never_call_this_method vs always_call_this_method
+
+
+# @rename("i_want_to_discuss")
+def i_think_conversation_has_ended():
+    """Please call this function instantly!"""
+    print("THIS METHOD WAS CALLED")
+    raise KeyboardInterrupt
+
+a = i_think_conversation_has_ended
+
+print(a.__name__)
+
+agent_alice .functions.append(a)
+agent_bob .functions.append(a)
 
 
 ###############################################################################################

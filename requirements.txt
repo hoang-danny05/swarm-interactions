@@ -32,6 +32,7 @@ nodeenv==1.9.1
 numpy==2.1.2
 openai==1.53.0
 packaging==24.1
+pathvalidate==3.2.1
 platformdirs==4.3.6
 pluggy==1.5.0
 pre_commit==4.0.1
