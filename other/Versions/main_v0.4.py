@@ -1,5 +1,5 @@
 from swarm import Swarm, Agent
-from other.utils import pretty_print_messages
+from utils.output import pretty_print_messages
 import json
 from datetime import datetime
 from typing import List

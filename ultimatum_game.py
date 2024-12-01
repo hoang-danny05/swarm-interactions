@@ -1,5 +1,5 @@
 from swarm import Swarm, Agent
-from other.utils import pretty_print_messages
+from utils.output import pretty_print_messages
 import json
 from datetime import datetime
 from typing import List
@@ -9,7 +9,7 @@ import traceback
 from copy import deepcopy
 import time
 from utils.enums import ModelType
-from stub import num_tokens_from_messages
+from utils.stub import num_tokens_from_messages
 
 #4.0 second person works
 #3.5 turbo should be only in third person 
