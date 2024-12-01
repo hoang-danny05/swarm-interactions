@@ -9,7 +9,7 @@ import traceback
 from copy import deepcopy
 import time
 from utils.enums import ModelType
-from utils.stub import num_tokens_from_messages
+from utils.counter import num_tokens_from_messages
 
 #4.0 second person works
 #3.5 turbo should be only in third person 

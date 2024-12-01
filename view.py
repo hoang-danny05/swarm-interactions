@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import filedialog, scrolledtext
-from GUI.model import read_encoded_file
+from utils.file_reader import read_encoded_file
 from sys import exit
 
 # Load JSON data from the provided file

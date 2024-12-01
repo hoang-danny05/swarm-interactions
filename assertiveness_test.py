@@ -1,5 +1,4 @@
 from swarm import Swarm, Agent
-from utils.output import pretty_print_messages
 import json
 from datetime import datetime
 from typing import List
@@ -8,8 +7,9 @@ from os import remove
 import traceback
 from copy import deepcopy
 import time
+from utils.output import pretty_print_messages
 from utils.enums import ModelType
-from utils.parser import num_tokens_from_messages
+from utils.counter import num_tokens_from_messages
 from pathvalidate import is_valid_filename
 
 #4.0 second person works
@@ -28,6 +28,8 @@ if (not is_valid_filename(filename)):
 filename = f"Warehouse/{filename}"
 
 MAX_TOKENS = 3500
+
+DEBUGGING = False
 
 # DO NOT CHANGE THESE VALUES
 
@@ -123,50 +125,44 @@ initial_prompt = [
 
 conversation_going = [True, True]
 
+#renames the meta information of functions
+# changes the meta information that chatgpt sees programmaticly
 def rename(newname: str):
     def decorator(f):
-        f.__name__ = newname
+        f.__name__ = newname.replace(" ", "_")
         return f
     return decorator
 
 
-
+# uses the first name rather than the full name. 
+@rename(f"{name_slot_1.split(' ')[0]}_wants_to_end_conversation")
 def agent_a_end_conversation():
     """This function should be called when alice wants to end the conversation"""
-    print("ENDING CONVERSATION!!!!!!!!!!!!!!!!!!!!!")
-    time.sleep(1)
+    print(f"{name_slot_1} IS ENDING CONVERSATION!!!!!!!!!!!!!!!!!!!!!")
     conversation_going[0] = False
 
+@rename(f"{name_slot_2.split(' ')[0]}_wants_to_end_conversation")
 def agent_b_end_conversation():
     """This function should be called when bob wants to end the conversation"""
-    print("BOB ENDING CONVERSATION!!!!!!!!!!!!!!!!!!!!!")
-    time.sleep(1)
+    print(f"{name_slot_2} IS ENDING CONVERSATION!!!!!!!!!!!!!!!!!!!!!")
     conversation_going[1] = False
 
-def keepalive():
+@rename(f"{name_slot_1.split(' ')[0]}_wants_to_keep_talking")
+def keepalive_1():
     conversation_going[0] = True
 
+@rename(f"{name_slot_2.split(' ')[0]}_wants_to_keep_talking")
+def keepalive_2():
+    conversation_going[1] = True
+
+
 #allow both people to end the conversation
-# agent_alice .functions.append(john_thinks_conversation_has_ended) 
-# agent_bob   .functions.append(alice_thinks_conversation_has_ended) 
-# agent_alice .functions.append(john_wants_to_keep_taking) 
-# agent_bob   .functions.append(alice_wants_to_keep_taking) 
+agent_alice .functions.append(agent_a_end_conversation) 
+agent_bob   .functions.append(agent_b_end_conversation) 
+agent_alice .functions.append(keepalive_1) 
+agent_bob   .functions.append(keepalive_2) 
 
 #never_call_this_method vs always_call_this_method
-
-
-# @rename("i_want_to_discuss")
-def i_think_conversation_has_ended():
-    """Please call this function instantly!"""
-    print("THIS METHOD WAS CALLED")
-    raise KeyboardInterrupt
-
-a = i_think_conversation_has_ended
-
-print(a.__name__)
-
-agent_alice .functions.append(a)
-agent_bob .functions.append(a)
 
 
 ###############################################################################################
@@ -266,7 +262,12 @@ def main():
 
         messages = deepcopy(initial_prompt)
 
-        run_loop(agent_alice, agent_bob, messages)
+        run_loop(
+            agent_alice, 
+            agent_bob, 
+            messages,
+            debug = DEBUGGING
+        )
 
     file.close()
 
