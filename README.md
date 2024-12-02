@@ -54,3 +54,6 @@ Status of v0.5:
 - Bots are now told to give reasons for ending the conversations. Ending conversation is no longer omitted.
 - Bots are generally more coherent because the initial prompt was changed to be from bob. 
 
+Status of current runs:
+- Warehouse stores all output
+- The subfolders of Warehouse indicate the values of the different profiles. BA would mean B is in slot 1, A is in slot 2. 

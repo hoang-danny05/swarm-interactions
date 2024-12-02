@@ -11,6 +11,7 @@ from utils.output import pretty_print_messages
 from utils.enums import ModelType
 from utils.counter import num_tokens_from_messages
 from utils.rename import rename
+from utils.file_writer import save_configs
 from pathvalidate import is_valid_filename
 
 #4.0 second person works
@@ -18,15 +19,22 @@ from pathvalidate import is_valid_filename
 
 #updated the model to 3.5 mini
 model = ModelType.GPT_3_5_TURBO
-version = "4o_mini_testing"
-filename = datetime.now().strftime(f"{version}_%m_%d_%Y at_%H;%M.json")
+version = "run1"
 
-if (not is_valid_filename(filename)):
-    print("Invalid filename! Programmer error!")
-    print(filename)
-    raise KeyboardInterrupt;
+last_filename = ["_"]
 
-filename = f"Warehouse/{filename}"
+def get_filename():
+    filename = datetime.now().strftime(f"{version}_%m_%d_%Y at_%H;%M;%S.json")
+
+    if (not is_valid_filename(filename)):
+        print("Invalid filename! Programmer error!")
+        print(filename)
+        raise KeyboardInterrupt;
+
+    filename = f"Warehouse/BA/{filename}"
+    last_filename[0] = filename
+
+    return filename
 
 MAX_TOKENS = 3500
 
@@ -165,6 +173,7 @@ def run_loop(
         starting_agent, 
         responding_agent,
         messages,
+        filename : str,
         context_variables=False,
         stream=False,
         debug=False,
@@ -240,28 +249,27 @@ def main():
             {bob_config['Opinion']}
             {bob_personality}
         """
+        RUNS_TO_DO = 10
 
-        # record configuration to output file
-        with open(filename, "a") as file:
-            json.dump(
-                {
-                    "alice_instructions" : agent_alice.instructions,
-                    "bob_instructions": agent_bob.instructions
-                }, 
-                file
-                )
-            file.write("\n\nEND CONFIGURATION, START OUTPUTS: \n\n")
+        for i in range(RUNS_TO_DO):
+            print(f"ATTEMPTING TO START CONVERSATION {i + 1}")
+            filename = get_filename()
+            print(filename)
 
-        messages = deepcopy(initial_prompt)
+            save_configs(agent_alice, agent_bob, filename)
 
-        run_loop(
-            agent_alice, 
-            agent_bob, 
-            messages,
-            debug = DEBUGGING
-        )
+            messages = deepcopy(initial_prompt)
+            print(f"Length: {len(messages)}")
 
-    file.close()
+            run_loop(
+                agent_alice, 
+                agent_bob, 
+                messages,
+                filename,
+                debug = DEBUGGING
+            )
+
+    pass
 
 
 if __name__ == "__main__":
@@ -270,5 +278,5 @@ if __name__ == "__main__":
     except KeyboardInterrupt:
         pass
     except Exception:
-        remove(filename)
+        remove(last_filename[0])
         print(traceback.format_exc())
