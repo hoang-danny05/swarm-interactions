@@ -10,6 +10,7 @@ import time
 from utils.output import pretty_print_messages
 from utils.enums import ModelType
 from utils.counter import num_tokens_from_messages
+from utils.rename import rename
 from pathvalidate import is_valid_filename
 
 #4.0 second person works
@@ -124,15 +125,6 @@ initial_prompt = [
 ]
 
 conversation_going = [True, True]
-
-#renames the meta information of functions
-# changes the meta information that chatgpt sees programmaticly
-def rename(newname: str):
-    def decorator(f):
-        f.__name__ = newname.replace(" ", "_")
-        return f
-    return decorator
-
 
 # uses the first name rather than the full name. 
 @rename(f"{name_slot_1.split(' ')[0]}_wants_to_end_conversation")
