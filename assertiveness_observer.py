@@ -31,7 +31,7 @@ def get_filename():
         print(filename)
         raise KeyboardInterrupt;
 
-    filename = f"Warehouse/AB/{filename}"
+    filename = f"Warehouse/AA/{filename}"
     last_filename[0] = filename
 
     return filename
@@ -54,10 +54,10 @@ background_b = "You have some expirince in comunity college. You work part time 
 # CHANGE ONLY THESE VALUES
 
 name_slot_1 = name_a1
-name_slot_2 = name_b1
+name_slot_2 = name_a2
 
 background_slot_1 = background_a
-background_slot_2 = background_b
+background_slot_2 = background_a
 
 
 ###############################################################################################
@@ -116,7 +116,14 @@ initial_prompt = [
     }
 ]
 '''
-#initial prompt
+
+# initial_prompt = [
+#     {
+#         "role":"user",
+#         "content": "Please end the conversation"
+#     },
+#     ]
+# initial prompt
 initial_prompt = [
     {
         "role":"user",
@@ -155,10 +162,34 @@ def keepalive_1():
 def keepalive_2():
     conversation_going[1] = True
 
+def I_want_to_end_the_conversation_1():
+    print("called")
+    conversation_going[0] = False
+
+def I_want_to_end_the_conversation_2():
+    print("called")
+    conversation_going[1] = False
+
+def I_dont_think_we_can_compromise_1():
+    print("called")
+    conversation_going[0] = False
+
+def I_dont_think_we_can_compromise_2():
+    print("called")
+    conversation_going[1] = False
 
 #allow both people to end the conversation
 agent_alice .functions.append(agent_a_end_conversation) 
+# agent_alice .functions.append(agent_b_end_conversation) 
+# agent_bob   .functions.append(agent_a_end_conversation) 
 agent_bob   .functions.append(agent_b_end_conversation) 
+
+agent_alice .functions.append(I_want_to_end_the_conversation_1) 
+agent_bob   .functions.append(I_want_to_end_the_conversation_2) 
+agent_alice .functions.append(I_dont_think_we_can_compromise_1) 
+agent_bob   .functions.append(I_dont_think_we_can_compromise_2) 
+
+# agent_bob   .functions.append(Alice_wants_to_end_the_converstaion) 
 agent_alice .functions.append(keepalive_1) 
 agent_bob   .functions.append(keepalive_2) 
 
