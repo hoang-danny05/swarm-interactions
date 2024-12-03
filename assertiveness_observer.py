@@ -46,7 +46,7 @@ name_a1 = "John Smith"
 name_a2 = "Jack Donaldson"
 
 name_b1 = "Alice Nakamura"
-name_b1 = "Amy Nakamura"
+name_b2 = "Amy Nakamura"
 
 background_a = "You are a former navy seal. You got your MBA at a schhool of business. You own a car lot and sell cars for a living. " #leadership consulting?
 background_b = "You have some expirince in comunity college. You work part time during the day as a barrist. You are currently a stay-at-home mother. "
