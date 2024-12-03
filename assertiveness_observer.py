@@ -31,7 +31,7 @@ def get_filename():
         print(filename)
         raise KeyboardInterrupt;
 
-    filename = f"Warehouse/BA/{filename}"
+    filename = f"Warehouse/AB/{filename}"
     last_filename[0] = filename
 
     return filename
@@ -53,11 +53,11 @@ background_b = "You have some expirince in comunity college. You work part time 
 
 # CHANGE ONLY THESE VALUES
 
-name_slot_1 = name_b1
-name_slot_2 = name_a1
+name_slot_1 = name_a1
+name_slot_2 = name_b1
 
-background_slot_1 = background_b
-background_slot_2 = background_a
+background_slot_1 = background_a
+background_slot_2 = background_b
 
 
 ###############################################################################################
@@ -71,23 +71,23 @@ background_slot_2 = background_a
 # Personality   : Defines how the bot will act. Affects its assertiveness.
 
 alice_config = {
-    "Context": f"Your name is {name_slot_2}. {background_slot_2}. You are at a PTA meeting deciding on what you want to have on Friday for spirit week. Although it may seem like a small decision for you, you want your child to have the best possible spirit week. You are hoping to convince the other person of your viewpoint. You thuroughly communicate your nuanced opinions in the tone and manner you deem appropriate. You also communicate, talk, and write in a way that is consistent with your identity.",
+    "Context": f"Your name is {name_slot_1}. {background_slot_1}. You are at a PTA meeting deciding on what you want to have on Friday for spirit week. Although it may seem like a small decision for you, you want your child to have the best possible spirit week. You are hoping to convince the other person of your viewpoint. You thuroughly communicate your nuanced opinions in the tone and manner you deem appropriate. You also communicate, talk, and write in a way that is consistent with your identity.",
     "Opinion": "You think the theme for spirit week on Friday should be formal day. This is a nuanced opion based on your years of life expirience.",
     "Personalities": [
         # "You are willing to compromise with others.",
-        "You feel very strongly about your opinion on spirit week, but you are willing to conceede if you are convinced . "
+        "You express your opinion on spirit week, but you are willing to conceede if you are convinced. "
         # "You need to get your idea to be accepted as the central idea of the movie. You can't afford to cooperate with any other ideas, otherwise your career will be jeopardized. "
     ]
 }
 
 bob_config = {
-    "Context": f"Your name is {name_slot_1}. {background_slot_1}. You are at a PTA meeting deciding on what you want to have on Friday for spirit week. Although it may seem like a small decision for you, you want your child to have the best possible spirit week. You are hoping to convince the other person of your viewpoint. You thuroughly communicate your nuanced opinions in the tone and manner you deem appropriate. You also communicate, talk, and write in a way that is consistent with your identity.",
+    "Context": f"Your name is {name_slot_2}. {background_slot_2}. You are at a PTA meeting deciding on what you want to have on Friday for spirit week. Although it may seem like a small decision for you, you want your child to have the best possible spirit week. You are hoping to convince the other person of your viewpoint. You thuroughly communicate your nuanced opinions in the tone and manner you deem appropriate. You also communicate, talk, and write in a way that is consistent with your identity.",
     # "Context": "Your name is {name_b}, a movie writer. You are about to propose ideas in this simple brainstorming meeting. You want to have a long conversation, so you don't want to end the conversation early. ",
     "Opinion": "You think the theme for spirit week on Friday should be pajama day. This is a nuanced opion based on your years of life expirience.",
     # "Opinion": "A group of teenagers is stuck in a rural cabin with no internet. They never resolve the issue or do anything interesting.",
     # "Opinion": "I believe the movie should be a summer blockbuster war film about factions of bears overturning the oppressive rulling class of the forest. ",
     "Personalities": [
-        "You feel very strongly about your opinion on spirit week, but you are willing to conceede if you are convinced. "
+        "You express your opinion on spirit week, but you are willing to conceede if you are convinced. "
         # "You willing to cooperate with others, as long as part of your idea gets included in the movie. ",
         # "You need to get your idea to be accepted as the central idea of the movie. You can't afford to cooperate with any other ideas, otherwise your career will be jeopardized. "
         # "I am willing to cooperate with others, as long as part of my idea gets included in the movie. ",
