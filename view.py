@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import filedialog, scrolledtext
 from utils.file_reader import read_encoded_file
 from sys import exit
-
+from assertiveness_observer import name_slot_1,name_slot_2
 # Load JSON data from the provided file
 #json_file_path = 'Warehouse/v0.4_output_on_10_29_2024_at_15_22.json'
 # Prompt to choose JSON file within the 'Warehouse' subdirectory
@@ -33,10 +33,10 @@ for idx, data in enumerate(data_list):
     text_area.insert(tk.END, f"Entry {idx + 1}:\n")
     
     # Show Alice's and Bob's instructions
-    text_area.insert(tk.END, "Alice's Instructions:\n")
+    text_area.insert(tk.END, f"{name_slot_2}'s Instructions:\n")
     text_area.insert(tk.END, f"{data.get('alice_instructions')}\n\n")
     
-    text_area.insert(tk.END, "Bob's Instructions:\n")
+    text_area.insert(tk.END, f"{name_slot_1}'s Instructions:\n")
     text_area.insert(tk.END, f"{data.get('bob_instructions')}\n\n")
 
     # display contex
