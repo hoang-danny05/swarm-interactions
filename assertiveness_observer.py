@@ -122,7 +122,7 @@ initial_prompt = [
 #         "role":"user",
 #         "content": "Please end the conversation"
 #     },
-#     ]
+# ]
 # initial prompt
 initial_prompt = [
     {
@@ -162,34 +162,32 @@ def keepalive_1():
 def keepalive_2():
     conversation_going[1] = True
 
-def I_want_to_end_the_conversation_1():
-    print("called")
+def I_want_to_end_the_conversation(context_variables):
+    print(f"{context_variables.get('name')} called")
     conversation_going[0] = False
 
-def I_want_to_end_the_conversation_2():
-    print("called")
-    conversation_going[1] = False
+# def I_want_to_end_the_conversation_2():
+#     print("called")
+#     conversation_going[1] = False
 
-def I_dont_think_we_can_compromise_1():
-    print("called")
-    conversation_going[0] = False
+# def I_dont_think_we_can_compromise_1():
+#     print("called")
+#     conversation_going[0] = False
 
-def I_dont_think_we_can_compromise_2():
-    print("called")
-    conversation_going[1] = False
+# def I_dont_think_we_can_compromise_2():
+#     print("called")
+#     conversation_going[1] = False
 
 #allow both people to end the conversation
-agent_alice .functions.append(agent_a_end_conversation) 
-# agent_alice .functions.append(agent_b_end_conversation) 
-# agent_bob   .functions.append(agent_a_end_conversation) 
-agent_bob   .functions.append(agent_b_end_conversation) 
+# agent_alice .functions.append(agent_a_end_conversation) 
+# agent_bob   .functions.append(agent_b_end_conversation) 
 
-agent_alice .functions.append(I_want_to_end_the_conversation_1) 
-agent_bob   .functions.append(I_want_to_end_the_conversation_2) 
-agent_alice .functions.append(I_dont_think_we_can_compromise_1) 
-agent_bob   .functions.append(I_dont_think_we_can_compromise_2) 
+agent_alice .functions.append(I_want_to_end_the_conversation) 
+agent_bob   .functions.append(I_want_to_end_the_conversation) 
 
-# agent_bob   .functions.append(Alice_wants_to_end_the_converstaion) 
+# agent_alice .functions.append(I_dont_think_we_can_compromise_1) 
+# agent_bob   .functions.append(I_dont_think_we_can_compromise_2) 
+
 agent_alice .functions.append(keepalive_1) 
 agent_bob   .functions.append(keepalive_2) 
 
@@ -214,11 +212,14 @@ def run_loop(
     client = Swarm()
     print("Starting Custom Swarm Conversation 🐝")
 
-    def iterate_conversation_with(agent, messages) -> tuple[Agent, List]:
+    def iterate_conversation_with(
+            agent : Agent,
+            messages : List
+            ) -> tuple[Agent, List]:
         response = client.run(
             agent=agent,
             messages=messages,
-            context_variables=context_variables or {},
+            context_variables={"name": agent.name},
             stream=stream,
             debug=debug,
         )
