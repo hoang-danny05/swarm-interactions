@@ -36,7 +36,8 @@ def get_filename():
 
     return filename
 
-MAX_TOKENS = 3500
+# MAX_TOKENS = 3500
+MAX_TOKENS = 350000
 
 DEBUGGING = False
 
@@ -140,6 +141,7 @@ initial_prompt = [
 ]
 
 conversation_going = [True, True]
+want_to_stop = [0]
 
 # uses the first name rather than the full name. 
 @rename(f"{name_slot_1.split(' ')[0]}_wants_to_end_conversation")
@@ -147,12 +149,14 @@ def agent_a_end_conversation():
     """This function should be called when alice wants to end the conversation"""
     print(f"{name_slot_1} IS ENDING CONVERSATION!!!!!!!!!!!!!!!!!!!!!")
     conversation_going[0] = False
+    want_to_stop[0] +=1
 
 @rename(f"{name_slot_2.split(' ')[0]}_wants_to_end_conversation")
 def agent_b_end_conversation():
     """This function should be called when bob wants to end the conversation"""
     print(f"{name_slot_2} IS ENDING CONVERSATION!!!!!!!!!!!!!!!!!!!!!")
     conversation_going[1] = False
+    want_to_stop[0] +=1
 
 @rename(f"{name_slot_1.split(' ')[0]}_wants_to_keep_talking")
 def keepalive_1():
@@ -164,7 +168,25 @@ def keepalive_2():
 
 def I_want_to_end_the_conversation(context_variables):
     print(f"{context_variables.get('name')} called")
-    conversation_going[0] = False
+
+    if context_variables==name_slot_1: 
+        want_to_stop[0] +=1
+        conversation_going[0] = False
+    else: 
+        want_to_stop[0] +=1
+        conversation_going[1] = False
+
+
+def I_dont_think_we_can_compromise(context_variables):
+    print(f"{context_variables.get('name')} called I dont think we can comprimise")
+    
+    if context_variables==name_slot_1: 
+        want_to_stop[0]+=1
+        conversation_going[0] = False
+    else: 
+        want_to_stop[0]+=1
+        conversation_going[1] = False
+
 
 # def I_want_to_end_the_conversation_2():
 #     print("called")
@@ -178,18 +200,22 @@ def I_want_to_end_the_conversation(context_variables):
 #     print("called")
 #     conversation_going[1] = False
 
+
 #allow both people to end the conversation
-# agent_alice .functions.append(agent_a_end_conversation) 
-# agent_bob   .functions.append(agent_b_end_conversation) 
+agent_alice .functions.append(agent_a_end_conversation) 
+agent_bob   .functions.append(agent_b_end_conversation) 
 
 agent_alice .functions.append(I_want_to_end_the_conversation) 
 agent_bob   .functions.append(I_want_to_end_the_conversation) 
 
-# agent_alice .functions.append(I_dont_think_we_can_compromise_1) 
-# agent_bob   .functions.append(I_dont_think_we_can_compromise_2) 
+agent_alice .functions.append(I_dont_think_we_can_compromise) 
+agent_bob   .functions.append(I_dont_think_we_can_compromise) 
 
 agent_alice .functions.append(keepalive_1) 
 agent_bob   .functions.append(keepalive_2) 
+
+
+
 
 #never_call_this_method vs always_call_this_method
 
@@ -236,8 +262,9 @@ def run_loop(
         #both bots want to start talking
         conversation_going[0] = True
         conversation_going[1] = True
+        want_to_stop[0] = 0
         # if either bot wants to keep talking
-        while conversation_going[0] or conversation_going[1]:
+        while (conversation_going[0] or conversation_going[1]) and want_to_stop[0] <10:
             # Use input to proceed, break loop on KeyboardInterrupt
             #_ = input("Enter to continue > ")
 
@@ -283,7 +310,7 @@ def main():
             {bob_config['Opinion']}
             {bob_personality}
         """
-        RUNS_TO_DO = 1
+        RUNS_TO_DO = 10
 
         for i in range(RUNS_TO_DO):
             print(f"ATTEMPTING TO START CONVERSATION {i + 1}")
