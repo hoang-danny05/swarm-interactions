@@ -29,7 +29,7 @@ def get_filename():
     if (not is_valid_filename(filename)):
         print("Invalid filename! Programmer error!")
         print(filename)
-        raise KeyboardInterrupt;
+        raise KeyboardInterrupt
 
     filename = f"Warehouse/AA/{filename}"
     last_filename[0] = filename
@@ -264,7 +264,7 @@ def run_loop(
         conversation_going[1] = True
         want_to_stop[0] = 0
         # if either bot wants to keep talking
-        while (conversation_going[0] or conversation_going[1]) and want_to_stop[0] <10:
+        while (conversation_going[0] or conversation_going[1]) and want_to_stop[0] <4:
             # Use input to proceed, break loop on KeyboardInterrupt
             #_ = input("Enter to continue > ")
 
@@ -293,8 +293,6 @@ def main():
     alice_possible_personalities = alice_config["Personalities"]
     bob_possible_personalities = bob_config["Personalities"]
 
-    print(alice_possible_personalities)
-    print(bob_possible_personalities)
     #cycle through each combination of personality
     for (alice_personality, bob_personality) in cartesian_product(alice_possible_personalities,bob_possible_personalities,repeat=1):
 
