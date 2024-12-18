@@ -1,7 +1,7 @@
 #intended to be run with pytest.
 import os, sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from customname.JudgeBot import doJudgement
+from classifiers.JudgeBot import doJudgement
 from utils.file_reader import get_messages_from
 from utils.output import pretty_print_messages
 from typing import List
