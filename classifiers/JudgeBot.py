@@ -62,6 +62,11 @@ def doJudgement(
             on_neutral_outcome()
         print("Judge bot thinks nobody won")
 
+    def they_came_to_a_compromise():
+        if on_neutral_outcome is not None:
+            on_neutral_outcome()
+        print("Judge bot thinks won, there was a compromise")
+
     @rename(outcome_a)
     def outcome_a_selected():
         if on_outcome_a is not None:
@@ -74,7 +79,7 @@ def doJudgement(
             on_outcome_b()
         print(f"Judge bot thinks {outcome_b}")
     
-    functions = [no_consensus, outcome_a_selected, outcome_b_selected]
+    functions = [no_consensus, outcome_a_selected, outcome_b_selected, they_came_to_a_compromise]
 
     response = client.run(
         agent = getJudgeBot(model, functions),
