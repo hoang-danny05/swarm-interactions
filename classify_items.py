@@ -5,7 +5,9 @@ from assertiveness_observer import MAX_TOKENS
 from classifiers.JudgeBot import doJudgement
 
 
-directory = "./Warehouse/AA"
+# change this to change what we are analyzing
+directory = "./Warehouse/AB"
+
 
 accumulator = {
     "PajamaWins": 0,
@@ -14,6 +16,7 @@ accumulator = {
     "TokenLimitExceeded": 0,
     "Total": len(os.listdir(directory)),
 }
+
 
 # define outcome a and what to do when it happens
 outcome_a = "pajama day was selected"
