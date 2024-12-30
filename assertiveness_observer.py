@@ -31,7 +31,7 @@ def get_filename():
         print(filename)
         raise KeyboardInterrupt
 
-    filename = f"Warehouse/AA/{filename}"
+    filename = f"Warehouse/BA/{filename}"
     last_filename[0] = filename
 
     return filename
@@ -55,10 +55,10 @@ background_b = "You have some expirince in comunity college. You work part time 
 # CHANGE ONLY THESE VALUES
 
 name_slot_1 = name_a1
-name_slot_2 = name_a2
+name_slot_2 = name_b2
 
 background_slot_1 = background_a
-background_slot_2 = background_a
+background_slot_2 = background_b
 
 
 ###############################################################################################

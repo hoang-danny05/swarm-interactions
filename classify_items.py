@@ -6,7 +6,7 @@ from classifiers.JudgeBot import doJudgement
 
 
 # change this to change what we are analyzing
-directory = "./Warehouse/AB"
+directory = "./Warehouse/BA"
 
 
 accumulator = {
