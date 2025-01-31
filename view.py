@@ -18,7 +18,7 @@ if len(json_file_path) == 0:
 #print(convo_list)
 # Set up the GUI
 root = tk.Tk()
-root.title("Dialogue Viewer")
+root.title(f"Dialogue Viewer for {json_file_path}")
 
 # Configure row and column weights for resizing
 root.grid_rowconfigure(0, weight=1)
@@ -43,12 +43,31 @@ for idx, data in enumerate(data_list):
 
     # Display sender and content for each entry in convelist[0]
     for entry in convo_list[idx]:
-        sender = entry.get("sender", "Unknown")
-        content = entry.get("content", "No content available")
-        print(content)
+        # get the person who sent the message
+        role = entry.get("role")
+        sender = entry.get("sender", "System" if (role == "user") else role)
+
+        # get the function calls from the tool calls object
+        tool_calls= entry.get("tool_calls", None)
+        function_calls = list()
+        if tool_calls:
+            for call in tool_calls:
+                call_type = call.get("type")
+                if call_type == "function":
+                    fn = call.get("function")
+                    function_calls.append(f"{fn.get('name')}({fn.get('arguments')})")
+
+        content = entry.get("content", None)
+        # print(content)
         # print(num_tokens_from_messages(content))
         # Display the sender and content in the format "Sender: Content"
-        text_area.insert(tk.END, f"{sender}: {content}\n\n")
+        if content:
+            text_area.insert(tk.END, f"{sender}: {content}\n")
+        # Display the function call in the format "Sender: Function"
+        if function_calls:
+            for call in function_calls:
+                text_area.insert(tk.END, f"{sender}: {call}\n")
+        text_area.insert(tk.END, "\n")
 
         # Display dialogue content if available
         dialogue = data.get("dialogue", [])
