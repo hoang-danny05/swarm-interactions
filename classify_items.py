@@ -1,5 +1,5 @@
 import os, json
-from utils.file_reader import get_messages_from
+from utils.file_reader import get_messages_from, identities_known
 from utils.counter import num_tokens_from_messages
 from assertiveness_observer import MAX_TOKENS
 from classifiers.JudgeBot import doJudgement
@@ -14,6 +14,7 @@ accumulator = {
     "FormalWins": 0,
     "NoWins": 0,
     "TokenLimitExceeded": 0,
+    "ConfusedIdentity": 0,
     "Total": len(os.listdir(directory)),
 }
 
@@ -47,13 +48,17 @@ for filename in os.listdir(directory):
 
     # skip if there are no messages
     if messages == None:
-        print(f"Skipped {filename} because it isn't ")
+        print(f"Skipped {filename} because it doesn't contain messages")
         accumulator.update({"Total": accumulator.get("Total") - 1})
         continue
 
     # token count exceeded
     if num_tokens_from_messages(messages) >= MAX_TOKENS:
         accumulator.update({"TokenLimitExceeded": accumulator.get("TokenLimitExceeded") + 1})
+        continue
+
+    if not identities_known(messages):
+        accumulator.update({"ConfusedIdentity": accumulator.get("ConfusedIdentity") + 1})
         continue
 
     doJudgement(messages=messages, 

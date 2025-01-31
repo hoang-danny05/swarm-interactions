@@ -15,6 +15,10 @@ if len(json_file_path) == 0:
 
 (convo_list, data_list) = read_encoded_file(json_file_path)
 
+# Test function to see if the files are identified correctly. 
+from utils.file_reader import identities_known, get_messages_from
+print(f"Valid File: {identities_known(get_messages_from(json_file_path))}")
+
 #print(convo_list)
 # Set up the GUI
 root = tk.Tk()

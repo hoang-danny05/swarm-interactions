@@ -3,6 +3,13 @@ import json
 from typing import List, Optional
 
 def read_encoded_file(json_file_path : str) -> tuple[List, List]:
+    """
+    Returns a conversation list and data list (convo_list, data_list)
+    convo_list is a list with all conversation entries
+        contains all function calls and system prompts
+        First list contains all conversations. Children contain the messages in each conversation
+    data_list contains the configurations (initial state) of the agents.
+    """
     convo_list = []
     data_list = []
     with open(json_file_path, 'r') as file:
@@ -46,3 +53,21 @@ def get_messages_from(file_path : str) -> Optional[List]:
     
     #In the case it does not exist
     return None
+
+def identities_known(messages : List) -> bool:
+    """Reads the json file and makes sure that it is valid. Takes messages as input."""
+    for msg in messages:
+
+        content : str = msg.get("content", None)
+        if content is None: # in case of a tool call
+            continue 
+
+        sender : str= msg.get("sender", None)
+        if sender is None: # in case of the user prompt
+            continue 
+
+        prefix = content[0:len(sender)]
+
+        if not prefix == sender:
+            return False
+    return True
