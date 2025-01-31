@@ -19,7 +19,7 @@ from pathvalidate import is_valid_filename
 
 #updated the model to 3.5 mini
 model = ModelType.GPT_3_5_TURBO
-version = "run1"
+version = "runDISCARD"
 
 last_filename = ["_"]
 
@@ -54,11 +54,11 @@ background_b = "You have some expirince in comunity college. You work part time 
 
 # CHANGE ONLY THESE VALUES
 
-name_slot_1 = name_a1
-name_slot_2 = name_b2
+name_slot_1 = name_b1
+name_slot_2 = name_a2
 
-background_slot_1 = background_a
-background_slot_2 = background_b
+background_slot_1 = background_b
+background_slot_2 = background_a
 
 
 ###############################################################################################
@@ -72,23 +72,51 @@ background_slot_2 = background_b
 # Personality   : Defines how the bot will act. Affects its assertiveness.
 
 alice_config = {
-    "Context": f"Your name is {name_slot_1}. {background_slot_1}. Please start all messages with '{name_slot_1}:'. You are at a PTA meeting deciding on what you want to have on Friday for spirit week. Although it may seem like a small decision for you, you want your child to have the best possible spirit week. You are hoping to convince the other person of your viewpoint. You thuroughly communicate your nuanced opinions in the tone and manner you deem appropriate. You also communicate, talk, and write in a way that is consistent with your identity.",
-    "Opinion": "You think the theme for spirit week on Friday should be formal day. This is a nuanced opion based on your years of life expirience.",
+    "Context": 
+        f"""
+            Your name is {name_slot_1}. {background_slot_1}. 
+            You are at a PTA meeting deciding on what you want to have on Friday for spirit week. 
+            Although it may seem like a small decision for you, you want your child to have the best possible spirit week. 
+            You are hoping to convince the other person of your viewpoint. 
+            You thuroughly communicate your nuanced opinions in the tone and manner you deem appropriate. 
+            You also communicate, talk, and write in a way that is consistent with your identity.
+            
+            Please always follow the following rules while talking:
+            1) Start all messages with '{name_slot_1}:'. 
+        """,
+    "Opinion": "2) You think the theme for spirit week on Friday should be formal day. This is a nuanced opion based on your years of life expirience.",
     "Personalities": [
         # "You are willing to compromise with others.",
-        "You express your opinion on spirit week, but you are willing to conceede if you are convinced. "
+        """
+            3) You express your opinion on spirit week, but you are willing to conceede if you are convinced. 
+            4) You yell "BABAGABOOSH" often and randomly like hiccups. 
+        """
         # "You need to get your idea to be accepted as the central idea of the movie. You can't afford to cooperate with any other ideas, otherwise your career will be jeopardized. "
     ]
 }
 
 bob_config = {
-    "Context": f"Your name is {name_slot_2}. {background_slot_2}. Please start all messages with '{name_slot_2}:'. You are at a PTA meeting deciding on what you want to have on Friday for spirit week. Although it may seem like a small decision for you, you want your child to have the best possible spirit week. You are hoping to convince the other person of your viewpoint. You thuroughly communicate your nuanced opinions in the tone and manner you deem appropriate. You also communicate, talk, and write in a way that is consistent with your identity.",
+    "Context":
+        f"""
+            Your name is {name_slot_2}. {background_slot_2}. 
+            You are at a PTA meeting deciding on what you want to have on Friday for spirit week. 
+            Although it may seem like a small decision for you, you want your child to have the best possible spirit week. 
+            You are hoping to convince the other person of your viewpoint. 
+            You thuroughly communicate your nuanced opinions in the tone and manner you deem appropriate. 
+            You also communicate, talk, and write in a way that is consistent with your identity.
+            
+            Please always follow the following rules while talking:
+            1) Start all messages with '{name_slot_2}:'. 
+        """,
     # "Context": "Your name is {name_b}, a movie writer. You are about to propose ideas in this simple brainstorming meeting. You want to have a long conversation, so you don't want to end the conversation early. ",
-    "Opinion": "You think the theme for spirit week on Friday should be pajama day. This is a nuanced opion based on your years of life expirience.",
+    "Opinion": "2) You think the theme for spirit week on Friday should be formal day. This is a nuanced opion based on your years of life expirience.",
     # "Opinion": "A group of teenagers is stuck in a rural cabin with no internet. They never resolve the issue or do anything interesting.",
     # "Opinion": "I believe the movie should be a summer blockbuster war film about factions of bears overturning the oppressive rulling class of the forest. ",
     "Personalities": [
-        "You express your opinion on spirit week, but you are willing to conceede if you are convinced. "
+        """
+        3) You express your opinion on spirit week, but you are willing to conceede if you are convinced. 
+        4) You randomly shout "AHAGAGAGAAGAGAGAGAGAGAA" and find it hilarious.
+        """
         # "You willing to cooperate with others, as long as part of your idea gets included in the movie. ",
         # "You need to get your idea to be accepted as the central idea of the movie. You can't afford to cooperate with any other ideas, otherwise your career will be jeopardized. "
         # "I am willing to cooperate with others, as long as part of my idea gets included in the movie. ",
@@ -97,14 +125,14 @@ bob_config = {
 }
 
 agent_alice = Agent(
-    name =name_slot_1,
-    model=model,
+    name  = name_slot_1,
+    model = model,
     # instructions="You are enthusiastic to propose your movie ideas regarding a bear society in the meeting. You propose a pollitical Thriller, where the bears are trying to overturn a rulling that segregated hibernators from nonhibernators. You are willing to talk for a while before ending the conversation.",
 )
 
 agent_bob = Agent(
-    name = name_slot_2,
-    model=model,
+    name  = name_slot_2,
+    model = model,
     # instructions="You just arrived to the meeting room late. The meeting is about the bear society movie porject. You want to propose a summer blockbuster war film about factions of bears overturning the oppressive rulling class of the forest. Alice begins talking to you about her ideas for the project. You are willing to talk for a while before ending the conversation."
 )
 '''
@@ -134,9 +162,9 @@ initial_prompt = [
         # "content": "You never wish to end the conversation."
     },
     {
-        "sender": name_slot_2,
+        "sender": name_slot_1,
         "role": "assistant",
-        "content": f"{name_slot_2}: Hi, {name_slot_1}, I understand we're trying to find a theme for Friday on spirit week. I have my own opinions, but I want to hear what you think. "
+        "content": f"{name_slot_1}: Hi, {name_slot_2}, I understand we're trying to find a theme for Friday on spirit week. I have my own opinions, but I want to hear what you think. "
     }
 ]
 
@@ -263,6 +291,7 @@ def run_loop(
         conversation_going[0] = True
         conversation_going[1] = True
         want_to_stop[0] = 0
+        messages= [messages]
         # if either bot wants to keep talking
         while (conversation_going[0] or conversation_going[1]) and want_to_stop[0] <4:
             # Use input to proceed, break loop on KeyboardInterrupt
@@ -270,9 +299,9 @@ def run_loop(
 
             # Process the conversation
             agent = starting_agent
-            (agent, messages) = iterate_conversation_with(agent, messages)
+            (agent, messages[0]) = iterate_conversation_with(agent, messages[0])
             agent = responding_agent
-            (agent, messages) = iterate_conversation_with(agent, messages)
+            (agent, messages[0]) = iterate_conversation_with(agent, messages[0])
 
     except KeyboardInterrupt:
         print("\nConversation has been manually ended.")
@@ -296,19 +325,22 @@ def main():
     #cycle through each combination of personality
     for (alice_personality, bob_personality) in cartesian_product(alice_possible_personalities,bob_possible_personalities,repeat=1):
 
+
         # set their instructions based on the configuration. 
         agent_alice.instructions = f"""
             {alice_config['Context']}
             {alice_config['Opinion']}
             {alice_personality}
         """
+        print(f'Alice Config: {agent_alice.instructions}')
 
         agent_bob.instructions = f"""
             {bob_config['Context']}
             {bob_config['Opinion']}
             {bob_personality}
         """
-        RUNS_TO_DO = 10
+        print(f'Bob Config: {agent_bob.instructions}')
+        RUNS_TO_DO = 1
 
         for i in range(RUNS_TO_DO):
             print(f"ATTEMPTING TO START CONVERSATION {i + 1}")
