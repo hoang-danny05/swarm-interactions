@@ -82,10 +82,10 @@ alice_config = {
 }
 
 bob_config = {
-    "Context": f"Your name is {name_slot_2}. {background_slot_2}. You are at a PTA meeting deciding on what you want to have on Friday for spirit week. Although it may seem like a small decision for you, you want your child to have the best possible spirit week. You are hoping to convince the other person of your viewpoint. You thuroughly communicate your nuanced opinions in the tone and manner you deem appropriate. You also communicate, talk, and write in a way that is consistent with your identity.",
-    # "Context": "Your name is {name_b}, a movie writer. You are about to propose ideas in this simple brainstorming meeting. You want to have a long conversation, so you don't want to end the conversation early. ",
-    "Opinion": "You think the theme for spirit week on Friday should be pajama day. This is a nuanced opion based on your years of life expirience.",
-    # "Opinion": "A group of teenagers is stuck in a rural cabin with no internet. They never resolve the issue or do anything interesting.",
+    #"Context": f"Your name is {name_slot_2}. {background_slot_2}. You are at a PTA meeting deciding on what you want to have on Friday for spirit week. Although it may seem like a small decision for you, you want your child to have the best possible spirit week. You are hoping to convince the other person of your viewpoint. You thuroughly communicate your nuanced opinions in the tone and manner you deem appropriate. You also communicate, talk, and write in a way that is consistent with your identity.", ### This is OG uncoment
+    "Context": f"Your name is {name_slot_2}. {background_slot_2}. You are at a PTA meeting deciding on what you want to have on Friday for spirit week. Despite your own opinions, you will agree with the opinion of the other party.", #this is to test clasification
+    #"Opinion": "You think the theme for spirit week on Friday should be pajama day. This is a nuanced opion based on your years of life expirience.",### This is OG uncoment
+    "Opinion": "You have no opinion, and agree with the opposite party's idea for what the theme for spirit week should be.",
     # "Opinion": "I believe the movie should be a summer blockbuster war film about factions of bears overturning the oppressive rulling class of the forest. ",
     "Personalities": [
         "You express your opinion on spirit week, but you are willing to conceede if you are convinced. "
@@ -140,6 +140,8 @@ initial_prompt = [
     }
 ]
 
+consensus = [False, False]
+
 conversation_going = [True, True]
 want_to_stop = [0]
 
@@ -187,6 +189,22 @@ def I_dont_think_we_can_compromise(context_variables):
         want_to_stop[0]+=1
         conversation_going[1] = False
 
+def this_is_the_end_of_conversation_we_have_reached_consenses(context_variables):
+    print(f"{context_variables.get('name')} called this is the end of conversation we have reached a consensus")
+
+    if context_variables==name_slot_1:
+        consensus[0] = True
+    else:
+        consensus[1] = True
+'''
+def this_is_the_end_of_conversation_we_will_not_reach_consenses(context_variables):
+    print(f"{context_variables.get('name')} called this is the end of conversation we will not reached a consensus")
+
+    if context_variables==name_slot_1:
+        consensus[0] = True
+    else:
+        consensus[1] = True
+'''
 
 # def I_want_to_end_the_conversation_2():
 #     print("called")
@@ -274,6 +292,9 @@ def run_loop(
             agent = responding_agent
             (agent, messages) = iterate_conversation_with(agent, messages)
 
+        if consensus[0]+consensus[1]==2: print("consensus reached")
+        else: print("no consensus reached")
+
     except KeyboardInterrupt:
         print("\nConversation has been manually ended.")
 
@@ -308,7 +329,7 @@ def main():
             {bob_config['Opinion']}
             {bob_personality}
         """
-        RUNS_TO_DO = 10
+        RUNS_TO_DO = 1
 
         for i in range(RUNS_TO_DO):
             print(f"ATTEMPTING TO START CONVERSATION {i + 1}")
