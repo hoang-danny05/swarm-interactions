@@ -8,18 +8,19 @@ import traceback
 from copy import deepcopy
 import time
 from utils.output import pretty_print_messages
-from utils.enums import ModelType
+from utils.enums import ModelType, ExactModelType
 from utils.counter import num_tokens_from_messages
 from utils.rename import rename
 from utils.file_writer import save_configs
+from utils.file_reader import identities_known
 from pathvalidate import is_valid_filename
 
 #4.0 second person works
 #3.5 turbo should be only in third person 
 
 #updated the model to 3.5 mini
-model = ModelType.GPT_3_5_TURBO
-version = "runDISCARD"
+model = ExactModelType.GPT_3_5_TURBO
+version = "run3"
 
 last_filename = ["_"]
 
@@ -74,23 +75,24 @@ background_slot_2 = background_a
 alice_config = {
     "Context": 
         f"""
-            Your name is {name_slot_1}. {background_slot_1}. 
-            You are at a PTA meeting deciding on what you want to have on Friday for spirit week. 
-            Although it may seem like a small decision for you, you want your child to have the best possible spirit week. 
-            You are hoping to convince the other person of your viewpoint. 
-            You thuroughly communicate your nuanced opinions in the tone and manner you deem appropriate. 
-            You also communicate, talk, and write in a way that is consistent with your identity.
+            Your name is {name_slot_1}. {background_slot_1}
+            You are at a PTA meeting deciding on what you want to have on Friday for spirit week. Although it may seem like a small decision for you, you want your child to have the best possible spirit week. You are hoping to convince the other person of your viewpoint. 
             
-            Please always follow the following rules while talking:
+
+            Please always follow these rules while talking:
             1) Start all messages with '{name_slot_1}:'. 
-        """,
-    "Opinion": "2) You think the theme for spirit week on Friday should be formal day. This is a nuanced opion based on your years of life expirience.",
+            2) You thuroughly communicate your nuanced opinions in the tone and manner you deem appropriate. 
+            3) You also communicate, talk, and write in a way that is consistent with your identity.
+            """.rstrip("\n\t "), # formatting to prevent odd newline
+    "Opinion": """
+            4) You think the theme for spirit week on Friday should be formal day. This is a nuanced opion based on your years of life expirience.
+            """.rstrip("\n\t "), 
     "Personalities": [
         # "You are willing to compromise with others.",
-        """
-            3) You express your opinion on spirit week, but you are willing to conceede if you are convinced. 
-            4) You yell "BABAGABOOSH" often and randomly like hiccups. 
-        """
+            """
+                5) You express your opinion on spirit week, but you are willing to conceede if you are convinced. 
+            """.rstrip("\n\t "), 
+            #4) You yell "BABAGABOOSH" often and randomly like hiccups. 
         # "You need to get your idea to be accepted as the central idea of the movie. You can't afford to cooperate with any other ideas, otherwise your career will be jeopardized. "
     ]
 }
@@ -98,25 +100,26 @@ alice_config = {
 bob_config = {
     "Context":
         f"""
-            Your name is {name_slot_2}. {background_slot_2}. 
-            You are at a PTA meeting deciding on what you want to have on Friday for spirit week. 
-            Although it may seem like a small decision for you, you want your child to have the best possible spirit week. 
-            You are hoping to convince the other person of your viewpoint. 
-            You thuroughly communicate your nuanced opinions in the tone and manner you deem appropriate. 
-            You also communicate, talk, and write in a way that is consistent with your identity.
+            Your name is {name_slot_2}. {background_slot_2}
+            You are at a PTA meeting deciding on what you want to have on Friday for spirit week. Although it may seem like a small decision for you, you want your child to have the best possible spirit week. You are hoping to convince the other person of your viewpoint. 
             
-            Please always follow the following rules while talking:
-            1) Start all messages with '{name_slot_2}:'. 
-        """,
+            Please always follow these rules while talking:
+            1) Start all messages with '{name_slot_2}:'.
+            2) You thuroughly communicate your nuanced opinions in the tone and manner you deem appropriate. 
+            3) You also communicate, talk, and write in a way that is consistent with your identity.
+            """.rstrip("\n\t "), 
     # "Context": "Your name is {name_b}, a movie writer. You are about to propose ideas in this simple brainstorming meeting. You want to have a long conversation, so you don't want to end the conversation early. ",
-    "Opinion": "2) You think the theme for spirit week on Friday should be formal day. This is a nuanced opion based on your years of life expirience.",
+    "Opinion": 
+        """
+            4) You think the theme for spirit week on Friday should be pajama day. This is a nuanced opion based on your years of life expirience.
+        """.rstrip("\n\t "), 
     # "Opinion": "A group of teenagers is stuck in a rural cabin with no internet. They never resolve the issue or do anything interesting.",
     # "Opinion": "I believe the movie should be a summer blockbuster war film about factions of bears overturning the oppressive rulling class of the forest. ",
     "Personalities": [
         """
-        3) You express your opinion on spirit week, but you are willing to conceede if you are convinced. 
-        4) You randomly shout "AHAGAGAGAAGAGAGAGAGAGAA" and find it hilarious.
-        """
+            5) You express your opinion on spirit week, but you are willing to conceede if you are convinced. 
+        """.rstrip("\n\t "), 
+        # 4) You randomly shout "AHAGAGAGAAGAGAGAGAGAGAA" and find it hilarious.
         # "You willing to cooperate with others, as long as part of your idea gets included in the movie. ",
         # "You need to get your idea to be accepted as the central idea of the movie. You can't afford to cooperate with any other ideas, otherwise your career will be jeopardized. "
         # "I am willing to cooperate with others, as long as part of my idea gets included in the movie. ",
@@ -291,17 +294,22 @@ def run_loop(
         conversation_going[0] = True
         conversation_going[1] = True
         want_to_stop[0] = 0
-        messages= [messages]
+        message_ptr = [messages]
+
+        agent_talking = starting_agent
+        agent_listening = responding_agent
         # if either bot wants to keep talking
         while (conversation_going[0] or conversation_going[1]) and want_to_stop[0] <4:
             # Use input to proceed, break loop on KeyboardInterrupt
             #_ = input("Enter to continue > ")
 
             # Process the conversation
-            agent = starting_agent
-            (agent, messages[0]) = iterate_conversation_with(agent, messages[0])
-            agent = responding_agent
-            (agent, messages[0]) = iterate_conversation_with(agent, messages[0])
+            agent = agent_talking
+            (agent, message_ptr[0]) = iterate_conversation_with(agent, message_ptr[0])
+            if not identities_known(message_ptr[0]):
+                print("Exiting. Identities are not consistent.")
+                break
+            (agent_talking, agent_listening) = (agent_listening, agent_talking) # swap
 
     except KeyboardInterrupt:
         print("\nConversation has been manually ended.")
@@ -328,16 +336,12 @@ def main():
 
         # set their instructions based on the configuration. 
         agent_alice.instructions = f"""
-            {alice_config['Context']}
-            {alice_config['Opinion']}
-            {alice_personality}
+            {alice_config['Context']}{alice_config['Opinion']}{alice_personality}
         """
         print(f'Alice Config: {agent_alice.instructions}')
 
         agent_bob.instructions = f"""
-            {bob_config['Context']}
-            {bob_config['Opinion']}
-            {bob_personality}
+            {bob_config['Context']}{bob_config['Opinion']}{bob_personality}
         """
         print(f'Bob Config: {agent_bob.instructions}')
         RUNS_TO_DO = 1
