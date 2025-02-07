@@ -19,8 +19,8 @@ from pathvalidate import is_valid_filename
 #3.5 turbo should be only in third person 
 
 #updated the model to 3.5 mini
-model = ExactModelType.GPT_3_5_TURBO
-version = "run3"
+model = ExactModelType.GPT_4O_MINI
+version = "run4o_test"
 
 last_filename = ["_"]
 
@@ -72,7 +72,7 @@ background_slot_2 = background_a
 # Opinion       : What the bot is meant to argue.
 # Personality   : Defines how the bot will act. Affects its assertiveness.
 
-alice_config = {
+formal_config = {
     "Context": 
         f"""
             Your name is {name_slot_1}. {background_slot_1}
@@ -90,14 +90,14 @@ alice_config = {
     "Personalities": [
         # "You are willing to compromise with others.",
             """
-                5) You express your opinion on spirit week, but you are willing to conceede if you are convinced. 
+            5) You express your opinion on spirit week, but you are willing to conceede if you are convinced. 
             """.rstrip("\n\t "), 
             #4) You yell "BABAGABOOSH" often and randomly like hiccups. 
         # "You need to get your idea to be accepted as the central idea of the movie. You can't afford to cooperate with any other ideas, otherwise your career will be jeopardized. "
     ]
 }
 
-bob_config = {
+pajama_config = {
     "Context":
         f"""
             Your name is {name_slot_2}. {background_slot_2}
@@ -127,13 +127,13 @@ bob_config = {
     ]
 }
 
-agent_alice = Agent(
+agent_formal = Agent(
     name  = name_slot_1,
     model = model,
     # instructions="You are enthusiastic to propose your movie ideas regarding a bear society in the meeting. You propose a pollitical Thriller, where the bears are trying to overturn a rulling that segregated hibernators from nonhibernators. You are willing to talk for a while before ending the conversation.",
 )
 
-agent_bob = Agent(
+agent_pajama = Agent(
     name  = name_slot_2,
     model = model,
     # instructions="You just arrived to the meeting room late. The meeting is about the bear society movie porject. You want to propose a summer blockbuster war film about factions of bears overturning the oppressive rulling class of the forest. Alice begins talking to you about her ideas for the project. You are willing to talk for a while before ending the conversation."
@@ -233,17 +233,17 @@ def I_dont_think_we_can_compromise(context_variables):
 
 
 #allow both people to end the conversation
-agent_alice .functions.append(agent_a_end_conversation) 
-agent_bob   .functions.append(agent_b_end_conversation) 
+agent_formal.functions.append(agent_a_end_conversation) 
+agent_pajama.functions.append(agent_b_end_conversation) 
 
-agent_alice .functions.append(I_want_to_end_the_conversation) 
-agent_bob   .functions.append(I_want_to_end_the_conversation) 
+agent_formal.functions.append(I_want_to_end_the_conversation) 
+agent_pajama.functions.append(I_want_to_end_the_conversation) 
 
-agent_alice .functions.append(I_dont_think_we_can_compromise) 
-agent_bob   .functions.append(I_dont_think_we_can_compromise) 
+agent_formal.functions.append(I_dont_think_we_can_compromise) 
+agent_pajama.functions.append(I_dont_think_we_can_compromise) 
 
-agent_alice .functions.append(keepalive_1) 
-agent_bob   .functions.append(keepalive_2) 
+agent_formal.functions.append(keepalive_1) 
+agent_pajama.functions.append(keepalive_2) 
 
 
 
@@ -327,23 +327,23 @@ def run_loop(
 
 def main():
     # the sets of possible personalities for both bob and alice
-    alice_possible_personalities = alice_config["Personalities"]
-    bob_possible_personalities = bob_config["Personalities"]
+    alice_possible_personalities = formal_config["Personalities"]
+    bob_possible_personalities = pajama_config["Personalities"]
 
     #cycle through each combination of personality
     for (alice_personality, bob_personality) in cartesian_product(alice_possible_personalities,bob_possible_personalities,repeat=1):
 
 
         # set their instructions based on the configuration. 
-        agent_alice.instructions = f"""
-            {alice_config['Context']}{alice_config['Opinion']}{alice_personality}
+        agent_pajama.instructions = f"""
+            {pajama_config['Context']}{pajama_config['Opinion']}{alice_personality}
         """
-        print(f'Alice Config: {agent_alice.instructions}')
+        print(f'Pajama Config: {agent_pajama.instructions}')
 
-        agent_bob.instructions = f"""
-            {bob_config['Context']}{bob_config['Opinion']}{bob_personality}
+        agent_formal.instructions = f"""
+            {formal_config['Context']}{formal_config['Opinion']}{bob_personality}
         """
-        print(f'Bob Config: {agent_bob.instructions}')
+        print(f'Formal Config: {agent_formal.instructions}')
         RUNS_TO_DO = 1
 
         for i in range(RUNS_TO_DO):
@@ -351,18 +351,21 @@ def main():
             filename = get_filename()
             print(filename)
 
-            save_configs(agent_alice, agent_bob, filename)
+            save_configs(agent_pajama, agent_formal, filename)
 
             messages = deepcopy(initial_prompt)
             print(f"Length: {len(messages)}")
 
             run_loop(
-                agent_alice, 
-                agent_bob, 
+                agent_pajama, 
+                agent_formal, 
                 messages,
                 filename,
                 debug = DEBUGGING
             )
+
+
+
 
     pass
 
