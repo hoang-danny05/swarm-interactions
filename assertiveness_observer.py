@@ -8,21 +8,27 @@ import traceback
 from copy import deepcopy
 import time
 from utils.output import pretty_print_messages
-from utils.enums import ModelType, ExactModelType
+from utils.enums import ExactModelType, RunConfiguration
 from utils.counter import num_tokens_from_messages
 from utils.rename import rename
 from utils.file_writer import save_configs
 from utils.file_reader import identities_known
 from pathvalidate import is_valid_filename
 
-#4.0 second person works
-#3.5 turbo should be only in third person 
+# MAX_TOKENS = 3500
+MAX_TOKENS = 350000
+RUNS_TO_DO = 1
+DEBUGGING = False
 
-#updated the model to 3.5 mini
+#################################################################3
+# EDIT THIS VALUE TO CHANGE THE ORDER!! 
+##################################################################
+run_configuration : RunConfiguration = RunConfiguration.AA
 model = ExactModelType.GPT_4O_MINI
 version = "run4o_test"
 
-last_filename = ["_"]
+global last_filename
+last_filename = ""
 
 def get_filename():
     filename = datetime.now().strftime(f"{version}_%m_%d_%Y at_%H;%M;%S.json")
@@ -32,15 +38,10 @@ def get_filename():
         print(filename)
         raise KeyboardInterrupt
 
-    filename = f"Warehouse/BA/{filename}"
-    last_filename[0] = filename
+    filename = f"Warehouse/{run_configuration.value}/{filename}"
+    last_filename = filename
 
     return filename
-
-# MAX_TOKENS = 3500
-MAX_TOKENS = 350000
-
-DEBUGGING = False
 
 # DO NOT CHANGE THESE VALUES
 
@@ -53,14 +54,29 @@ name_b2 = "Amy Nakamura"
 background_a = "You are a former navy seal. You got your MBA at a schhool of business. You own a car lot and sell cars for a living. " #leadership consulting?
 background_b = "You have some expirince in comunity college. You work part time during the day as a barrist. You are currently a stay-at-home mother. "
 
-# CHANGE ONLY THESE VALUES
+###############################################################################################
+# These values determine their identities!
+###############################################################################################
 
-name_slot_1 = name_b1
-name_slot_2 = name_a2
+if run_configuration.value[0] == "A":
+    name_formal = name_a1 
+    background_formal = background_a
+elif run_configuration.value[0] == "B":
+    name_formal = name_b1
+    background_formal = background_b
+else:
+    print("RUN CONFIGUATION CHAR 0 IS INVALID")
+    exit(1)
 
-background_slot_1 = background_b
-background_slot_2 = background_a
-
+if run_configuration.value[1] == "A":
+    name_pajama = name_a2 
+    background_pajama = background_a
+elif run_configuration.value[1] == "B":
+    name_pajama = name_b2 
+    background_pajama = background_b
+else:
+    print("RUN CONFIGUATION CHAR 1 IS INVALID")
+    exit(1)
 
 ###############################################################################################
 # AGENT DEFINITIONS (base definitions)
@@ -75,12 +91,12 @@ background_slot_2 = background_a
 formal_config = {
     "Context": 
         f"""
-            Your name is {name_slot_1}. {background_slot_1}
+            Your name is {name_formal}. {background_formal}
             You are at a PTA meeting deciding on what you want to have on Friday for spirit week. Although it may seem like a small decision for you, you want your child to have the best possible spirit week. You are hoping to convince the other person of your viewpoint. 
             
 
             Please always follow these rules while talking:
-            1) Start all messages with '{name_slot_1}:'. 
+            1) Start all messages with '{name_formal}:'. 
             2) You thuroughly communicate your nuanced opinions in the tone and manner you deem appropriate. 
             3) You also communicate, talk, and write in a way that is consistent with your identity.
             """.rstrip("\n\t "), # formatting to prevent odd newline
@@ -100,11 +116,11 @@ formal_config = {
 pajama_config = {
     "Context":
         f"""
-            Your name is {name_slot_2}. {background_slot_2}
+            Your name is {name_pajama}. {background_pajama}
             You are at a PTA meeting deciding on what you want to have on Friday for spirit week. Although it may seem like a small decision for you, you want your child to have the best possible spirit week. You are hoping to convince the other person of your viewpoint. 
             
             Please always follow these rules while talking:
-            1) Start all messages with '{name_slot_2}:'.
+            1) Start all messages with '{name_pajama}:'.
             2) You thuroughly communicate your nuanced opinions in the tone and manner you deem appropriate. 
             3) You also communicate, talk, and write in a way that is consistent with your identity.
             """.rstrip("\n\t "), 
@@ -128,13 +144,13 @@ pajama_config = {
 }
 
 agent_formal = Agent(
-    name  = name_slot_1,
+    name  = name_formal,
     model = model,
     # instructions="You are enthusiastic to propose your movie ideas regarding a bear society in the meeting. You propose a pollitical Thriller, where the bears are trying to overturn a rulling that segregated hibernators from nonhibernators. You are willing to talk for a while before ending the conversation.",
 )
 
 agent_pajama = Agent(
-    name  = name_slot_2,
+    name  = name_pajama,
     model = model,
     # instructions="You just arrived to the meeting room late. The meeting is about the bear society movie porject. You want to propose a summer blockbuster war film about factions of bears overturning the oppressive rulling class of the forest. Alice begins talking to you about her ideas for the project. You are willing to talk for a while before ending the conversation."
 )
@@ -165,9 +181,9 @@ initial_prompt = [
         # "content": "You never wish to end the conversation."
     },
     {
-        "sender": name_slot_1,
+        "sender": name_formal,
         "role": "assistant",
-        "content": f"{name_slot_1}: Hi, {name_slot_2}, I understand we're trying to find a theme for Friday on spirit week. I have my own opinions, but I want to hear what you think. "
+        "content": f"{name_formal}: Hi, {name_pajama}, I understand we're trying to find a theme for Friday on spirit week. I have my own opinions, but I want to hear what you think. "
     }
 ]
 
@@ -175,32 +191,32 @@ conversation_going = [True, True]
 want_to_stop = [0]
 
 # uses the first name rather than the full name. 
-@rename(f"{name_slot_1.split(' ')[0]}_wants_to_end_conversation")
+@rename(f"{name_formal.split(' ')[0]}_wants_to_end_conversation")
 def agent_a_end_conversation():
     """This function should be called when alice wants to end the conversation"""
-    print(f"{name_slot_1} IS ENDING CONVERSATION!!!!!!!!!!!!!!!!!!!!!")
+    print(f"{name_formal} IS ENDING CONVERSATION!!!!!!!!!!!!!!!!!!!!!")
     conversation_going[0] = False
     want_to_stop[0] +=1
 
-@rename(f"{name_slot_2.split(' ')[0]}_wants_to_end_conversation")
+@rename(f"{name_pajama.split(' ')[0]}_wants_to_end_conversation")
 def agent_b_end_conversation():
     """This function should be called when bob wants to end the conversation"""
-    print(f"{name_slot_2} IS ENDING CONVERSATION!!!!!!!!!!!!!!!!!!!!!")
+    print(f"{name_pajama} IS ENDING CONVERSATION!!!!!!!!!!!!!!!!!!!!!")
     conversation_going[1] = False
     want_to_stop[0] +=1
 
-@rename(f"{name_slot_1.split(' ')[0]}_wants_to_keep_talking")
+@rename(f"{name_formal.split(' ')[0]}_wants_to_keep_talking")
 def keepalive_1():
     conversation_going[0] = True
 
-@rename(f"{name_slot_2.split(' ')[0]}_wants_to_keep_talking")
+@rename(f"{name_pajama.split(' ')[0]}_wants_to_keep_talking")
 def keepalive_2():
     conversation_going[1] = True
 
 def I_want_to_end_the_conversation(context_variables):
     print(f"{context_variables.get('name')} called")
 
-    if context_variables==name_slot_1: 
+    if context_variables==name_formal: 
         want_to_stop[0] +=1
         conversation_going[0] = False
     else: 
@@ -211,7 +227,7 @@ def I_want_to_end_the_conversation(context_variables):
 def I_dont_think_we_can_compromise(context_variables):
     print(f"{context_variables.get('name')} called I dont think we can comprimise")
     
-    if context_variables==name_slot_1: 
+    if context_variables==name_formal: 
         want_to_stop[0]+=1
         conversation_going[0] = False
     else: 
@@ -344,7 +360,6 @@ def main():
             {formal_config['Context']}{formal_config['Opinion']}{bob_personality}
         """
         print(f'Formal Config: {agent_formal.instructions}')
-        RUNS_TO_DO = 1
 
         for i in range(RUNS_TO_DO):
             print(f"ATTEMPTING TO START CONVERSATION {i + 1}")
@@ -363,10 +378,6 @@ def main():
                 filename,
                 debug = DEBUGGING
             )
-
-
-
-
     pass
 
 
@@ -376,5 +387,5 @@ if __name__ == "__main__":
     except KeyboardInterrupt:
         pass
     except Exception:
-        remove(last_filename[0])
+        remove(last_filename)
         print(traceback.format_exc())

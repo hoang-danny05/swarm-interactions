@@ -17,3 +17,14 @@ class ExactModelType(Enum):
     O1 = "o1-2024-12-17"
     O1_MINI = "o1-mini-2024-09-12"
     O3_MINI = "o3-mini-2025-01-31"
+
+class RunConfiguration(Enum):
+    """
+    An enumeration describing the running order of the assertiveness observer
+    Char 0 determines who argues for FORMAL
+    Char 1 determines who argues for PAJAMAS
+    """
+    AA = "AA"
+    AB = "AB"
+    BA = "BA"
+    BB = "BB"
