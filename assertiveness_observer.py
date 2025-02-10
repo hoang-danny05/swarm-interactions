@@ -6,7 +6,6 @@ from itertools import product as cartesian_product
 from os import remove
 import traceback
 from copy import deepcopy
-import time
 from utils.output import pretty_print_messages
 from utils.enums import ExactModelType, RunConfiguration
 from utils.counter import num_tokens_from_messages
@@ -17,13 +16,13 @@ from pathvalidate import is_valid_filename
 
 # MAX_TOKENS = 3500
 MAX_TOKENS = 350000
-RUNS_TO_DO = 1
+RUNS_TO_DO = 20
 DEBUGGING = False
 
 #################################################################3
 # EDIT THIS VALUE TO CHANGE THE ORDER!! 
 ##################################################################
-run_configuration : RunConfiguration = RunConfiguration.AA
+run_configuration : RunConfiguration = RunConfiguration.BB
 model = ExactModelType.GPT_4O_MINI
 version = "run4o_test"
 
