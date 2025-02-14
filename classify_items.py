@@ -8,7 +8,7 @@ from assertiveness_observer import MAX_TOKENS
 
 
 # change this to change what we are analyzing
-directory = "./Warehouse/"
+directory = "./Warehouse/BB"
 keyword = input("Enter the keyword of the runs you want to search for: ")
 search_prompt = f"{directory}/*{keyword}*"
 print(f"You are judging all files matching: {search_prompt}")
@@ -76,6 +76,7 @@ for file_path in target_files:
         accumulator.update({"ConfusedIdentity": accumulator.get("ConfusedIdentity") + 1})
         continue
 
+    # does not handle openai.RateLimitError
     doJudgement(messages=messages, 
                 outcome_a=outcome_a,
                 on_outcome_a=pajama_wins,
