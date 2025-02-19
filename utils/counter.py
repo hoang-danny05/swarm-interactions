@@ -36,6 +36,7 @@ def num_tokens_from_messages(messages, model="gpt-4o-mini-2024-07-18"):
         )
     num_tokens = 0
     for message in messages:
+        # print(message)
         num_tokens += tokens_per_message
         for key, value in message.items():
             # print("\n>", key, value)

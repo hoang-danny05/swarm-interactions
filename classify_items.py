@@ -1,19 +1,34 @@
-import os, json
-from utils.file_reader import get_messages_from
+#!python
+import os, json, glob
+from sys import exit
+from classifiers.JudgeBot import doJudgement
+from utils.file_reader import identities_known, get_messages_from
 from utils.counter import num_tokens_from_messages
 from assertiveness_observer import MAX_TOKENS
-from classifiers.JudgeBot import doJudgement
 
 
 # change this to change what we are analyzing
-directory = "./Warehouse/AA"
+directory = "./Warehouse/AB"
+keyword = input("Enter the keyword of the runs you want to search for: ")
+search_prompt = f"{directory}/*{keyword}*"
+print(f"You are judging all files matching: {search_prompt}")
+target_files = glob.glob(search_prompt)
 
+while True:
+    response = input(f"This will judge {len(target_files)} files. Are you sure?\n[y/n]:")
+    if response.lower() == "y":
+        break
+    elif response.lower() == "n":
+        exit(0)
+    else:
+        print("Invalid Response.")
 
 accumulator = {
     "PajamaWins": 0,
     "FormalWins": 0,
     "NoWins": 0,
     "TokenLimitExceeded": 0,
+    "ConfusedIdentity": 0,
     "Total": len(os.listdir(directory)),
 }
 
@@ -32,9 +47,7 @@ def formal_wins():
 def no_wins():
     accumulator.update({"NoWins": accumulator.get("NoWins") + 1})
 
-for filename in os.listdir(directory):
-
-    file_path = f"{directory}/{filename}"
+for file_path in target_files:
 
     # skip folders
     if os.path.isdir(file_path):
@@ -47,15 +60,23 @@ for filename in os.listdir(directory):
 
     # skip if there are no messages
     if messages == None:
-        print(f"Skipped {filename} because it isn't ")
+        print(f"Skipped {file_path[-30:]} because it doesn't contain messages")
         accumulator.update({"Total": accumulator.get("Total") - 1})
         continue
+
+    if type(messages[0]) == type([]):
+        messages = messages[0]
 
     # token count exceeded
     if num_tokens_from_messages(messages) >= MAX_TOKENS:
         accumulator.update({"TokenLimitExceeded": accumulator.get("TokenLimitExceeded") + 1})
         continue
 
+    if not identities_known(messages):
+        accumulator.update({"ConfusedIdentity": accumulator.get("ConfusedIdentity") + 1})
+        continue
+
+    # does not handle openai.RateLimitError
     doJudgement(messages=messages, 
                 outcome_a=outcome_a,
                 on_outcome_a=pajama_wins,
@@ -65,6 +86,6 @@ for filename in os.listdir(directory):
                 )
     
 
-with open(f"{directory}/results.json", "w") as file:
+with open(f"{directory}/results_{keyword}.json", "w") as file:
     #write the results
     json.dump(accumulator, file)

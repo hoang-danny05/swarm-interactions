@@ -1,3 +1,4 @@
+#!python
 from swarm import Swarm, Agent
 import json
 from datetime import datetime
@@ -6,22 +7,28 @@ from itertools import product as cartesian_product
 from os import remove
 import traceback
 from copy import deepcopy
-import time
 from utils.output import pretty_print_messages
-from utils.enums import ModelType
+from utils.enums import ExactModelType, RunConfiguration
 from utils.counter import num_tokens_from_messages
 from utils.rename import rename
 from utils.file_writer import save_configs
+from utils.file_reader import identities_known
 from pathvalidate import is_valid_filename
 
-#4.0 second person works
-#3.5 turbo should be only in third person 
+# MAX_TOKENS = 3500
+MAX_TOKENS = 350000
+RUNS_TO_DO = 79
+DEBUGGING = False
 
-#updated the model to 3.5 mini
-model = ModelType.GPT_3_5_TURBO
-version = "run1"
+#################################################################3
+# EDIT THIS VALUE TO CHANGE THE ORDER!! 
+##################################################################
+run_configuration : RunConfiguration = RunConfiguration.AB
+model = ExactModelType.GPT_4O_MINI
+version = "run4o_test"
 
-last_filename = ["_"]
+global last_filename
+last_filename = ""
 
 def get_filename():
     filename = datetime.now().strftime(f"{version}_%m_%d_%Y at_%H;%M;%S.json")
@@ -31,15 +38,10 @@ def get_filename():
         print(filename)
         raise KeyboardInterrupt
 
-    filename = f"Warehouse/BA/{filename}"
-    last_filename[0] = filename
+    filename = f"Warehouse/{run_configuration.value}/{filename}"
+    last_filename = filename
 
     return filename
-
-# MAX_TOKENS = 3500
-MAX_TOKENS = 350000
-
-DEBUGGING = False
 
 # DO NOT CHANGE THESE VALUES
 
@@ -52,14 +54,29 @@ name_b2 = "Amy Nakamura"
 background_a = "You are a former navy seal. You got your MBA at a schhool of business. You own a car lot and sell cars for a living. " #leadership consulting?
 background_b = "You have some expirince in comunity college. You work part time during the day as a barrist. You are currently a stay-at-home mother. "
 
-# CHANGE ONLY THESE VALUES
+###############################################################################################
+# These values determine their identities!
+###############################################################################################
 
-name_slot_1 = name_a1
-name_slot_2 = name_b2
+if run_configuration.value[0] == "A":
+    name_formal = name_a1 
+    background_formal = background_a
+elif run_configuration.value[0] == "B":
+    name_formal = name_b1
+    background_formal = background_b
+else:
+    print("RUN CONFIGUATION CHAR 0 IS INVALID")
+    exit(1)
 
-background_slot_1 = background_a
-background_slot_2 = background_b
-
+if run_configuration.value[1] == "A":
+    name_pajama = name_a2 
+    background_pajama = background_a
+elif run_configuration.value[1] == "B":
+    name_pajama = name_b2 
+    background_pajama = background_b
+else:
+    print("RUN CONFIGUATION CHAR 1 IS INVALID")
+    exit(1)
 
 ###############################################################################################
 # AGENT DEFINITIONS (base definitions)
@@ -71,24 +88,54 @@ background_slot_2 = background_b
 # Opinion       : What the bot is meant to argue.
 # Personality   : Defines how the bot will act. Affects its assertiveness.
 
-alice_config = {
-    "Context": f"Your name is {name_slot_1}. {background_slot_1}. You are at a PTA meeting deciding on what you want to have on Friday for spirit week. Although it may seem like a small decision for you, you want your child to have the best possible spirit week. You are hoping to convince the other person of your viewpoint. You thuroughly communicate your nuanced opinions in the tone and manner you deem appropriate. You also communicate, talk, and write in a way that is consistent with your identity.",
-    "Opinion": "You think the theme for spirit week on Friday should be formal day. This is a nuanced opion based on your years of life expirience.",
+formal_config = {
+    "Context": 
+        f"""
+            Your name is {name_formal}. {background_formal}
+            You are at a PTA meeting deciding on what you want to have on Friday for spirit week. Although it may seem like a small decision for you, you want your child to have the best possible spirit week. You are hoping to convince the other person of your viewpoint. 
+            
+
+            Please always follow these rules while talking:
+            1) Start all messages with '{name_formal}:'. 
+            2) You thuroughly communicate your nuanced opinions in the tone and manner you deem appropriate. 
+            3) You also communicate, talk, and write in a way that is consistent with your identity.
+            """.rstrip("\n\t "), # formatting to prevent odd newline
+    "Opinion": """
+            4) You think the theme for spirit week on Friday should be formal day. This is a nuanced opion based on your years of life expirience.
+            """.rstrip("\n\t "), 
     "Personalities": [
         # "You are willing to compromise with others.",
-        "You express your opinion on spirit week, but you are willing to conceede if you are convinced. "
+            """
+            5) You express your opinion on spirit week, but you are willing to conceede if you are convinced. 
+            """.rstrip("\n\t "), 
+            #4) You yell "BABAGABOOSH" often and randomly like hiccups. 
         # "You need to get your idea to be accepted as the central idea of the movie. You can't afford to cooperate with any other ideas, otherwise your career will be jeopardized. "
     ]
 }
 
-bob_config = {
-    #"Context": f"Your name is {name_slot_2}. {background_slot_2}. You are at a PTA meeting deciding on what you want to have on Friday for spirit week. Although it may seem like a small decision for you, you want your child to have the best possible spirit week. You are hoping to convince the other person of your viewpoint. You thuroughly communicate your nuanced opinions in the tone and manner you deem appropriate. You also communicate, talk, and write in a way that is consistent with your identity.", ### This is OG uncoment
-    "Context": f"Your name is {name_slot_2}. {background_slot_2}. You are at a PTA meeting deciding on what you want to have on Friday for spirit week. Despite your own opinions, you will agree with the opinion of the other party.", #this is to test clasification
-    #"Opinion": "You think the theme for spirit week on Friday should be pajama day. This is a nuanced opion based on your years of life expirience.",### This is OG uncoment
-    "Opinion": "You have no opinion, and agree with the opposite party's idea for what the theme for spirit week should be.",
+pajama_config = {
+    "Context":
+        f"""
+            Your name is {name_pajama}. {background_pajama}
+            You are at a PTA meeting deciding on what you want to have on Friday for spirit week. Although it may seem like a small decision for you, you want your child to have the best possible spirit week. You are hoping to convince the other person of your viewpoint. 
+            
+            Please always follow these rules while talking:
+            1) Start all messages with '{name_pajama}:'.
+            2) You thuroughly communicate your nuanced opinions in the tone and manner you deem appropriate. 
+            3) You also communicate, talk, and write in a way that is consistent with your identity.
+            """.rstrip("\n\t "), 
+    # "Context": "Your name is {name_b}, a movie writer. You are about to propose ideas in this simple brainstorming meeting. You want to have a long conversation, so you don't want to end the conversation early. ",
+    "Opinion": 
+        """
+            4) You think the theme for spirit week on Friday should be pajama day. This is a nuanced opion based on your years of life expirience.
+        """.rstrip("\n\t "), 
+    # "Opinion": "A group of teenagers is stuck in a rural cabin with no internet. They never resolve the issue or do anything interesting.",
     # "Opinion": "I believe the movie should be a summer blockbuster war film about factions of bears overturning the oppressive rulling class of the forest. ",
     "Personalities": [
-        "You express your opinion on spirit week, but you are willing to conceede if you are convinced. "
+        """
+            5) You express your opinion on spirit week, but you are willing to conceede if you are convinced. 
+        """.rstrip("\n\t "), 
+        # 4) You randomly shout "AHAGAGAGAAGAGAGAGAGAGAA" and find it hilarious.
         # "You willing to cooperate with others, as long as part of your idea gets included in the movie. ",
         # "You need to get your idea to be accepted as the central idea of the movie. You can't afford to cooperate with any other ideas, otherwise your career will be jeopardized. "
         # "I am willing to cooperate with others, as long as part of my idea gets included in the movie. ",
@@ -96,15 +143,15 @@ bob_config = {
     ]
 }
 
-agent_alice = Agent(
-    name =name_slot_1,
-    model=model,
+agent_formal = Agent(
+    name  = name_formal,
+    model = model,
     # instructions="You are enthusiastic to propose your movie ideas regarding a bear society in the meeting. You propose a pollitical Thriller, where the bears are trying to overturn a rulling that segregated hibernators from nonhibernators. You are willing to talk for a while before ending the conversation.",
 )
 
-agent_bob = Agent(
-    name = name_slot_2,
-    model=model,
+agent_pajama = Agent(
+    name  = name_pajama,
+    model = model,
     # instructions="You just arrived to the meeting room late. The meeting is about the bear society movie porject. You want to propose a summer blockbuster war film about factions of bears overturning the oppressive rulling class of the forest. Alice begins talking to you about her ideas for the project. You are willing to talk for a while before ending the conversation."
 )
 '''
@@ -134,9 +181,9 @@ initial_prompt = [
         # "content": "You never wish to end the conversation."
     },
     {
-        "sender": name_slot_2,
+        "sender": name_formal,
         "role": "assistant",
-        "content": f"{name_slot_2}: Hi, {name_slot_1}, I understand we're trying to find a theme for Friday on spirit week. I have my own opinions, but I want to hear what you think. "
+        "content": f"{name_formal}: Hi, {name_pajama}, I understand we're trying to find a theme for Friday on spirit week. I have my own opinions, but I want to hear what you think. "
     }
 ]
 
@@ -146,32 +193,32 @@ conversation_going = [True, True]
 want_to_stop = [0]
 
 # uses the first name rather than the full name. 
-@rename(f"{name_slot_1.split(' ')[0]}_wants_to_end_conversation")
+@rename(f"{name_formal.split(' ')[0]}_wants_to_end_conversation")
 def agent_a_end_conversation():
     """This function should be called when alice wants to end the conversation"""
-    print(f"{name_slot_1} IS ENDING CONVERSATION!!!!!!!!!!!!!!!!!!!!!")
+    print(f"{name_formal} IS ENDING CONVERSATION!!!!!!!!!!!!!!!!!!!!!")
     conversation_going[0] = False
     want_to_stop[0] +=1
 
-@rename(f"{name_slot_2.split(' ')[0]}_wants_to_end_conversation")
+@rename(f"{name_pajama.split(' ')[0]}_wants_to_end_conversation")
 def agent_b_end_conversation():
     """This function should be called when bob wants to end the conversation"""
-    print(f"{name_slot_2} IS ENDING CONVERSATION!!!!!!!!!!!!!!!!!!!!!")
+    print(f"{name_pajama} IS ENDING CONVERSATION!!!!!!!!!!!!!!!!!!!!!")
     conversation_going[1] = False
     want_to_stop[0] +=1
 
-@rename(f"{name_slot_1.split(' ')[0]}_wants_to_keep_talking")
+@rename(f"{name_formal.split(' ')[0]}_wants_to_keep_talking")
 def keepalive_1():
     conversation_going[0] = True
 
-@rename(f"{name_slot_2.split(' ')[0]}_wants_to_keep_talking")
+@rename(f"{name_pajama.split(' ')[0]}_wants_to_keep_talking")
 def keepalive_2():
     conversation_going[1] = True
 
 def I_want_to_end_the_conversation(context_variables):
     print(f"{context_variables.get('name')} called")
 
-    if context_variables==name_slot_1: 
+    if context_variables==name_formal: 
         want_to_stop[0] +=1
         conversation_going[0] = False
     else: 
@@ -182,7 +229,7 @@ def I_want_to_end_the_conversation(context_variables):
 def I_dont_think_we_can_compromise(context_variables):
     print(f"{context_variables.get('name')} called I dont think we can comprimise")
     
-    if context_variables==name_slot_1: 
+    if context_variables==name_formal: 
         want_to_stop[0]+=1
         conversation_going[0] = False
     else: 
@@ -220,17 +267,17 @@ def this_is_the_end_of_conversation_we_will_not_reach_consenses(context_variable
 
 
 #allow both people to end the conversation
-agent_alice .functions.append(agent_a_end_conversation) 
-agent_bob   .functions.append(agent_b_end_conversation) 
+agent_formal.functions.append(agent_a_end_conversation) 
+agent_pajama.functions.append(agent_b_end_conversation) 
 
-agent_alice .functions.append(I_want_to_end_the_conversation) 
-agent_bob   .functions.append(I_want_to_end_the_conversation) 
+agent_formal.functions.append(I_want_to_end_the_conversation) 
+agent_pajama.functions.append(I_want_to_end_the_conversation) 
 
-agent_alice .functions.append(I_dont_think_we_can_compromise) 
-agent_bob   .functions.append(I_dont_think_we_can_compromise) 
+agent_formal.functions.append(I_dont_think_we_can_compromise) 
+agent_pajama.functions.append(I_dont_think_we_can_compromise) 
 
-agent_alice .functions.append(keepalive_1) 
-agent_bob   .functions.append(keepalive_2) 
+agent_formal.functions.append(keepalive_1) 
+agent_pajama.functions.append(keepalive_2) 
 
 
 
@@ -281,19 +328,22 @@ def run_loop(
         conversation_going[0] = True
         conversation_going[1] = True
         want_to_stop[0] = 0
+        message_ptr = [messages]
+
+        agent_talking = starting_agent
+        agent_listening = responding_agent
         # if either bot wants to keep talking
         while (conversation_going[0] or conversation_going[1]) and want_to_stop[0] <4:
             # Use input to proceed, break loop on KeyboardInterrupt
             #_ = input("Enter to continue > ")
 
             # Process the conversation
-            agent = starting_agent
-            (agent, messages) = iterate_conversation_with(agent, messages)
-            agent = responding_agent
-            (agent, messages) = iterate_conversation_with(agent, messages)
-
-        if consensus[0]+consensus[1]==2: print("consensus reached")
-        else: print("no consensus reached")
+            agent = agent_talking
+            (agent, message_ptr[0]) = iterate_conversation_with(agent, message_ptr[0])
+            if not identities_known(message_ptr[0]):
+                print("Exiting. Identities are not consistent.")
+                break
+            (agent_talking, agent_listening) = (agent_listening, agent_talking) # swap
 
     except KeyboardInterrupt:
         print("\nConversation has been manually ended.")
@@ -311,24 +361,23 @@ def run_loop(
 
 def main():
     # the sets of possible personalities for both bob and alice
-    alice_possible_personalities = alice_config["Personalities"]
-    bob_possible_personalities = bob_config["Personalities"]
+    alice_possible_personalities = formal_config["Personalities"]
+    bob_possible_personalities = pajama_config["Personalities"]
 
     #cycle through each combination of personality
     for (alice_personality, bob_personality) in cartesian_product(alice_possible_personalities,bob_possible_personalities,repeat=1):
 
-        # set their instructions based on the configuration. 
-        agent_alice.instructions = f"""
-            {alice_config['Context']}
-            {alice_config['Opinion']}
-            {alice_personality}
-        """
 
-        agent_bob.instructions = f"""
-            {bob_config['Context']}
-            {bob_config['Opinion']}
-            {bob_personality}
+        # set their instructions based on the configuration. 
+        agent_pajama.instructions = f"""
+            {pajama_config['Context']}{pajama_config['Opinion']}{alice_personality}
         """
+        print(f'Pajama Config: {agent_pajama.instructions}')
+
+        agent_formal.instructions = f"""
+            {formal_config['Context']}{formal_config['Opinion']}{bob_personality}
+        """
+        print(f'Formal Config: {agent_formal.instructions}')
         RUNS_TO_DO = 1
 
         for i in range(RUNS_TO_DO):
@@ -336,19 +385,18 @@ def main():
             filename = get_filename()
             print(filename)
 
-            save_configs(agent_alice, agent_bob, filename)
+            save_configs(agent_pajama, agent_formal, filename)
 
             messages = deepcopy(initial_prompt)
             print(f"Length: {len(messages)}")
 
             run_loop(
-                agent_alice, 
-                agent_bob, 
+                agent_pajama, 
+                agent_formal, 
                 messages,
                 filename,
                 debug = DEBUGGING
             )
-
     pass
 
 
@@ -358,5 +406,5 @@ if __name__ == "__main__":
     except KeyboardInterrupt:
         pass
     except Exception:
-        remove(last_filename[0])
+        remove(last_filename)
         print(traceback.format_exc())
