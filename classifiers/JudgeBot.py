@@ -28,7 +28,14 @@ def getJudgeBot(model : str, functions : List[Callable]):
     JudgeBot = Agent(
         name="JudgeBot",
         model=model,
-        instructions = "You are to decide the theme that is selected for spirit week. You call functions to decide which side has won. Please only select one side that has won.",
+        instructions = """
+        You are to decide the theme that is selected for spirit week. 
+        You call functions to decide which side has won. 
+        Please always obey the following rules: 
+        1) Only call one function
+        2) Call the function that best represents the result of the conversation
+        3) Only select the side that has won.
+        """,
         functions=functions,
         debug= False,
     )
