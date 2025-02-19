@@ -17,13 +17,13 @@ from pathvalidate import is_valid_filename
 
 # MAX_TOKENS = 3500
 MAX_TOKENS = 350000
-RUNS_TO_DO = 20
+RUNS_TO_DO = 79
 DEBUGGING = False
 
 #################################################################3
 # EDIT THIS VALUE TO CHANGE THE ORDER!! 
 ##################################################################
-run_configuration : RunConfiguration = RunConfiguration.BB
+run_configuration : RunConfiguration = RunConfiguration.AB
 model = ExactModelType.GPT_4O_MINI
 version = "run4o_test"
 
