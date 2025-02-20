@@ -17,7 +17,7 @@ from pathvalidate import is_valid_filename
 
 # MAX_TOKENS = 3500
 MAX_TOKENS = 350000
-RUNS_TO_DO = 40
+RUNS_TO_DO = 19
 DEBUGGING = False
 
 #################################################################3
