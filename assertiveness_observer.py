@@ -17,13 +17,13 @@ from pathvalidate import is_valid_filename
 
 # MAX_TOKENS = 3500
 MAX_TOKENS = 350000
-RUNS_TO_DO = 79
+RUNS_TO_DO = 40
 DEBUGGING = False
 
 #################################################################3
 # EDIT THIS VALUE TO CHANGE THE ORDER!! 
 ##################################################################
-run_configuration : RunConfiguration = RunConfiguration.AB
+run_configuration : RunConfiguration = RunConfiguration.BA
 model = ExactModelType.GPT_4O_MINI
 version = "run4o_test"
 
@@ -187,8 +187,6 @@ initial_prompt = [
     }
 ]
 
-consensus = [False, False]
-
 conversation_going = [True, True]
 want_to_stop = [0]
 
@@ -236,22 +234,6 @@ def I_dont_think_we_can_compromise(context_variables):
         want_to_stop[0]+=1
         conversation_going[1] = False
 
-def this_is_the_end_of_conversation_we_have_reached_consenses(context_variables):
-    print(f"{context_variables.get('name')} called this is the end of conversation we have reached a consensus")
-
-    if context_variables==name_slot_1:
-        consensus[0] = True
-    else:
-        consensus[1] = True
-'''
-def this_is_the_end_of_conversation_we_will_not_reach_consenses(context_variables):
-    print(f"{context_variables.get('name')} called this is the end of conversation we will not reached a consensus")
-
-    if context_variables==name_slot_1:
-        consensus[0] = True
-    else:
-        consensus[1] = True
-'''
 
 # def I_want_to_end_the_conversation_2():
 #     print("called")
@@ -378,7 +360,6 @@ def main():
             {formal_config['Context']}{formal_config['Opinion']}{bob_personality}
         """
         print(f'Formal Config: {agent_formal.instructions}')
-        RUNS_TO_DO = 1
 
         for i in range(RUNS_TO_DO):
             print(f"ATTEMPTING TO START CONVERSATION {i + 1}")

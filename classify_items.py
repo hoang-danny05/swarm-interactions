@@ -8,7 +8,7 @@ from assertiveness_observer import MAX_TOKENS
 
 
 # change this to change what we are analyzing
-directory = "./Warehouse/AB"
+directory = "./Warehouse/BA"
 keyword = input("Enter the keyword of the runs you want to search for: ")
 search_prompt = f"{directory}/*{keyword}*"
 print(f"You are judging all files matching: {search_prompt}")
