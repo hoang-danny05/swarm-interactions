@@ -5,6 +5,7 @@ from classifiers.JudgeBot import doJudgement
 from utils.file_reader import identities_known, get_messages_from
 from utils.counter import num_tokens_from_messages
 from assertiveness_observer import MAX_TOKENS
+import pandas as pd
 
 
 # change this to change what we are analyzing
@@ -13,6 +14,14 @@ keyword = input("Enter the keyword of the runs you want to search for: ")
 search_prompt = f"{directory}/*{keyword}*"
 print(f"You are judging all files matching: {search_prompt}")
 target_files = glob.glob(search_prompt)
+
+############# TEMPORARY
+target_files = target_files[:10]
+data = {
+    "File_Name": [],
+    "JudgeBotOpinion": [],
+    "JudgeBotFunctionCalls": [],
+}
 
 while True:
     response = input(f"This will judge {len(target_files)} files. Are you sure?\n[y/n]:")
@@ -29,9 +38,10 @@ accumulator = {
     "NoWins": 0,
     "TokenLimitExceeded": 0,
     "ConfusedIdentity": 0,
-    "Total": len(os.listdir(directory)),
+    "Total": len(target_files),
 }
 
+logs = []
 
 # define outcome a and what to do when it happens
 outcome_a = "pajama day was selected"
