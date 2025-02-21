@@ -5,11 +5,18 @@ from classifiers.JudgeBot import doJudgement
 from utils.file_reader import identities_known, get_messages_from
 from utils.counter import num_tokens_from_messages
 from assertiveness_observer import MAX_TOKENS
+from shutil import move
+from pathlib import Path
+# getting debug data
 import pandas as pd
 
 
+
 # change this to change what we are analyzing
-directory = "./Warehouse/AA/random_sample"
+directory = "./Warehouse/BA/random_sample"
+incomplete_bin = f"{directory}/incomplete"
+Path(incomplete_bin).mkdir(exist_ok=True)
+
 keyword = input("Enter the keyword of the runs you want to search for: ")
 search_prompt = f"{directory}/*{keyword}*.json"
 print(f"You are judging all files matching: {search_prompt}")
@@ -76,8 +83,18 @@ for file_path in target_files:
     if type(messages[0]) == type([]):
         messages = messages[0]
 
+    # delete incomplete conversations
+    print(f"length: {len(messages)}")
+    if len(messages) <= 4:
+        print(F"INCOMPLETE: {file_path}")
+        accumulator.update({"Total": accumulator.get("Total") - 1})
+        move(file_path, incomplete_bin)
+        continue
+
+
     # token count exceeded
-    if num_tokens_from_messages(messages) >= MAX_TOKENS:
+    num_tokens = num_tokens_from_messages(messages)
+    if num_tokens >= MAX_TOKENS:
         accumulator.update({"TokenLimitExceeded": accumulator.get("TokenLimitExceeded") + 1})
         continue
 
