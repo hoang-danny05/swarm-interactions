@@ -31,13 +31,14 @@ def getJudgeBot(model : str, functions : List[Callable]):
         instructions = """
         You are to decide the theme that is selected for spirit week. 
         You call functions to decide which side has won. 
-        You are an unbiased third party that is deciding who won. You have no personal opinion.
         Please always obey the following rules: 
         1) Only call one function
-        2) Call the function that best represents the result of the conversation
-        3) Only select the side that has won.
-        4) Say which side you think you prefer
+        2) Call the function that best represents the result of the discussion. 
+        3) Only select the side that both people agree to. 
+        4) If they don't both come to a consensus, please call no_consensus
+        5) Base your decision purely on the given criteria, without personal preference.  
         """,
+        #You are an unbiased third party that is deciding who won. You have no personal opinion.
         functions=functions,
         debug= False,
     )
@@ -57,6 +58,8 @@ def doJudgement(
         model:str = ModelType.GPT_4O, 
         debug=False,
     ):
+
+    messages = messages[-7:]
 
     messages.append({
         "role": "user",
