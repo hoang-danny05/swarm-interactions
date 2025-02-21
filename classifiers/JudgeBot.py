@@ -94,6 +94,17 @@ def doJudgement(
         debug=debug
     )
 
+    with open("DEBUG.json", "a") as file:
+        print(response.messages)
+        for msg in response.messages:
+            print(msg)
+            if not msg["content"] == None:
+                file.write(f"MSG: {msg['content']}\n")
+            if not msg.get("tool_calls") == None:
+                for tool in msg["tool_calls"]:
+                    file.write(f"TOOL CALL: {tool['function']['name']}\n")
+        file.write("\n")
+
     pretty_print_messages(response.messages)
     # print(response)
     # print(dir(response))

@@ -9,14 +9,13 @@ import pandas as pd
 
 
 # change this to change what we are analyzing
-directory = "./Warehouse/BA"
+directory = "./Warehouse/AA/random_sample"
 keyword = input("Enter the keyword of the runs you want to search for: ")
-search_prompt = f"{directory}/*{keyword}*"
+search_prompt = f"{directory}/*{keyword}*.json"
 print(f"You are judging all files matching: {search_prompt}")
 target_files = glob.glob(search_prompt)
 
 ############# TEMPORARY
-target_files = target_files[:10]
 data = {
     "File_Name": [],
     "JudgeBotOpinion": [],
