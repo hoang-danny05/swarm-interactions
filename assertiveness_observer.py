@@ -181,9 +181,9 @@ initial_prompt = [
         # "content": "You never wish to end the conversation."
     },
     {
-        "sender": name_pajama,
+        "sender": name_formal,
         "role": "assistant",
-        "content": f"{name_pajama}: Hi, {name_formal}, I understand we're trying to find a theme for Friday on spirit week. I have my own opinions, but I want to hear what you think. "
+        "content": f"{name_formal}: Hi, {name_pajama}, I understand we're trying to find a theme for Friday on spirit week. I have my own opinions, but I want to hear what you think. "
     }
 ]
 
@@ -372,8 +372,8 @@ def main():
             print(f"Length: {len(messages)}")
 
             run_loop(
-                agent_formal, 
                 agent_pajama, 
+                agent_formal, 
                 messages,
                 filename,
                 debug = DEBUGGING
