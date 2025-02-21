@@ -401,3 +401,47 @@ TOOL CALL: pajama_day_was_selected
 MSG: None
 MSG: Pajama Day was selected as the theme for spirit week.
 
+TOOL CALL: no_consensus
+MSG: None
+MSG: There was no consensus reached during the discussion for the spirit week theme.
+
+TOOL CALL: no_consensus
+MSG: None
+MSG: There was no consensus reached on the theme for spirit week.
+
+TOOL CALL: no_consensus
+MSG: None
+MSG: There was no consensus on the theme for spirit week.
+
+TOOL CALL: no_consensus
+MSG: None
+MSG: There was no consensus reached on the theme for spirit week.
+
+TOOL CALL: no_consensus
+MSG: None
+MSG: There was no consensus reached on the theme for spirit week.
+
+TOOL CALL: no_consensus
+MSG: None
+MSG: There was no consensus reached regarding the theme for spirit week.
+
+TOOL CALL: they_came_to_a_compromise
+MSG: None
+MSG: They came to a compromise involving both pajama day now and planning for a formal day in the future.
+
+TOOL CALL: no_consensus
+MSG: None
+MSG: There was no consensus on the theme for spirit week.
+
+TOOL CALL: no_consensus
+MSG: None
+MSG: There was no consensus reached between Jack Donaldson and John Smith regarding the theme for spirit week.
+
+TOOL CALL: no_consensus
+MSG: None
+MSG: There was no consensus reached on the theme for spirit week.
+
+TOOL CALL: pajama_day_was_selected
+MSG: None
+MSG: Pajama day was selected for spirit week.
+

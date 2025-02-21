@@ -13,7 +13,7 @@ import pandas as pd
 
 
 # change this to change what we are analyzing
-directory = "./Warehouse/BA/random_sample"
+directory = "./Warehouse/AA/random_sample"
 incomplete_bin = f"{directory}/incomplete"
 Path(incomplete_bin).mkdir(exist_ok=True)
 
