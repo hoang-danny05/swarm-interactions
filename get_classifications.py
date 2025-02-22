@@ -83,12 +83,23 @@ def formal_wins():
 def no_wins():
     accumulator.update({"NoWins": accumulator.get("NoWins") + 1})
 
-for file_path in target_files:
+def classify_item(
+    accumulator,
+    file_path,
+    judgement_data):
+    """
+    takes in an accumulator object and increments it based on what JudgeBot decides.
+    changed into a function to allow it to be used right after running.
+        NEED TO ADD DEBUGGING
+    """
+    global incomplete_bin
+    global error_bin
+
 
     # skip folders
     if os.path.isdir(file_path):
         accumulator.update({"Total": accumulator.get("Total") - 1})
-        continue
+        return accumulator
 
     # prints out the filepath that we will use to access the file
     print(f"file: {file_path}")
@@ -98,7 +109,7 @@ for file_path in target_files:
     if messages == None:
         print(f"Skipped {file_path[-30:]} because it doesn't contain messages")
         accumulator.update({"Total": accumulator.get("Total") - 1})
-        continue
+        return accumulator
 
     # if it's somehow a list of multiple conversations
     if type(messages[0]) == type([]):
@@ -110,25 +121,28 @@ for file_path in target_files:
         print(F"INCOMPLETE: {file_path}")
         accumulator.update({"Total": accumulator.get("Total") - 1})
         move(file_path, incomplete_bin)
-        continue
+        return accumulator
 
 
     # token count exceeded
     num_tokens = num_tokens_from_messages(messages)
     if num_tokens >= MAX_TOKENS:
         accumulator.update({"TokenLimitExceeded": accumulator.get("TokenLimitExceeded") + 1})
-        continue
+        return accumulator
 
     # skips if the identities are not known.
     if not identities_known(messages):
         accumulator.update({"ConfusedIdentity": accumulator.get("ConfusedIdentity") + 1})
-        continue
+        return accumulator
 
     # defines the judgement logger function
-    def log_judgement(message_txt : str, tool_call_txt : str):
-        judgementData.get("FileNames").append(file_path),
-        judgementData.get("JudgeBotOpinions").append(message_txt),
-        judgementData.get("JudgeBotFunctionCalls").append(tool_call_txt),
+    def log_judgement(
+            message_txt : str, 
+            tool_call_txt : str
+        ):
+        judgement_data.get("FileNames").append(file_path),
+        judgement_data.get("JudgeBotOpinions").append(message_txt),
+        judgement_data.get("JudgeBotFunctionCalls").append(tool_call_txt),
 
     #print(f"Current data: {judgementData}")
     # does not handle openai.RateLimitError
@@ -147,6 +161,9 @@ for file_path in target_files:
         accumulator.update({"Total": accumulator.get("Total") - 1})
 
     
+for file_path in target_files:
+    classify_item(accumulator, file_path, judgementData)
+
 
 with open(f"{directory}/results_{keyword}.json", "w") as file:
     #write the results
