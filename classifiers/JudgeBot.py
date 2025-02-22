@@ -55,6 +55,7 @@ def doJudgement(
         on_outcome_a : Callable = None,
         on_outcome_b : Callable = None,
         on_neutral_outcome : Callable = None,
+        judgement_logger : Callable = None, # (message, tool_calls) -> void
         model:str = ModelType.GPT_4O, 
         debug=False,
     ):
@@ -99,17 +100,19 @@ def doJudgement(
         debug=debug
     )
 
-    # debug here
-    with open("DEBUG.json", "a") as file:
-        #print(response.messages)
-        for msg in response.messages:
-            # print(msg)
-            if not msg["content"] == None:
-                file.write(f"MSG: {msg['content']}\n")
-            if not msg.get("tool_calls") == None:
-                for tool in msg["tool_calls"]:
-                    file.write(f"TOOL CALL: {tool['function']['name']}\n")
-        file.write("\n")
+    
+    messages = []
+    tool_calls = []
+    for msg in response.messages:
+        # print(msg)
+        if not msg["content"] == None:
+            messages.append(f"MSG: {msg['content']}\n")
+        if not msg.get("tool_calls") == None:
+            for tool in msg["tool_calls"]:
+                tool_calls.append(f"{tool['function']['name']}, ")
+    message_txt = "\n".join(messages)
+    tool_text = ", ".join(tool_calls)
+    judgement_logger(message_txt, tool_text)
 
     pretty_print_messages(response.messages)
     # print(response)
