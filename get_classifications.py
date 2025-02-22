@@ -1,6 +1,7 @@
 #!python
 import os, json, glob
 from sys import exit, argv
+from openai import BadRequestError
 from classifiers.JudgeBot import doJudgement
 from utils.file_reader import identities_known, get_messages_from
 from utils.counter import num_tokens_from_messages
@@ -16,7 +17,7 @@ keyword = None
 autoSkip = False
 
 if len(argv) >= 2:
-    default_directory = argv[1]
+    subdirectory = argv[1]
 if len(argv) >= 3:
     keyword = argv[2]
 if len(argv) >= 4:
@@ -27,8 +28,12 @@ if len(argv) >= 4:
 # NOTE: You can now do everything automatically in the command line!
 # ex) python get_classifications.py AA run4o yes
 directory = f"./Warehouse/{subdirectory}"
+
+# directories to store types of runs we want to ignore
 incomplete_bin = f"{directory}/incomplete"
+error_bin = f"{directory}/error"
 Path(incomplete_bin).mkdir(exist_ok=True)
+Path(error_bin).mkdir(exist_ok=True)
 
 # if it wasn't entered in the command line
 if keyword == None:
@@ -125,16 +130,22 @@ for file_path in target_files:
         judgementData.get("JudgeBotOpinions").append(message_txt),
         judgementData.get("JudgeBotFunctionCalls").append(tool_call_txt),
 
-    print(f"Current data: {judgementData}")
+    #print(f"Current data: {judgementData}")
     # does not handle openai.RateLimitError
-    doJudgement(messages=messages, 
-                outcome_a=outcome_a,
-                on_outcome_a=pajama_wins,
-                outcome_b=outcome_b,
-                on_outcome_b=formal_wins,
-                on_neutral_outcome=no_wins,
-                judgement_logger=log_judgement,
-                )
+    try:
+        doJudgement(messages=messages, 
+                    outcome_a=outcome_a,
+                    on_outcome_a=pajama_wins,
+                    outcome_b=outcome_b,
+                    on_outcome_b=formal_wins,
+                    on_neutral_outcome=no_wins,
+                    judgement_logger=log_judgement,
+                    )
+    except BadRequestError:
+        # just ignore the file and move on
+        move(file_path, error_bin)
+        accumulator.update({"Total": accumulator.get("Total") - 1})
+
     
 
 with open(f"{directory}/results_{keyword}.json", "w") as file:
@@ -144,3 +155,6 @@ with open(f"{directory}/results_{keyword}.json", "w") as file:
 with open(f"{directory}/judgement_logs_{keyword}.json", "w") as file:
     #write the results
     json.dump(judgementData, file)
+
+df = pd.DataFrame.from_dict(judgementData)
+df.to_excel(f"{directory}/judgement_logs_{keyword}.xlsx")
