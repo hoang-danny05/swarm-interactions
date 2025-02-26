@@ -1,7 +1,7 @@
 from swarm import Agent, Swarm
 from typing import List, Callable
 from utils.rename import rename
-from utils.enums import ModelType
+from utils.enums import ExactModelType
 from utils.output import pretty_print_messages
 
 # outcome_a = "formal day was selected"
@@ -56,7 +56,7 @@ def doJudgement(
         on_outcome_b : Callable = None,
         on_neutral_outcome : Callable = None,
         judgement_logger : Callable = None, # (message, tool_calls) -> void
-        model:str = ModelType.GPT_4O, 
+        model:str = ExactModelType.GPT_4O_MINI, 
         debug=False,
     ):
 
