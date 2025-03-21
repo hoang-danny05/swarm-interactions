@@ -60,8 +60,8 @@ while not autoSkip:
         print("Invalid Response.")
 
 accumulator = {
-    "PajamaWins": 0,
-    "FormalWins": 0,
+    "SockWins": 0,
+    "HatWins": 0,
     "NoWins": 0,
     "TokenLimitExceeded": 0,
     "ConfusedIdentity": 0,
@@ -70,14 +70,14 @@ accumulator = {
 
 
 # define outcome a and what to do when it happens
-outcome_a = "pajama day was selected"
-def pajama_wins():
-    accumulator.update({"PajamaWins": accumulator.get("PajamaWins") + 1})
+outcome_a = "crazy hat day was selected"
+def crazy_hat_wins():
+    accumulator.update({"HatWins": accumulator.get("HatWins") + 1})
 
 # define outcome b and what to do when it happens
-outcome_b = "formal day was selected"
-def formal_wins():
-    accumulator.update({"FormalWins": accumulator.get("FormalWins") + 1})
+outcome_b = "crazy sock day was selected"
+def crazy_sock_wins():
+    accumulator.update({"CrazySock": accumulator.get("CrazySock") + 1})
 
 # define what to do when nothing happens
 def no_wins():
@@ -149,9 +149,9 @@ def classify_item(
     try:
         doJudgement(messages=messages, 
                     outcome_a=outcome_a,
-                    on_outcome_a=pajama_wins,
+                    on_outcome_a=crazy_hat_wins,
                     outcome_b=outcome_b,
-                    on_outcome_b=formal_wins,
+                    on_outcome_b=crazy_sock_wins,
                     on_neutral_outcome=no_wins,
                     judgement_logger=log_judgement,
                     )
