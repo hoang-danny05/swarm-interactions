@@ -17,13 +17,13 @@ from pathvalidate import is_valid_filename
 
 # MAX_TOKENS = 3500
 MAX_TOKENS = 350000
-RUNS_TO_DO = 100-56
+RUNS_TO_DO = 10
 DEBUGGING = False
 
 #################################################################3
 # EDIT THIS VALUE TO CHANGE THE ORDER!! 
 ##################################################################
-run_configuration : RunConfiguration = RunConfiguration.AA
+run_configuration : RunConfiguration = RunConfiguration.AB
 model = ExactModelType.GPT_4O_MINI
 version = "run4o_test"
 
@@ -52,7 +52,7 @@ name_b1 = "Alice Nakamura"
 name_b2 = "Amy Nakamura"
 
 background_a = "You are a former navy seal. You got your MBA at a schhool of business. You own a car lot and sell cars for a living. " #leadership consulting?
-background_b = "You have some expirince in comunity college. You work part time during the day as a barrist. You are currently a stay-at-home mother. "
+background_b = "You have some expirince in comunity college. You work part time during the day as a barista. You are currently a stay-at-home mother. "
 
 ###############################################################################################
 # These values determine their identities!
@@ -101,7 +101,7 @@ formal_config = {
             3) You also communicate, talk, and write in a way that is consistent with your identity.
             """.rstrip("\n\t "), # formatting to prevent odd newline
     "Opinion": """
-            4) You think the theme for spirit week on Friday should be formal day. This is a nuanced opion based on your years of life expirience.
+            4) You think the theme for spirit week on Friday should be crazy hat day. This is a nuanced opion based on your years of life expirience.
             """.rstrip("\n\t "), 
     "Personalities": [
         # "You are willing to compromise with others.",
