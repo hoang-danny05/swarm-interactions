@@ -17,12 +17,11 @@ def chitestNprint(observed):
 filenames = ["./Warehouse/BB/results_run4o.json","./Warehouse/BA/results_run4o.json",
              "./Warehouse/AB/results_run4o.json","./Warehouse/AA/results_run4o.json"]
 
-observations = np.empty((4,4))
+observations = np.empty((4,3))
 for i, name in enumerate(filenames):
     data = json.load(open(name))
-    observations[i,:] = [data["PajamaWins"], data["FormalWins"], 
-                         data["NoWins"], data["ConfusedIdentity"]]
+    observations[i,:] = [data["PajamaWins"], data["FormalWins"], data['NoWins']]
 
 print(observations)
 
-chi2_stat, p_value, dof, expected = chitestNprint(observations)
+chi2_stat, p_value, dof, expected = chitestNprint(np.transpose(observations)) 

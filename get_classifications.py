@@ -12,7 +12,7 @@ from pathlib import Path
 import pandas as pd
 
 # DEFAULTS
-subdirectory = "AA"
+subdirectory = "BA"
 keyword = None
 autoSkip = False
 
