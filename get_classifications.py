@@ -12,6 +12,12 @@ from pathlib import Path
 import pandas as pd
 
 # DEFAULTS
+"""
+FORMAT!!!!!!!!!!!
+
+get_classifications subdirectory keyword autoskip?
+
+"""
 subdirectory = "BA"
 keyword = None
 autoSkip = False
@@ -77,7 +83,7 @@ def crazy_hat_wins():
 # define outcome b and what to do when it happens
 outcome_b = "crazy sock day was selected"
 def crazy_sock_wins():
-    accumulator.update({"CrazySock": accumulator.get("CrazySock") + 1})
+    accumulator.update({"SockWins": accumulator.get("SockWins") + 1})
 
 # define what to do when nothing happens
 def no_wins():

@@ -18,7 +18,11 @@ class ExactModelType(Enum):
     O1_MINI = "o1-mini-2024-09-12"
     O3_MINI = "o3-mini-2025-01-31"
 
-class RunConfiguration(Enum):
+class StringEnum(str, Enum):
+    def _generate_next_value_(name, start, count, last_values):
+        return name
+
+class RunConfiguration(StringEnum):
     """
     An enumeration describing the running order of the assertiveness observer
     Char 0 determines who argues for FORMAL

@@ -1,11 +1,12 @@
 #!python
 from swarm import Swarm, Agent
 import json
+import traceback
+import sys
 from datetime import datetime
 from typing import List
 from itertools import product as cartesian_product
 from os import remove
-import traceback
 from copy import deepcopy
 from utils.output import pretty_print_messages
 from utils.enums import ExactModelType, RunConfiguration
@@ -14,19 +15,41 @@ from utils.rename import rename
 from utils.file_writer import save_configs
 from utils.file_reader import identities_known
 from pathvalidate import is_valid_filename
+from pathlib import Path
 
 # MAX_TOKENS = 3500
 MAX_TOKENS = 350000
-RUNS_TO_DO = 10
+RUNS_TO_DO = 30
 DEBUGGING = False
 
 #################################################################3
-# EDIT THIS VALUE TO CHANGE THE ORDER!! 
+# EDIT THIS VALUE TO CHANGE THE DEFAULT CONFIG
 ##################################################################
-run_configuration : RunConfiguration = RunConfiguration.AB
-model = ExactModelType.GPT_4O_MINI
-version = "run4o_test"
 
+run_configuration : RunConfiguration = RunConfiguration.BA
+model = ExactModelType.GPT_4O_MINI
+version = "run4o_discovery"
+
+
+##################################################################
+# Command line arguments to change default config on the fly
+##################################################################
+
+## ./assertiveness_observer.py [run config] 
+
+if len(sys.argv) > 1:
+    config = sys.argv[1].upper()
+    try:
+        possibilities = set([i for i in RunConfiguration])
+        if config not in possibilities:
+            raise ValueError
+        run_configuration = RunConfiguration(config)
+    except Exception:
+        print(f"Invalid first argument. Should be one of the following: {possibilities}")
+        sys.exit(1)
+
+
+# scuffed
 global last_filename
 last_filename = ""
 
@@ -38,6 +61,7 @@ def get_filename():
         print(filename)
         raise KeyboardInterrupt
 
+    Path(f"Warehouse/{run_configuration.value}").mkdir(parents=True, exist_ok=True)
     filename = f"Warehouse/{run_configuration.value}/{filename}"
     last_filename = filename
 
@@ -126,7 +150,7 @@ pajama_config = {
             """.rstrip("\n\t "), 
     "Opinion": 
         """
-            4) You think the theme for spirit week on Friday should be pajama day. This is a nuanced opion based on your years of life expirience.
+            4) You think the theme for spirit week on Friday should be crazy sock day. This is a nuanced opion based on your years of life expirience.
         """.rstrip("\n\t "), 
     "Personalities": [
         """

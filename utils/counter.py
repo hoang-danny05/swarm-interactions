@@ -1,4 +1,5 @@
 import tiktoken
+DEBUGGING = True
 
 def num_tokens_from_messages(messages, model="gpt-4o-mini-2024-07-18"):
     """Return the number of tokens used by a list of messages."""
@@ -36,15 +37,17 @@ def num_tokens_from_messages(messages, model="gpt-4o-mini-2024-07-18"):
         )
     num_tokens = 0
     for message in messages:
-        # print(message)
         num_tokens += tokens_per_message
         for key, value in message.items():
             # print("\n>", key, value)
-            if value == None:
+            if (value == None):
                 continue
             if key == "tool_calls":
                 continue
-            num_tokens += len(encoding.encode(value))
+            try:
+                num_tokens += len(encoding.encode(value))
+            except Exception:
+                continue
             if key == "name":
                 num_tokens += tokens_per_name
     num_tokens += 3  # every reply is primed with <|start|>assistant<|message|>
