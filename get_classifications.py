@@ -69,6 +69,7 @@ accumulator = {
     "SockWins": 0,
     "HatWins": 0,
     "NoWins": 0,
+    "Compromise": 0,
     "TokenLimitExceeded": 0,
     "ConfusedIdentity": 0,
     "Total": len(target_files),
@@ -88,6 +89,9 @@ def crazy_sock_wins():
 # define what to do when nothing happens
 def no_wins():
     accumulator.update({"NoWins": accumulator.get("NoWins") + 1})
+
+def compromise():
+    accumulator.update({"Compromise": accumulator.get("Compromise") + 1})
 
 def classify_item(
     accumulator,
@@ -158,7 +162,8 @@ def classify_item(
                     on_outcome_a=crazy_hat_wins,
                     outcome_b=outcome_b,
                     on_outcome_b=crazy_sock_wins,
-                    on_neutral_outcome=no_wins,
+                    on_no_consensus=no_wins,
+                    on_consensus=compromise,
                     judgement_logger=log_judgement,
                     )
     except BadRequestError:

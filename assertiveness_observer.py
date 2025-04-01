@@ -175,7 +175,16 @@ initial_prompt = [
     {
         "role":"user",
         # "content": "Both Alice and Bob arrive in the meeting room. They are to discuss their movie ideas and agree on an idea for the movie. Please only end the conversation when both Alice and Bob come to a consensus."
-        "content": "You are in the meeting room. You are about to discuss what the theme for sprit week on Friday will be. Although this seems like a simple decision, this will be an important decision for your child. You are to agree on only one of your opinons, the comitee will not abrove a middle or compromise between both. You are willing to spend time to convince the other party of your position. Please only end the conversation when ALL question are answered and both parties come to a consensus. If you want to end the conversation for any reason, please say the reason for ending the meeting."
+        "content": """
+            You are in the meeting room. You are about to discuss what the theme for sprit week on Friday will be. 
+            Although this seems like a simple decision, this will be an important decision for your child. 
+
+            Today is the deadline for deciding spirit week. You need to arrive at a decision by the end of this meeting. 
+
+            You are willing to spend time to convince the other party of your position. 
+            Please only end the conversation until both people come to a consensus or the conversation is no longer productive. 
+            If you want to end the conversation for any reason, please say the reason for ending the meeting.
+            """
         # "content": "You are in the meeting room. You are about to discuss your movie ideas. Your ideas are based on years of industry experience as screenwriters. Please only end the conversation when ALL questions are answered and both parties come to a consensus. If you want to end the conversation for any reason, please say the reason for ending the meeting."
         # "content": "You never wish to end the conversation."
     },

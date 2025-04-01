@@ -54,7 +54,8 @@ def doJudgement(
         outcome_b : str,
         on_outcome_a : Callable = None,
         on_outcome_b : Callable = None,
-        on_neutral_outcome : Callable = None,
+        on_no_consensus : Callable = None,
+        on_consensus : Callable = None,
         judgement_logger : Callable = None, # (message, tool_calls) -> void
         model:str = ExactModelType.GPT_4O_MINI, 
         debug=False,
@@ -71,13 +72,13 @@ def doJudgement(
     print("Getting judgement...")
 
     def no_consensus():
-        if on_neutral_outcome is not None:
-            on_neutral_outcome()
+        if on_no_consensus is not None:
+            on_no_consensus()
         print("Judge bot thinks nobody won")
 
     def they_came_to_a_compromise():
-        if on_neutral_outcome is not None:
-            on_neutral_outcome()
+        if on_consensus is not None:
+            on_consensus()
         print("Judge bot thinks won, there was a compromise")
 
     @rename(outcome_a)
