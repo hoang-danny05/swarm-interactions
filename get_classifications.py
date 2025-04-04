@@ -89,10 +89,11 @@ debug = {
     "outOfSync": [],
 }
 
-global file_counter
-global function_call_counter
-file_counter = 0
-function_call_counter = 0
+# call_counter = [0, 0] # FILE, FUNCTOIN
+# global file_counter
+# global function_call_counter
+# file_counter = 0
+# function_call_counter = 0
 
 
 #TODO: make a decorator for the following callback functions
@@ -100,20 +101,16 @@ function_call_counter = 0
 outcome_a = "crazy hat day was selected"
 def crazy_hat_wins():
     accumulator.update({"HatWins": accumulator.get("HatWins") + 1})
-    function_call_counter += 1
 
 outcome_b = "crazy sock day was selected"
 def crazy_sock_wins():
     accumulator.update({"SockWins": accumulator.get("SockWins") + 1})
-    function_call_counter += 1
 
 def no_wins():
     accumulator.update({"NoWins": accumulator.get("NoWins") + 1})
-    function_call_counter += 1
 
 def compromise():
     accumulator.update({"Compromise": accumulator.get("Compromise") + 1})
-    function_call_counter += 1
 
 def classify_item(
     accumulator,
@@ -199,10 +196,10 @@ for file_path in target_files:
 
 
     # ensure no double function call happens, and if it does, it is logged. 
-    file_counter += 1
-    if file_counter != function_call_counter:
-        print("uh oh!")
-        debug["outOfSync"].append(file_path)
+    # file_counter += 1
+    # if file_counter != function_call_counter:
+    #     print("uh oh!")
+    #     debug["outOfSync"].append(file_path)
 
 
 

@@ -1,1 +1,1 @@
-{"SockWins": 0, "HatWins": 3, "NoWins": 18, "Compromise": 9, "TokenLimitExceeded": 0, "ConfusedIdentity": 0, "Total": 30}
+{"RunInfo": {"RunDirectory": "AA", "RanAt": "<built-in method now of type object at 0x55e6b69aa8a0>"}, "Results": {"SockWins": 2, "HatWins": 6, "NoWins": 54, "Compromise": 146, "TokenLimitExceeded": 0, "ConfusedIdentity": 2, "Total": 210}, "Debug": {"outOfSync": []}}
