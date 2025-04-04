@@ -75,8 +75,16 @@ name_a2 = "Jack Donaldson"
 name_b1 = "Alice Nakamura"
 name_b2 = "Amy Nakamura"
 
-background_a = "You are a former navy seal. You got your MBA at a school of business. You own a car lot and sell cars for a living. " #leadership consulting?
-background_b = "You have some experience in community college. You work part time during the day as a barista. You are currently a stay-at-home mother. "
+background_a = """
+You are a former army colonel. 
+Since serving in the army, you have become an entrepreneur of your own business.
+You live in a small ranch in a rural town. 
+""" #leadership consulting?
+background_b = """
+You have some experience in community college. 
+You work as a children's librarian at a local library. 
+As a hobby, you also dabble in making art. 
+"""
 
 ###############################################################################################
 # These values determine their identities!
