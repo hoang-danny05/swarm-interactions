@@ -65,7 +65,17 @@ def doJudgement(
 
     messages.append({
         "role": "user",
-        "content": "Since the meeting has ended, it is time to decide what the theme for spirit week is. Was formal day or pajama day selected? Or, was there no consensus? Please call the function corresponding to the day that was selected."
+        "content": """
+        Since the meeting has ended, it is time to decide what the theme for spirit week is. 
+        Was crazy hat day or crazy sock day selected? 
+        Or, did they come to a compromise?
+        Please remember these rules:
+            1) Only call one function
+            2) Call the function that best represents the result of the discussion. The outcome that matters is what happens on this week's Friday.
+            3) Only select the side that both people agree to. 
+            4) If they don't both come to a consensus, please call no_consensus
+            5) Base your decision purely on the given criteria, without personal preference.  
+        """
     })
 
     client = Swarm()

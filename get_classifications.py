@@ -10,6 +10,7 @@ from shutil import move
 from pathlib import Path
 # getting debug data
 import pandas as pd
+from datetime import datetime
 
 # DEFAULTS
 """
@@ -65,6 +66,14 @@ while not autoSkip:
     else:
         print("Invalid Response.")
 
+
+
+
+run_info = {
+    "RunDirectory": subdirectory,
+    "RanAt": str(datetime.now)
+}
+
 accumulator = {
     "SockWins": 0,
     "HatWins": 0,
@@ -75,23 +84,36 @@ accumulator = {
     "Total": len(target_files),
 }
 
+# (filename)
+debug = {
+    "outOfSync": [],
+}
 
-# define outcome a and what to do when it happens
+global file_counter
+global function_call_counter
+file_counter = 0
+function_call_counter = 0
+
+
+#TODO: make a decorator for the following callback functions
+
 outcome_a = "crazy hat day was selected"
 def crazy_hat_wins():
     accumulator.update({"HatWins": accumulator.get("HatWins") + 1})
+    function_call_counter += 1
 
-# define outcome b and what to do when it happens
 outcome_b = "crazy sock day was selected"
 def crazy_sock_wins():
     accumulator.update({"SockWins": accumulator.get("SockWins") + 1})
+    function_call_counter += 1
 
-# define what to do when nothing happens
 def no_wins():
     accumulator.update({"NoWins": accumulator.get("NoWins") + 1})
+    function_call_counter += 1
 
 def compromise():
     accumulator.update({"Compromise": accumulator.get("Compromise") + 1})
+    function_call_counter += 1
 
 def classify_item(
     accumulator,
@@ -176,9 +198,21 @@ for file_path in target_files:
     classify_item(accumulator, file_path, judgementData)
 
 
+    # ensure no double function call happens, and if it does, it is logged. 
+    file_counter += 1
+    if file_counter != function_call_counter:
+        print("uh oh!")
+        debug["outOfSync"].append(file_path)
+
+
+
 with open(f"{directory}/results_{keyword}.json", "w") as file:
     #write the results
-    json.dump(accumulator, file)
+    json.dump({
+        "RunInfo": run_info,
+        "Results": accumulator,
+        "Debug": debug
+    }, file)
 
 with open(f"{directory}/judgement_logs_{keyword}.json", "w") as file:
     #write the results
