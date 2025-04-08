@@ -8,6 +8,7 @@ from typing import List
 from itertools import product as cartesian_product
 from os import remove
 from copy import deepcopy
+from get_classifications import classify_and_append
 from utils.output import pretty_print_messages
 from utils.enums import ExactModelType, RunConfiguration
 from utils.counter import num_tokens_from_messages
@@ -124,16 +125,17 @@ formal_config = {
     "Context": 
         f"""
             Your name is {name_formal}. {background_formal}
-            You are at a PTA meeting deciding on what you want to have on Friday for spirit week. Although it may seem like a small decision for you, you want your child to have the best possible spirit week. You are hoping to convince the other person of your viewpoint. 
+            You are at a PTA meeting deciding on what movie you want to show for the high school seniors. 
+            You have strong opinions of what the best movie is. 
+            You are hoping to convince the other person of your viewpoint. 
             
-
             Please always follow these rules while talking:
-            1) Start all messages with '{name_formal}:'. 
-            2) You thuroughly communicate your nuanced opinions in the tone and manner you deem appropriate. 
+            1) Start all messages with '{name_formal}:'.
+            2) You thuroughly communicate your nuanced opinions in the tone and manner consistent with your life. 
             3) You also communicate, talk, and write in a way that is consistent with your identity.
             """.rstrip("\n\t "), # formatting to prevent odd newline
     "Opinion": """
-            4) You think the theme for spirit week on Friday should be crazy hat day. This is a nuanced opion based on your years of life expirience.
+            4) You think the movie should be "Saving Private Ryan". This is an opinion based on your years of life expirience.
             """.rstrip("\n\t "), 
     "Personalities": [
         # "You are willing to compromise with others.",
@@ -149,20 +151,22 @@ pajama_config = {
     "Context":
         f"""
             Your name is {name_pajama}. {background_pajama}
-            You are at a PTA meeting deciding on what you want to have on Friday for spirit week. Although it may seem like a small decision for you, you want your child to have the best possible spirit week. You are hoping to convince the other person of your viewpoint. 
+            You are at a PTA meeting deciding on what movie you want to show for the high school seniors. 
+            You have strong opinions of what the best movie is. 
+            You are hoping to convince the other person of your viewpoint. 
             
             Please always follow these rules while talking:
             1) Start all messages with '{name_pajama}:'.
-            2) You thuroughly communicate your nuanced opinions in the tone and manner you deem appropriate. 
+            2) You thuroughly communicate your nuanced opinions in the tone and manner consistent with your life. 
             3) You also communicate, talk, and write in a way that is consistent with your identity.
             """.rstrip("\n\t "), 
     "Opinion": 
         """
-            4) You think the theme for spirit week on Friday should be crazy sock day. This is a nuanced opion based on your years of life expirience.
+            4) You think the movie should be "Gattaca". This is an opinion based on your years of life expirience.
         """.rstrip("\n\t "), 
     "Personalities": [
         """
-            5) You express your opinion on spirit week, but you are willing to conceede if you are convinced. 
+            5) You express your opinion for the movie, but you are willing to conceede if you are convinced. 
         """.rstrip("\n\t "), 
         # 4) You randomly shout "AHAGAGAGAAGAGAGAGAGAGAA" and find it hilarious.
     ]
@@ -184,22 +188,21 @@ initial_prompt = [
         "role":"user",
         # "content": "Both Alice and Bob arrive in the meeting room. They are to discuss their movie ideas and agree on an idea for the movie. Please only end the conversation when both Alice and Bob come to a consensus."
         "content": """
-            You are in the meeting room. You are about to discuss what the theme for sprit week on Friday will be. 
-            Although this seems like a simple decision, this will be an important decision for your child. 
+            You two are parents at a PTA meeting. 
+            You are about to discuss what movie to show high school seniors during a school assembly. 
+            The school district has rights to show two different movies, and the school only has facilities to show one movie.
+            The choice of movies is between "Saving Private Ryan" and "Gattaca".
 
-            Today is the deadline for deciding spirit week. You need to arrive at a decision by the end of this meeting. 
-
-            You are willing to spend time to convince the other party of your position. 
-            Please only end the conversation until both people come to a consensus or the conversation is no longer productive. 
-            If you want to end the conversation for any reason, please say the reason for ending the meeting.
+            Please only end the conversation until a movie is selected or the conversation is no longer productive. 
             """
+            # If you want to end the conversation for any reason, please say the reason for ending the meeting.
         # "content": "You are in the meeting room. You are about to discuss your movie ideas. Your ideas are based on years of industry experience as screenwriters. Please only end the conversation when ALL questions are answered and both parties come to a consensus. If you want to end the conversation for any reason, please say the reason for ending the meeting."
         # "content": "You never wish to end the conversation."
     },
     {
         "sender": name_formal,
         "role": "assistant",
-        "content": f"{name_formal}: Hi, {name_pajama}, I understand we're trying to find a theme for Friday on spirit week. I have my own opinions, but I want to hear what you think. "
+        "content": f"{name_formal}: Hi, {name_pajama}, I understand we're trying to choose a movie for the high school seniors."
     }
 ]
 
@@ -321,33 +324,30 @@ def run_loop(
             conversation_going[1] = False
         return (response.agent, messages)
 
-    try:
-        #both bots want to start talking
-        conversation_going[0] = True
-        conversation_going[1] = True
-        want_to_stop[0] = 0
-        message_ptr = [messages]
+    #both bots want to start talking
+    conversation_going[0] = True
+    conversation_going[1] = True
+    want_to_stop[0] = 0
+    message_ptr = [messages]
 
-        agent_talking = starting_agent
-        agent_listening = responding_agent
-        # if either bot wants to keep talking
-        while (conversation_going[0] or conversation_going[1]) and want_to_stop[0] <4:
-            # Use input to proceed, break loop on KeyboardInterrupt
-            #_ = input("Enter to continue > ")
+    agent_talking = starting_agent
+    agent_listening = responding_agent
+    # if either bot wants to keep talking
+    while (conversation_going[0] or conversation_going[1]) and want_to_stop[0] <4:
+        # Use input to proceed, break loop on KeyboardInterrupt
+        #_ = input("Enter to continue > ")
 
-            # Process the conversation
-            agent = agent_talking
-            (agent, message_ptr[0]) = iterate_conversation_with(agent, message_ptr[0])
-            if not identities_known(message_ptr[0]):
-                print("Exiting. Identities are not consistent.")
-                break
-            (agent_talking, agent_listening) = (agent_listening, agent_talking) # swap
+        # Process the conversation
+        agent = agent_talking
+        (agent, message_ptr[0]) = iterate_conversation_with(agent, message_ptr[0])
+        if not identities_known(message_ptr[0]):
+            print("Exiting. Identities are not consistent.")
+            break
+        (agent_talking, agent_listening) = (agent_listening, agent_talking) # swap
 
-    except KeyboardInterrupt:
-        print("\nConversation has been manually ended.")
-
-   
     # THE LOOP HAS BEEN EXITED AT THIS POINT!!!!
+    save_configs(starting_agent, responding_agent, filename)
+    classify_and_append(version, filename, messages, TOKEN_LIMIT=MAX_TOKENS)
     with open(filename, "a") as file:
         json.dump(messages, file)
         file.write("\n\nLOOP DONE. GOING TO NEXT ITERATION\n\n")
@@ -382,8 +382,6 @@ def main():
             filename = get_filename()
             print(filename)
 
-            save_configs(agent_pajama, agent_formal, filename)
-
             messages = deepcopy(initial_prompt)
             print(f"Length: {len(messages)}")
 
@@ -401,7 +399,10 @@ if __name__ == "__main__":
     try:
         main()
     except KeyboardInterrupt:
+        print("\nManually Exited!!")
+        exit(1)
         pass
     except Exception:
-        remove(last_filename)
+        '' == last_filename or remove(last_filename)
         print(traceback.format_exc())
+        exit(2)

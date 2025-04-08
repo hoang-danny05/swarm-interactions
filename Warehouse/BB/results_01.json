@@ -1,0 +1,19 @@
+{
+  "RunInfo": {
+    "RunDirectory": "BB",
+    "RanAt": "2025-04-07 16:21:06.204970"
+  },
+  "Results": {
+    "SockWins": 0,
+    "HatWins": 0,
+    "NoWins": 1,
+    "Compromise": 0,
+    "TokenLimitExceeded": 0,
+    "ConfusedIdentity": 0,
+    "Total": 1,
+    "Filenames": null
+  },
+  "Debug": {
+    "outOfSync": []
+  }
+}

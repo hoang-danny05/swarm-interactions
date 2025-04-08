@@ -1,0 +1,84 @@
+{
+  "SavingPrivateRyan": 0,
+  "Gattaca": 0,
+  "NoWins": 4,
+  "Compromise": 3,
+  "TokenLimitExceeded": 0,
+  "ConfusedIdentity": 1,
+  "Total": 7,
+  "Results": [
+    [
+      0,
+      0,
+      0,
+      -1,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      -1,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      -1,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      -1,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      -1,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      -1,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      -1,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      -1,
+      0,
+      0,
+      0
+    ]
+  ],
+  "SuccessfulFiles": [
+    "Warehouse/AA/run4o_discovery_04_07_2025 at_21;32;18.json",
+    "Warehouse/AA/run4o_discovery_04_07_2025 at_21;33;11.json",
+    "Warehouse/AA/run4o_discovery_04_07_2025 at_21;34;06.json",
+    "Warehouse/AA/run4o_discovery_04_07_2025 at_21;34;49.json",
+    "Warehouse/AA/run4o_discovery_04_07_2025 at_21;36;00.json",
+    "Warehouse/AA/run4o_discovery_04_07_2025 at_21;37;43.json",
+    "Warehouse/AA/run4o_discovery_04_07_2025 at_21;38;39.json"
+  ]
+}

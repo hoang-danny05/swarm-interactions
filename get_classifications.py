@@ -5,12 +5,12 @@ from openai import BadRequestError
 from classifiers.JudgeBot import doJudgement
 from utils.file_reader import identities_known, get_messages_from
 from utils.counter import num_tokens_from_messages
-from assertiveness_observer import MAX_TOKENS
 from shutil import move
 from pathlib import Path
 # getting debug data
 import pandas as pd
 from datetime import datetime
+from enum import Enum
 
 # DEFAULTS
 """
@@ -19,76 +19,30 @@ FORMAT!!!!!!!!!!!
 get_classifications subdirectory keyword autoskip?
 
 """
-subdirectory = "BA"
-keyword = None
-autoSkip = False
 
-if len(argv) >= 2:
-    subdirectory = argv[1]
-if len(argv) >= 3:
-    keyword = argv[2]
-if len(argv) >= 4:
-    autoSkip = True
+class Accumulator(Enum):
+    SavingPvtRyan = "SavingPrivateRyan"
+    Gattaca = "Gattaca"
+    NoWins = "NoWins" 
+    Compromise = "Compromise"
+    TokenLimitExceeded = "TokenLimitExceeded"
+    ConfusedIdentity = "ConfusedIdentity"
 
+    SuccessfulFiles = "SuccessfulFiles"
+    Results = "Results"
 
-# change this to change what we are analyzing
-# NOTE: You can now do everything automatically in the command line!
-# ex) python get_classifications.py AA run4o yes
-directory = f"./Warehouse/{subdirectory}"
-
-# directories to store types of runs we want to ignore
-incomplete_bin = f"{directory}/incomplete"
-error_bin = f"{directory}/error"
-Path(incomplete_bin).mkdir(exist_ok=True)
-Path(error_bin).mkdir(exist_ok=True)
-
-# if it wasn't entered in the command line
-if keyword == None:
-    keyword = input("Enter the keyword of the runs you want to search for: ")
-
-search_prompt = f"{directory}/*{keyword}*.json"
-print(f"You are judging all files matching: {search_prompt}")
-target_files = glob.glob(search_prompt)
-
-############# TEMPORARY
-judgementData = {
-    "FileNames": [],
-    "JudgeBotOpinions": [],
-    "JudgeBotFunctionCalls": [],
-}
-
-while not autoSkip:
-    response = input(f"This will judge {len(target_files)} files. Are you sure?\n[y/n]:")
-    if response.lower() == "y":
-        break
-    elif response.lower() == "n":
-        exit(0)
-    else:
-        print("Invalid Response.")
-
-
-
-
-run_info = {
-    "RunDirectory": subdirectory,
-    "RanAt": str(datetime.now)
-}
-
-accumulator = {
-    "SockWins": 0,
-    "HatWins": 0,
-    "NoWins": 0,
-    "Compromise": 0,
-    "TokenLimitExceeded": 0,
-    "ConfusedIdentity": 0,
-    "Total": len(target_files),
-}
-
-# (filename)
-debug = {
-    "outOfSync": [],
-}
-
+def base_accumulator():
+    return {
+        Accumulator.SavingPvtRyan.value: 0,
+        Accumulator.Gattaca.value: 0,
+        Accumulator.NoWins.value: 0,
+        Accumulator.Compromise.value: 0,
+        Accumulator.TokenLimitExceeded.value: 0,
+        Accumulator.ConfusedIdentity.value  : 0,
+        "Total": 0,
+        Accumulator.Results.value   : [],
+        Accumulator.SuccessfulFiles.value : [],
+    }
 # call_counter = [0, 0] # FILE, FUNCTOIN
 # global file_counter
 # global function_call_counter
@@ -98,58 +52,85 @@ debug = {
 
 #TODO: make a decorator for the following callback functions
 
-outcome_a = "crazy hat day was selected"
-def crazy_hat_wins():
-    accumulator.update({"HatWins": accumulator.get("HatWins") + 1})
 
-outcome_b = "crazy sock day was selected"
-def crazy_sock_wins():
-    accumulator.update({"SockWins": accumulator.get("SockWins") + 1})
-
-def no_wins():
-    accumulator.update({"NoWins": accumulator.get("NoWins") + 1})
-
-def compromise():
-    accumulator.update({"Compromise": accumulator.get("Compromise") + 1})
 
 def classify_item(
     accumulator,
-    file_path,
-    judgement_data):
+    file_path, 
+    messages = None,
+    incomplete_bin = None,
+    error_bin = None,
+    judgement_data = None,
+    from_filesystem = True,
+    MAX_TOKENS = 35000):
     """
     takes in an accumulator object and increments it based on what JudgeBot decides.
     changed into a function to allow it to be used right after running.
-        NEED TO ADD DEBUGGING
+    params:
+        accumulator
+            A dict containing the state that we should update
+        file_path: str
+            the path of the file that the file is located / will be located
+        version: str
+            version name of the file (for naming the config file). only needed for if we want to append to a config file
+        from_filesystem: bool
+            if we are reading directly from the filesystem. Default true.
     """
-    global incomplete_bin
-    global error_bin
+
+    # callback functions
+    outcome_a = "saving private ryan was selected"
+    def crazy_hat_wins():
+        accumulator.update({Accumulator.SavingPvtRyan.value: accumulator.get(Accumulator.SavingPvtRyan.value) + 1})
+
+    outcome_b = "Gattaca was selected"
+    def crazy_sock_wins():
+        accumulator.update({Accumulator.Gattaca.value: accumulator.get(Accumulator.Gattaca.value) + 1})
+
+    def no_wins():
+        accumulator.update({"NoWins": accumulator.get("NoWins") + 1})
+
+    def compromise():
+        accumulator.update({"Compromise": accumulator.get("Compromise") + 1})
 
 
-    # skip folders
-    if os.path.isdir(file_path):
-        accumulator.update({"Total": accumulator.get("Total") - 1})
-        return accumulator
 
-    # prints out the filepath that we will use to access the file
-    print(f"file: {file_path}")
-    messages = get_messages_from(file_path)
+    if from_filesystem:
 
-    # skip if there are no messages
-    if messages == None:
-        print(f"Skipped {file_path[-30:]} because it doesn't contain messages")
-        accumulator.update({"Total": accumulator.get("Total") - 1})
-        return accumulator
+        # directories to store types of runs we want to ignore
+        incomplete_bin = f"{directory}/incomplete"
+        error_bin = f"{directory}/error"
+        Path(incomplete_bin).mkdir(exist_ok=True)
+        Path(error_bin).mkdir(exist_ok=True)
+
+        # skip folders
+        if os.path.isdir(file_path):
+            accumulator.update({"Total": accumulator.get("Total") - 1})
+            return accumulator
+
+        # prints out the filepath that we will use to access the file
+        print(f"file: {file_path}")
+        messages = get_messages_from(file_path)
+
+    else:  # not from filesytem, live files
+        pass
 
     # if it's somehow a list of multiple conversations
     if type(messages[0]) == type([]):
         messages = messages[0]
 
+    # skip if there are no messages
+    if messages == None:
+        print(f"Skipped {file_path.split('/')[-1]} because it doesn't contain messages")
+        from_filesystem and accumulator.update({"Total": accumulator.get("Total") - 1})
+        return accumulator
+
     # delete incomplete conversations
     print(f"length: {len(messages)}")
     if len(messages) <= 4:
-        print(F"INCOMPLETE: {file_path}")
-        accumulator.update({"Total": accumulator.get("Total") - 1})
-        move(file_path, incomplete_bin)
+        if from_filesystem:
+            accumulator.update({"Total": accumulator.get("Total") - 1})
+            print(F"INCOMPLETE: {file_path}")
+            move(file_path, incomplete_bin)
         return accumulator
 
 
@@ -165,13 +146,14 @@ def classify_item(
         return accumulator
 
     # defines the judgement logger function
-    def log_judgement(
-            message_txt : str, 
-            tool_call_txt : str
-        ):
-        judgement_data.get("FileNames").append(file_path),
-        judgement_data.get("JudgeBotOpinions").append(message_txt),
-        judgement_data.get("JudgeBotFunctionCalls").append(tool_call_txt),
+    if judgement_data:
+        def log_judgement(
+                message_txt : str, 
+                tool_call_txt : str
+            ):
+            judgement_data.get("FileNames").append(file_path),
+            judgement_data.get("JudgeBotOpinions").append(message_txt),
+            judgement_data.get("JudgeBotFunctionCalls").append(tool_call_txt),
 
     #print(f"Current data: {judgementData}")
     # does not handle openai.RateLimitError
@@ -183,37 +165,166 @@ def classify_item(
                     on_outcome_b=crazy_sock_wins,
                     on_no_consensus=no_wins,
                     on_consensus=compromise,
-                    judgement_logger=log_judgement,
+                    judgement_logger=log_judgement if judgement_data else None,
                     )
     except BadRequestError:
         # just ignore the file and move on
-        move(file_path, error_bin)
+        error_bin and move(file_path, error_bin)
         accumulator.update({"Total": accumulator.get("Total") - 1})
+    if not from_filesystem:
+        accumulator.update({"Total": accumulator.get("Total") + 1})
+    accumulator[Accumulator.SuccessfulFiles.value].append(file_path)
+    return accumulator
 
+def classify_and_append(
+        version,
+        file_path, 
+        messages, 
+        TOKEN_LIMIT = 35000,
+):
+    """
+    An easy way to update the judgmenet file from assertiveness_observer.py
+    """
+    directory = "/".join(file_path.split("/")[:-1])
+    accum_path = f"{directory}/results_{version}.json"
+    if (os.path.exists(accum_path)):
+        print(f"File exists! reading: {accum_path}")
+        with open(accum_path, "r") as file:
+            accumulator = json.load(file)
+    else:
+        accumulator = base_accumulator()
+
+    before = (
+        accumulator[Accumulator.SavingPvtRyan.value],
+        accumulator[Accumulator.Gattaca.value],
+        accumulator[Accumulator.Compromise.value],
+        accumulator[Accumulator.NoWins.value],
+        accumulator[Accumulator.ConfusedIdentity.value],
+        accumulator[Accumulator.TokenLimitExceeded.value],
+    )
+
+    accumulator = classify_item(
+        accumulator,
+        file_path,
+        messages=messages,
+        from_filesystem=False,
+        MAX_TOKENS=TOKEN_LIMIT
+    )
+
+    after = (
+        accumulator[Accumulator.SavingPvtRyan.value],
+        accumulator[Accumulator.Gattaca.value],
+        accumulator[Accumulator.Compromise.value],
+        accumulator[Accumulator.NoWins.value],
+        accumulator[Accumulator.ConfusedIdentity.value],
+        accumulator[Accumulator.TokenLimitExceeded.value],
+    )
+
+    diff = tuple(b-a for a,b in zip(before, after))
+    accumulator[Accumulator.Results.value].append(diff)
+
+    print(f"Writing: {accumulator = }")
+
+    with open(accum_path, "w") as file:
+        json.dump(accumulator, file, indent=2)
     
-for file_path in target_files:
-    classify_item(accumulator, file_path, judgementData)
-
-
-    # ensure no double function call happens, and if it does, it is logged. 
-    # file_counter += 1
-    # if file_counter != function_call_counter:
-    #     print("uh oh!")
-    #     debug["outOfSync"].append(file_path)
 
 
 
-with open(f"{directory}/results_{keyword}.json", "w") as file:
-    #write the results
-    json.dump({
-        "RunInfo": run_info,
-        "Results": accumulator,
-        "Debug": debug
-    }, file)
 
-with open(f"{directory}/judgement_logs_{keyword}.json", "w") as file:
-    #write the results
-    json.dump(judgementData, file)
 
-df = pd.DataFrame.from_dict(judgementData)
-df.to_excel(f"{directory}/judgement_logs_{keyword}.xlsx")
+
+
+
+
+
+
+
+
+
+
+
+
+
+if __name__ == "__main__":
+    subdirectory = "BA"
+    keyword = None
+    autoSkip = False
+
+    if len(argv) >= 2:
+        subdirectory = argv[1]
+    if len(argv) >= 3:
+        keyword = argv[2]
+    if len(argv) >= 4:
+        autoSkip = True
+
+
+    # change this to change what we are analyzing
+    # NOTE: You can now do everything automatically in the command line!
+    # ex) python get_classifications.py AA run4o yes
+    directory = f"./Warehouse/{subdirectory}"
+
+    # if it wasn't entered in the command line
+    if keyword == None:
+        keyword = input("Enter the keyword of the runs you want to search for: ")
+
+    search_prompt = f"{directory}/*{keyword}*.json"
+    print(f"You are judging all files matching: {search_prompt}")
+    target_files = glob.glob(search_prompt)
+
+    run_info = {
+        "RunDirectory": subdirectory,
+        "RanAt": str(datetime.now())
+    }
+
+    accumulator = base_accumulator()
+    accumulator["Total"] = len(target_files)
+
+    # (filename)
+    debug = {
+        "outOfSync": [],
+    }
+
+
+
+    ############# TEMPORARY
+    judgementData = {
+        "FileNames": [],
+        "JudgeBotOpinions": [],
+        "JudgeBotFunctionCalls": [],
+    }
+
+    while not autoSkip:
+        response = input(f"This will judge {len(target_files)} files. Are you sure?\n[y/n]:")
+        if response.lower() == "y":
+            break
+        elif response.lower() == "n":
+            exit(0)
+        else:
+            print("Invalid Response.")
+
+
+
+
+    for file_path in target_files:
+        classify_item(
+            accumulator, 
+            file_path, 
+            judgement_data=judgementData,
+        )
+
+
+    with open(f"{directory}/oldresults_{keyword}.json", "w") as file:
+        #write the results
+        json.dump({
+            "RunInfo": run_info,
+            "Results": accumulator,
+            "Debug": debug
+        }, file, indent=2)
+
+    with open(f"{directory}/judgement_logs_{keyword}.json", "w") as file:
+        #write the results
+        json.dump(judgementData, file, indent=2)
+
+    df = pd.DataFrame.from_dict(judgementData)
+    df.to_excel(f"{directory}/judgement_logs_{keyword}.xlsx")

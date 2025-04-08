@@ -1,0 +1,22 @@
+{
+  "RunInfo": {
+    "RunDirectory": "BB",
+    "RanAt": "2025-04-07 16:22:23.227325"
+  },
+  "Results": {
+    "SockWins": 0,
+    "HatWins": 0,
+    "NoWins": 2,
+    "Compromise": 0,
+    "TokenLimitExceeded": 0,
+    "ConfusedIdentity": 0,
+    "Total": 2,
+    "Filenames": [
+      "./Warehouse/BB/run4o_discovery_04_07_2025 at_16;06;14.json",
+      "./Warehouse/BB/run4o_discovery_04_07_2025 at_16;06;45.json"
+    ]
+  },
+  "Debug": {
+    "outOfSync": []
+  }
+}

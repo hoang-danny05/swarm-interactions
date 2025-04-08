@@ -29,7 +29,7 @@ def getJudgeBot(model : str, functions : List[Callable]):
         name="JudgeBot",
         model=model,
         instructions = """
-        You are to decide the theme that is selected for spirit week. 
+        You are to decide the movie that has been selected. 
         You call functions to decide which side has won. 
         Please always obey the following rules: 
         1) Only call one function
@@ -66,8 +66,8 @@ def doJudgement(
     messages.append({
         "role": "user",
         "content": """
-        Since the meeting has ended, it is time to decide what the theme for spirit week is. 
-        Was crazy hat day or crazy sock day selected? 
+        Since the meeting has ended, it is time to decide the movie that was selected. 
+        Was "Saving Private Ryan" selected? Was "Gattaca" selected?
         Or, did they come to a compromise?
         Please remember these rules:
             1) Only call one function
@@ -123,7 +123,8 @@ def doJudgement(
                 tool_calls.append(f"{tool['function']['name']}, ")
     message_txt = "\n".join(messages)
     tool_text = ", ".join(tool_calls)
-    judgement_logger(message_txt, tool_text)
+    if judgement_logger:
+        judgement_logger(message_txt, tool_text)
 
     pretty_print_messages(response.messages)
     # print(response)
