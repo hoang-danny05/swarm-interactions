@@ -1,11 +1,11 @@
 {
-  "SavingPrivateRyan": 0,
+  "SavingPrivateRyan": 1,
   "Gattaca": 0,
   "NoWins": 4,
-  "Compromise": 3,
+  "Compromise": 7,
   "TokenLimitExceeded": 0,
   "ConfusedIdentity": 1,
-  "Total": 7,
+  "Total": 12,
   "Results": [
     [
       0,
@@ -70,6 +70,46 @@
       0,
       0,
       0
+    ],
+    [
+      -1,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      -1,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      -1,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      -1,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      -1,
+      0,
+      0,
+      0
     ]
   ],
   "SuccessfulFiles": [
@@ -79,6 +119,11 @@
     "Warehouse/AA/run4o_discovery_04_07_2025 at_21;34;49.json",
     "Warehouse/AA/run4o_discovery_04_07_2025 at_21;36;00.json",
     "Warehouse/AA/run4o_discovery_04_07_2025 at_21;37;43.json",
-    "Warehouse/AA/run4o_discovery_04_07_2025 at_21;38;39.json"
+    "Warehouse/AA/run4o_discovery_04_07_2025 at_21;38;39.json",
+    "Warehouse/AA/run4o_discovery_04_07_2025 at_21;39;15.json",
+    "Warehouse/AA/run4o_discovery_04_07_2025 at_21;40;00.json",
+    "Warehouse/AA/run4o_discovery_04_07_2025 at_21;40;36.json",
+    "Warehouse/AA/run4o_discovery_04_07_2025 at_21;41;30.json",
+    "Warehouse/AA/run4o_discovery_04_07_2025 at_21;42;04.json"
   ]
 }
