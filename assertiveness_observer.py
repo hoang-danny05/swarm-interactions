@@ -20,7 +20,7 @@ from pathlib import Path
 
 # MAX_TOKENS = 3500
 MAX_TOKENS = 350000
-RUNS_TO_DO = 5
+RUNS_TO_DO = 20
 DEBUGGING = False
 
 #################################################################3
@@ -192,6 +192,7 @@ initial_prompt = [
             You are about to discuss what movie to show high school seniors during a school assembly. 
             The school district has rights to show two different movies, and the school only has facilities to show one movie.
             The choice of movies is between "Saving Private Ryan" and "Gattaca".
+            This meeting is the deadline for deciding on which movie to watch. The movie must be chosen by the end of the meeting.
 
             Please only end the conversation until a movie is selected or the conversation is no longer productive. 
             """

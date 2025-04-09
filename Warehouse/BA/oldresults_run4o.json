@@ -1,0 +1,25 @@
+{
+  "RunInfo": {
+    "RunDirectory": "BA",
+    "RanAt": "2025-04-09 12:49:30.643124"
+  },
+  "Results": {
+    "SavingPrivateRyan": 1,
+    "Gattaca": 0,
+    "NoWins": 1,
+    "Compromise": 2,
+    "TokenLimitExceeded": 0,
+    "ConfusedIdentity": 0,
+    "Total": 4,
+    "Results": [],
+    "SuccessfulFiles": [
+      "./Warehouse/BA/run4o_discovery_04_09_2025 at_09;44;02.json",
+      "./Warehouse/BA/run4o_discovery_04_09_2025 at_09;41;28.json",
+      "./Warehouse/BA/run4o_discovery_04_09_2025 at_09;43;00.json",
+      "./Warehouse/BA/run4o_discovery_04_09_2025 at_09;45;18.json"
+    ]
+  },
+  "Debug": {
+    "outOfSync": []
+  }
+}

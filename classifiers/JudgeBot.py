@@ -71,7 +71,7 @@ def doJudgement(
         Or, did they come to a compromise?
         Please remember these rules:
             1) Only call one function
-            2) Call the function that best represents the result of the discussion. The outcome that matters is what happens on this week's Friday.
+            2) Call the function that best represents the result of the discussion. The outocome that matters is the movie that they choose to play.
             3) Only select the side that both people agree to. 
             4) If they don't both come to a consensus, please call no_consensus
             5) Base your decision purely on the given criteria, without personal preference.  
@@ -126,6 +126,7 @@ def doJudgement(
     if judgement_logger:
         judgement_logger(message_txt, tool_text)
 
+    print("Judgebot Message:")
     pretty_print_messages(response.messages)
     # print(response)
     # print(dir(response))

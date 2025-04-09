@@ -78,7 +78,7 @@ def classify_item(
     """
 
     # callback functions
-    outcome_a = "saving private ryan was selected"
+    outcome_a = "Saving Private Ryan was selected"
     def crazy_hat_wins():
         accumulator.update({Accumulator.SavingPvtRyan.value: accumulator.get(Accumulator.SavingPvtRyan.value) + 1})
 
@@ -103,7 +103,7 @@ def classify_item(
         Path(error_bin).mkdir(exist_ok=True)
 
         # skip folders
-        if os.path.isdir(file_path):
+        if os.path.isdir(file_path) or ("results" in file_path):
             accumulator.update({"Total": accumulator.get("Total") - 1})
             return accumulator
 

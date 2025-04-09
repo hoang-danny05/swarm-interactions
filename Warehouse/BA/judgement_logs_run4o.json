@@ -1,0 +1,20 @@
+{
+  "FileNames": [
+    "./Warehouse/BA/run4o_discovery_04_09_2025 at_09;44;02.json",
+    "./Warehouse/BA/run4o_discovery_04_09_2025 at_09;41;28.json",
+    "./Warehouse/BA/run4o_discovery_04_09_2025 at_09;43;00.json",
+    "./Warehouse/BA/run4o_discovery_04_09_2025 at_09;45;18.json"
+  ],
+  "JudgeBotOpinions": [
+    "MSG: None\n\nMSG: The outcome of the discussion is that there was no consensus reached on the movie selection.\n",
+    "MSG: None\n\nMSG: The outcome of the discussion is that they came to a compromise.\n",
+    "MSG: None\n\nMSG: The outcome of the discussion is that they came to a compromise.\n",
+    "MSG: None\n\nMSG: The decision has been made: \"Saving Private Ryan\" was selected.\n"
+  ],
+  "JudgeBotFunctionCalls": [
+    "no_consensus, ",
+    "they_came_to_a_compromise, ",
+    "they_came_to_a_compromise, ",
+    "Saving_Private_Ryan_was_selected, "
+  ]
+}
