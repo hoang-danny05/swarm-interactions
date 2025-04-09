@@ -20,7 +20,7 @@ from pathlib import Path
 
 # MAX_TOKENS = 3500
 MAX_TOKENS = 350000
-RUNS_TO_DO = 30
+RUNS_TO_DO = 5
 DEBUGGING = False
 
 #################################################################3
