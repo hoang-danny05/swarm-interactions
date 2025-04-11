@@ -1,4 +1,4 @@
-#!python
+#!/usr/bin/env python
 from swarm import Swarm, Agent
 import json
 import traceback

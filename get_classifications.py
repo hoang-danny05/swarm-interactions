@@ -183,7 +183,7 @@ def classify_and_append(
         TOKEN_LIMIT = 35000,
 ):
     """
-    An easy way to update the judgmenet file from assertiveness_observer.py
+    An easy way to update the judgement file from assertiveness_observer.py
     """
     directory = "/".join(file_path.split("/")[:-1])
     accum_path = f"{directory}/results_{version}.json"
