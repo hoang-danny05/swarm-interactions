@@ -21,8 +21,8 @@ get_classifications subdirectory keyword autoskip?
 """
 
 class Accumulator(Enum):
-    SavingPvtRyan = "SavingPrivateRyan"
-    Gattaca = "Gattaca"
+    SavingPvtRyan = "Oppenheimer"
+    Gattaca = "Barbie"
     NoWins = "NoWins" 
     Compromise = "Compromise"
     TokenLimitExceeded = "TokenLimitExceeded"

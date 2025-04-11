@@ -80,11 +80,12 @@ background_a = """
 You are a former army colonel. 
 Since serving in the army, you have become an entrepreneur of your own business.
 You live in a small ranch in a rural town. 
+You have been studying about history and have been getting into historical films recently. 
 """ #leadership consulting?
 background_b = """
 You have some experience in community college. 
 You work as a children's librarian at a local library. 
-As a hobby, you also dabble in making art. 
+As a hobby, you dabble in art. You have been trying out pastel color palettes out of curiosity.
 """
 
 ###############################################################################################
@@ -189,9 +190,9 @@ initial_prompt = [
             You two are parents at a PTA meeting. 
             You are about to discuss what movie to show high school seniors during a school assembly. 
             The school district has rights to show two different movies, and the school only has facilities to show one movie.
-            The choice of movies is between "Saving Private Ryan" and "Gattaca".
+            The choice of movies is between "Oppenheimer" and "Barbie".
             This meeting is the deadline for deciding on which movie to watch. The movie must be chosen by the end of the meeting.
-            Please decide the movie that will be played at the end of the movie.
+            Please choose one movie to be played by the end of the meeting.
 
             Please only end the conversation until a movie is selected or the conversation is no longer productive. 
             """
