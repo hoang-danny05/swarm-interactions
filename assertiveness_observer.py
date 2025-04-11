@@ -135,15 +135,13 @@ formal_config = {
             3) You also communicate, talk, and write in a way that is consistent with your identity.
             """.rstrip("\n\t "), # formatting to prevent odd newline
     "Opinion": """
-            4) You think the movie should be "Saving Private Ryan". This is an opinion based on your years of life expirience.
+            4) You think the movie should be "Oppenheimer". This is an opinion based on your years of life expirience.
             """.rstrip("\n\t "), 
     "Personalities": [
         # "You are willing to compromise with others.",
             """
             5) You express your opinion on spirit week, but you are willing to conceede if you are convinced. 
             """.rstrip("\n\t "), 
-            #4) You yell "BABAGABOOSH" often and randomly like hiccups. 
-        # "You need to get your idea to be accepted as the central idea of the movie. You can't afford to cooperate with any other ideas, otherwise your career will be jeopardized. "
     ]
 }
 
@@ -162,7 +160,7 @@ pajama_config = {
             """.rstrip("\n\t "), 
     "Opinion": 
         """
-            4) You think the movie should be "Gattaca". This is an opinion based on your years of life expirience.
+            4) You think the movie should be "Barbie". This is an opinion based on your years of life expirience.
         """.rstrip("\n\t "), 
     "Personalities": [
         """
@@ -193,6 +191,7 @@ initial_prompt = [
             The school district has rights to show two different movies, and the school only has facilities to show one movie.
             The choice of movies is between "Saving Private Ryan" and "Gattaca".
             This meeting is the deadline for deciding on which movie to watch. The movie must be chosen by the end of the meeting.
+            Please decide the movie that will be played at the end of the movie.
 
             Please only end the conversation until a movie is selected or the conversation is no longer productive. 
             """
@@ -214,14 +213,18 @@ want_to_stop = [0]
 @rename(f"{name_formal.split(' ')[0]}_wants_to_end_conversation")
 def agent_a_end_conversation():
     """This function should be called when alice wants to end the conversation"""
-    print(f"{name_formal} IS ENDING CONVERSATION!!!!!!!!!!!!!!!!!!!!!")
+    print(f"""
+    {name_formal} IS ENDING CONVERSATION!!!!!!!!!!!!!!!!!!!!!"
+    """)
     conversation_going[0] = False
     want_to_stop[0] +=1
 
 @rename(f"{name_pajama.split(' ')[0]}_wants_to_end_conversation")
 def agent_b_end_conversation():
     """This function should be called when bob wants to end the conversation"""
-    print(f"{name_pajama} IS ENDING CONVERSATION!!!!!!!!!!!!!!!!!!!!!")
+    print(f"""
+    {name_formal} IS ENDING CONVERSATION!!!!!!!!!!!!!!!!!!!!!"
+    """)
     conversation_going[1] = False
     want_to_stop[0] +=1
 

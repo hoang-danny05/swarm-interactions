@@ -78,12 +78,12 @@ def classify_item(
     """
 
     # callback functions
-    outcome_a = "Saving Private Ryan was selected"
-    def crazy_hat_wins():
+    outcome_a = "Oppenheimer was selected"
+    def outcome_one():
         accumulator.update({Accumulator.SavingPvtRyan.value: accumulator.get(Accumulator.SavingPvtRyan.value) + 1})
 
-    outcome_b = "Gattaca was selected"
-    def crazy_sock_wins():
+    outcome_b = "Barbie was selected"
+    def outcome_two():
         accumulator.update({Accumulator.Gattaca.value: accumulator.get(Accumulator.Gattaca.value) + 1})
 
     def no_wins():
@@ -160,9 +160,9 @@ def classify_item(
     try:
         doJudgement(messages=messages, 
                     outcome_a=outcome_a,
-                    on_outcome_a=crazy_hat_wins,
+                    on_outcome_a=outcome_one,
                     outcome_b=outcome_b,
-                    on_outcome_b=crazy_sock_wins,
+                    on_outcome_b=outcome_two,
                     on_no_consensus=no_wins,
                     on_consensus=compromise,
                     judgement_logger=log_judgement if judgement_data else None,

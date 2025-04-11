@@ -67,7 +67,7 @@ def doJudgement(
         "role": "user",
         "content": """
         Since the meeting has ended, it is time to decide the movie that was selected. 
-        Was "Saving Private Ryan" selected? Was "Gattaca" selected?
+        Was "Oppenheimer" selected? Was "Barbie" selected?
         Or, did they come to a compromise?
         Please remember these rules:
             1) Only call one function
