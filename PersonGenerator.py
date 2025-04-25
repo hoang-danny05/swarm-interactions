@@ -145,7 +145,12 @@ class PersonGenerator:
         ]
     }
 
-
+    background_template = """
+    You are a {age} {profession}. You idenitfy as a {gender}.
+    You live in a {type_of_home}.
+    You have {education_background} background.
+    In your free time, you enjoy {hobby_or_interest}, recently {specific_aspect_of_hobby}
+    """
     def __init__(self, age_class_name=None):
         self.age_class_name = age_class_name or random.choice(list(self.age_classes.keys()))
         self.data = self.age_classes[self.age_class_name]
@@ -191,7 +196,16 @@ class PersonGenerator:
             "Occupation": self.occupation,
             "Living Type": self.living_type,
             "Hobby": self.hobby,
-            "Recent Hobby Update": self.hobby_update
+            "Recent Hobby Update": self.hobby_update,
+            "Background": background_template.format(
+                age=self.age,
+                gender=self.gender,
+                profession= self.occupation,
+                type_of_home=self.living_type,
+                education_background=self.education,
+                hobby_or_interest=self.hobby,
+                specific_aspect_of_hobby=self.hobby_update,
+                )
         }
 
 
@@ -206,15 +220,5 @@ if __name__ == "__main__":
     person = PersonGenerator()
     profile = person.profile()
 
-    background_filled = background_template.format(
-    age=profile['Age'],
-    gender=profile["Gender"],
-    profession= profile['Occupation'],
-    type_of_home=profile['Living Type'],
-    education_background=profile["Education"],
-    hobby_or_interest=profile["Hobby"],
-    specific_aspect_of_hobby=profile["Recent Hobby Update"],
-    )
-    #print(person.profile())
-
-    print(background_filled)
+    print(person.profile())
+    print(profile["Background"])
