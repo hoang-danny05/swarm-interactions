@@ -20,7 +20,7 @@ from pathlib import Path
 
 # MAX_TOKENS = 3500
 MAX_TOKENS = 350000
-RUNS_TO_DO = 20
+RUNS_TO_DO = 1
 DEBUGGING = False
 
 #################################################################3
@@ -72,45 +72,66 @@ def get_filename():
 
 name_a1 = "John Smith"
 name_a2 = "Jack Donaldson"
-
-name_b1 = "Alice Nakamura"
-name_b2 = "Amy Nakamura"
-
 background_a = """
 You are a former army colonel. 
 Since serving in the army, you have become an entrepreneur of your own business.
 You live in a small ranch in a rural town. 
 You have been studying about history and have been getting into historical films recently. 
-""" #leadership consulting?
+""" 
+
+
+name_b1 = "Alice Nakamura"
+name_b2 = "Amy Nakamura"
 background_b = """
 You have some experience in community college. 
 You work as a children's librarian at a local library. 
 As a hobby, you dabble in art. You have been trying out pastel color palettes out of curiosity.
 """
 
+# finance bro
+name_c1 = "Chad Goldman"
+name_c2 = "Dean Tuckerson"
+background_c = """
+In college, you got your Finance degree while also being the President of the investment club.
+You stacked your Linkedin profile in hopes of getting a job at an investment firm.
+Every day before the market opens, you lift for a bit. You have a side hustle day trading on Robinhood. 
+"""
+
+# corporate person
+
+
+
 ###############################################################################################
 # These values determine their identities!
 ###############################################################################################
 
-if run_configuration.value[0] == "A":
-    name_formal = name_a1 
-    background_formal = background_a
-elif run_configuration.value[0] == "B":
-    name_formal = name_b1
-    background_formal = background_b
-else:
-    print("RUN CONFIGUATION CHAR 0 IS INVALID")
-    exit(1)
+match run_configuration.value[0]:
+    case "A":
+        name_formal = name_a1 
+        background_formal = background_a
+    case "B":
+        name_formal = name_b1 
+        background_formal = background_b
+    case "C":
+        name_formal = name_c1
+        background_formal = background_c
+    case _:
+        print("RUN CONFIGUATION CHAR 0 IS INVALID")
+        exit(1)
 
-if run_configuration.value[1] == "A":
-    name_pajama = name_a2 
-    background_pajama = background_a
-elif run_configuration.value[1] == "B":
-    name_pajama = name_b2 
-    background_pajama = background_b
-else:
-    print("RUN CONFIGUATION CHAR 1 IS INVALID")
-    exit(1)
+match run_configuration.value[1]:
+    case "A":
+        name_pajama = name_a2 
+        background_pajama = background_a
+    case "B":
+        name_pajama = name_b2 
+        background_pajama = background_b
+    case "C":
+        name_pajama = name_c2 
+        background_pajama = background_c
+    case _:
+        print("RUN CONFIGUATION CHAR 1 IS INVALID")
+        exit(1)
 
 ###############################################################################################
 # AGENT DEFINITIONS (base definitions)

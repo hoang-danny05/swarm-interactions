@@ -21,8 +21,8 @@ get_classifications subdirectory keyword autoskip?
 """
 
 class Accumulator(Enum):
-    SavingPvtRyan = "Oppenheimer"
-    Gattaca = "Barbie"
+    OutcomeOne = "Oppenheimer"
+    OutcomeTwo = "Barbie"
     NoWins = "NoWins" 
     Compromise = "Compromise"
     TokenLimitExceeded = "TokenLimitExceeded"
@@ -33,8 +33,8 @@ class Accumulator(Enum):
 
 def base_accumulator():
     return {
-        Accumulator.SavingPvtRyan.value: 0,
-        Accumulator.Gattaca.value: 0,
+        Accumulator.OutcomeOne.value: 0,
+        Accumulator.OutcomeTwo.value: 0,
         Accumulator.NoWins.value: 0,
         Accumulator.Compromise.value: 0,
         Accumulator.TokenLimitExceeded.value: 0,
@@ -80,11 +80,11 @@ def classify_item(
     # callback functions
     outcome_a = "Oppenheimer was selected"
     def outcome_one():
-        accumulator.update({Accumulator.SavingPvtRyan.value: accumulator.get(Accumulator.SavingPvtRyan.value) + 1})
+        accumulator.update({Accumulator.OutcomeOne.value: accumulator.get(Accumulator.OutcomeOne.value) + 1})
 
     outcome_b = "Barbie was selected"
     def outcome_two():
-        accumulator.update({Accumulator.Gattaca.value: accumulator.get(Accumulator.Gattaca.value) + 1})
+        accumulator.update({Accumulator.OutcomeTwo.value: accumulator.get(Accumulator.OutcomeTwo.value) + 1})
 
     def no_wins():
         accumulator.update({"NoWins": accumulator.get("NoWins") + 1})
@@ -195,8 +195,8 @@ def classify_and_append(
         accumulator = base_accumulator()
 
     before = (
-        accumulator[Accumulator.SavingPvtRyan.value],
-        accumulator[Accumulator.Gattaca.value],
+        accumulator[Accumulator.OutcomeOne.value],
+        accumulator[Accumulator.OutcomeTwo.value],
         accumulator[Accumulator.Compromise.value],
         accumulator[Accumulator.NoWins.value],
         accumulator[Accumulator.ConfusedIdentity.value],
@@ -212,8 +212,8 @@ def classify_and_append(
     )
 
     after = (
-        accumulator[Accumulator.SavingPvtRyan.value],
-        accumulator[Accumulator.Gattaca.value],
+        accumulator[Accumulator.OutcomeOne.value],
+        accumulator[Accumulator.OutcomeTwo.value],
         accumulator[Accumulator.Compromise.value],
         accumulator[Accumulator.NoWins.value],
         accumulator[Accumulator.ConfusedIdentity.value],
