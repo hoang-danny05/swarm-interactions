@@ -27,7 +27,7 @@ DEBUGGING = False
 # EDIT THIS VALUE TO CHANGE THE DEFAULT CONFIG
 ##################################################################
 
-run_configuration : RunConfiguration = RunConfiguration.BA
+run_configuration : RunConfiguration = None   # set this
 model = ExactModelType.GPT_4O_MINI
 version = "run4o_discovery"
 
@@ -41,12 +41,14 @@ version = "run4o_discovery"
 if len(sys.argv) > 1:
     config = sys.argv[1].upper()
     try:
+        print(len(config))
+        assert len(config) == 2, "Invalid config length"
         possibilities = set([i for i in RunConfiguration])
         if config not in possibilities:
             raise ValueError
         run_configuration = RunConfiguration(config)
     except Exception:
-        print(f"Invalid first argument. Should be one of the following: {possibilities}")
+        print(f"Invalid first argument. Should contain two chars, one for each spot. ")
         sys.exit(1)
 
 

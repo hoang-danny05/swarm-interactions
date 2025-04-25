@@ -30,5 +30,12 @@ class RunConfiguration(StringEnum):
     """
     AA = "AA"
     AB = "AB"
+    AC = "AC"
+
     BA = "BA"
     BB = "BB"
+    BC = "BC"
+
+    CA = "CA"
+    CB = "CB"
+    CC = "CC"
