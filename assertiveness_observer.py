@@ -15,6 +15,7 @@ from utils.counter import num_tokens_from_messages
 from utils.rename import rename
 from utils.file_writer import save_configs
 from utils.file_reader import identities_known
+from CONFIG import get_names
 from pathvalidate import is_valid_filename
 from pathlib import Path
 
@@ -43,9 +44,9 @@ if len(sys.argv) > 1:
     try:
         print(len(config))
         assert len(config) == 2, "Invalid config length"
-        possibilities = set([i for i in RunConfiguration])
-        if config not in possibilities:
-            raise ValueError
+        # possibilities = set([i for i in RunConfiguration])
+        # if config not in possibilities:
+        #     raise ValueError
         run_configuration = RunConfiguration(config)
     except Exception:
         print(f"Invalid first argument. Should contain two chars, one for each spot. ")
@@ -70,36 +71,37 @@ def get_filename():
 
     return filename
 
+print(f"{run_configuration = }")
 # DO NOT CHANGE THESE VALUES
 
-name_a1 = "John Smith"
-name_a2 = "Jack Donaldson"
-background_a = """
-You are a former army colonel. 
-Since serving in the army, you have become an entrepreneur of your own business.
-You live in a small ranch in a rural town. 
-You have been studying about history and have been getting into historical films recently. 
-""" 
+# name_a1 = "John Smith"
+# name_a2 = "Jack Donaldson"
+# background_a = """
+# You are a former army colonel. 
+# Since serving in the army, you have become an entrepreneur of your own business.
+# You live in a small ranch in a rural town. 
+# You have been studying about history and have been getting into historical films recently. 
+# """ 
 
 
-name_b1 = "Alice Nakamura"
-name_b2 = "Amy Nakamura"
-background_b = """
-You have some experience in community college. 
-You work as a children's librarian at a local library. 
-As a hobby, you dabble in art. You have been trying out pastel color palettes out of curiosity.
-"""
+# name_b1 = "Alice Nakamura"
+# name_b2 = "Amy Nakamura"
+# background_b = """
+# You have some experience in community college. 
+# You work as a children's librarian at a local library. 
+# As a hobby, you dabble in art. You have been trying out pastel color palettes out of curiosity.
+# """
 
-# finance bro
-name_c1 = "Chad Goldman"
-name_c2 = "Dean Tuckerson"
-background_c = """
-In college, you got your Finance degree while also being the President of the investment club.
-You stacked your Linkedin profile in hopes of getting a job at an investment firm.
-Every day before the market opens, you lift for a bit. You have a side hustle day trading on Robinhood. 
-"""
+# # finance bro
+# name_c1 = "Chad Goldman"
+# name_c2 = "Dean Tuckerson"
+# background_c = """
+# In college, you got your Finance degree while also being the President of the investment club.
+# You stacked your Linkedin profile in hopes of getting a job at an investment firm.
+# Every day before the market opens, you lift for a bit. You have a side hustle day trading on Robinhood. 
+# """
 
-# corporate person
+((name_formal, background_formal), (name_pajama, background_pajama)) = get_names(run_configuration)
 
 
 
@@ -107,33 +109,33 @@ Every day before the market opens, you lift for a bit. You have a side hustle da
 # These values determine their identities!
 ###############################################################################################
 
-match run_configuration.value[0]:
-    case "A":
-        name_formal = name_a1 
-        background_formal = background_a
-    case "B":
-        name_formal = name_b1 
-        background_formal = background_b
-    case "C":
-        name_formal = name_c1
-        background_formal = background_c
-    case _:
-        print("RUN CONFIGUATION CHAR 0 IS INVALID")
-        exit(1)
+# match run_configuration.value[0]:
+#     case "A":
+#         name_formal = name_a1 
+#         background_formal = background_a
+#     case "B":
+#         name_formal = name_b1 
+#         background_formal = background_b
+#     case "C":
+#         name_formal = name_c1
+#         background_formal = background_c
+#     case _:
+#         print("RUN CONFIGUATION CHAR 0 IS INVALID")
+#         exit(1)
 
-match run_configuration.value[1]:
-    case "A":
-        name_pajama = name_a2 
-        background_pajama = background_a
-    case "B":
-        name_pajama = name_b2 
-        background_pajama = background_b
-    case "C":
-        name_pajama = name_c2 
-        background_pajama = background_c
-    case _:
-        print("RUN CONFIGUATION CHAR 1 IS INVALID")
-        exit(1)
+# match run_configuration.value[1]:
+#     case "A":
+#         name_pajama = name_a2 
+#         background_pajama = background_a
+#     case "B":
+#         name_pajama = name_b2 
+#         background_pajama = background_b
+#     case "C":
+#         name_pajama = name_c2 
+#         background_pajama = background_c
+#     case _:
+#         print("RUN CONFIGUATION CHAR 1 IS INVALID")
+#         exit(1)
 
 ###############################################################################################
 # AGENT DEFINITIONS (base definitions)

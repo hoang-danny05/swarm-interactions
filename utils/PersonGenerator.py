@@ -6,27 +6,27 @@ class PersonGenerator:
             "age_range": (18, 30),
             "genders": ["man", "woman", "neither man or woman"],
             "educations": [
-                "High school diploma", "Some college", "Associate's degree",
-                "Bachelor's degree", "Currently enrolled in college"
+                "a high school diploma", "some college", "an associate's degree",
+                "a bachelor's degree"
             ],
             "occupations": [
-                "Customer support associate", "Junior software developer",
-                "Administrative assistant", "Research assistant", "Barista",
-                "Retail associate", "Server at a restaurant", "Hotel front desk agent",
-                "Freelance photographer", "Lyft driver", "Content creator (YouTube/TikTok)",
-                "Pet sitter / Dog walker", "Aspiring musician", "Graphic designer",
-                "Art student", "Indie game developer", "Nursing student", "Medical scribe",
-                "EMT", "Dental assistant", "Apprentice electrician", "HVAC trainee",
+                # "Customer support associate", "Junior software developer",
+                # "Administrative assistant", "Research assistant", "Barista",
+                # "Retail associate", "Server at a restaurant", "Hotel front desk agent",
+                # "Freelance photographer", "Lyft driver", "Content creator (YouTube/TikTok)",
+                # "Pet sitter / Dog walker", "Aspiring musician", "Graphic designer",
+                # "Art student", "Indie game developer", "Nursing student", "Medical scribe",
+                # "EMT", "Dental assistant", "Apprentice electrician", "HVAC trainee",
                 "Construction laborer", "Etsy shop owner", "Online reseller",
-                "College student", "Tutor"
+                # "College student", "Tutor"
             ],
         },
         "middle_aged": {
             "age_range": (31, 60),
             "genders": ["man", "woman", "neither man or woman"],
             "educations": [
-                "Bachelor's degree", "Master's degree", "Associate's degree",
-                "Some college", "PhD", "Professional certification (e.g. PMP, CPA)"
+                "a bachelor's degree", "a master's degree", "an associate's degree",
+                "some college", "a PhD", "a professional certification (e.g. PMP, CPA)"
             ],
             "occupations": [
                 "Software engineer", "Accountant", "Human resources manager",
@@ -145,12 +145,6 @@ class PersonGenerator:
         ]
     }
 
-    background_template = """
-    You are a {age} {profession}. You idenitfy as a {gender}.
-    You live in a {type_of_home}.
-    You have {education_background} background.
-    In your free time, you enjoy {hobby_or_interest}, recently {specific_aspect_of_hobby}
-    """
     def __init__(self, age_class_name=None):
         self.age_class_name = age_class_name or random.choice(list(self.age_classes.keys()))
         self.data = self.age_classes[self.age_class_name]
@@ -161,13 +155,20 @@ class PersonGenerator:
         self.occupation = random.choice(self.data["occupations"])
         self.living_type = self.assign_living_type()
         self.hobby, self.hobby_update = self.assign_hobby()
+        self.background_template = """
+        You are a {age}-year-old {profession}. You idenitfy as a {gender}.
+        You live in a {type_of_home}.
+        You have {education_background} as your educational background.
+        In your free time, you enjoy {hobby_or_interest}. {specific_aspect_of_hobby}
+        """
+
 
     def assign_living_type(self):
         if self.age_class_name == "young_adult":
             if "student" in self.occupation and "college" in self.education:
-                return "dorm"
+                return "dorm at your college campus"
             elif "freelance" in self.occupation or "barista" in self.occupation or "retail" in self.occupation:
-                return "small apartment"
+                return "small apartment that you are renting"
             else:
                 return random.choice(["small apartment", "shared apartment"])
         elif self.age_class_name == "middle_aged":
@@ -177,9 +178,9 @@ class PersonGenerator:
                 return random.choice(["small apartment", "house"])
         elif self.age_class_name == "elderly":
             if "Retired" in self.occupation:
-                return random.choice(["senior living apartment", "small house"])
+                return random.choice(["senior living apartment", "paid off house"])
             else:
-                return random.choice(["condo", "small house"])
+                return random.choice(["condo", "house"])
         return "unknown"
 
     def assign_hobby(self):
@@ -197,7 +198,7 @@ class PersonGenerator:
             "Living Type": self.living_type,
             "Hobby": self.hobby,
             "Recent Hobby Update": self.hobby_update,
-            "Background": background_template.format(
+            "Background": self.background_template.format(
                 age=self.age,
                 gender=self.gender,
                 profession= self.occupation,
@@ -209,12 +210,13 @@ class PersonGenerator:
         }
 
 
-background_template = """
-You are a {age} {profession}. You idenitfy as a {gender}.
-You live in a {type_of_home}.
-You have {education_background} background.
-In your free time, you enjoy {hobby_or_interest}, recently {specific_aspect_of_hobby}
-"""
+# background_template = """
+# You are a {age} {profession}. You idenitfy as a {gender}.
+# You live in a {type_of_home}.
+# You have {education_background} background.
+# In your free time, you enjoy {hobby_or_interest}, recently {specific_aspect_of_hobby}
+# """
+
 # Example usage:
 if __name__ == "__main__":
     person = PersonGenerator()
