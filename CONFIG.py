@@ -119,14 +119,14 @@ In your free time, you enjoy gardening. You’re tracking seasonal changes in yo
 # These values determine their identities!
 ###############################################################################################
 
-def get_names(run_config: RunConfiguration) -> tuple[tuple[str, str], tuple[str, str]]:
-    print(run_config)
+def get_names(config: str) -> tuple[tuple[str, str], tuple[str, str]]:
+    print(config)
     try: 
-        formal_char = run_config.value[0]
+        formal_char = config[0]
         background_formal = config_dict[formal_char]["background"]
         name_formal = config_dict[formal_char]["names"][0]
 
-        pajama_char = run_config.value[1]
+        pajama_char = config[1]
         background_pajama = config_dict[pajama_char]["background"]
         name_pajama = config_dict[pajama_char]["names"][1]
     except Exception:

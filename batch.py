@@ -6,7 +6,7 @@ import traceback
 executes a batch of assertiveness observers using the given count.
 """
 
-possible_slots = "AB"
+possible_slots = "ABCDEF"
 for comb in itertools.product(possible_slots, possible_slots):
     config = "".join(comb)
     

@@ -21,7 +21,7 @@ from pathlib import Path
 
 # MAX_TOKENS = 3500
 MAX_TOKENS = 350000
-RUNS_TO_DO = 1
+RUNS_TO_DO = 30
 DEBUGGING = False
 
 #################################################################3
@@ -47,7 +47,7 @@ if len(sys.argv) > 1:
         # possibilities = set([i for i in RunConfiguration])
         # if config not in possibilities:
         #     raise ValueError
-        run_configuration = RunConfiguration(config)
+        # run_configuration = RunConfiguration(config)
     except Exception:
         print(f"Invalid first argument. Should contain two chars, one for each spot. ")
         sys.exit(1)
@@ -65,13 +65,13 @@ def get_filename():
         print(filename)
         raise KeyboardInterrupt
 
-    Path(f"Warehouse/{run_configuration.value}").mkdir(parents=True, exist_ok=True)
-    filename = f"Warehouse/{run_configuration.value}/{filename}"
+    Path(f"Warehouse/{config}").mkdir(parents=True, exist_ok=True)
+    filename = f"Warehouse/{config}/{filename}"
     last_filename = filename
 
     return filename
 
-print(f"{run_configuration = }")
+print(f"{config = }")
 # DO NOT CHANGE THESE VALUES
 
 # name_a1 = "John Smith"
@@ -101,7 +101,7 @@ print(f"{run_configuration = }")
 # Every day before the market opens, you lift for a bit. You have a side hustle day trading on Robinhood. 
 # """
 
-((name_formal, background_formal), (name_pajama, background_pajama)) = get_names(run_configuration)
+((name_formal, background_formal), (name_pajama, background_pajama)) = get_names(config)
 
 
 

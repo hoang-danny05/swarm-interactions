@@ -1,0 +1,22 @@
+{
+  "Oppenheimer": 0,
+  "Barbie": 0,
+  "NoWins": 1,
+  "Compromise": 0,
+  "TokenLimitExceeded": 0,
+  "ConfusedIdentity": 0,
+  "Total": 1,
+  "Results": [
+    [
+      0,
+      0,
+      0,
+      1,
+      0,
+      0
+    ]
+  ],
+  "SuccessfulFiles": [
+    "Warehouse/CC/run4o_discovery_04_25_2025 at_09;47;44.json"
+  ]
+}
