@@ -28,14 +28,16 @@ print(observations)
 chi2_stat, p_value, dof, expected = chitestNprint(np.transpose(observations)) 
 '''
 
-def resultsDF(directory, filename):
+def resultsDF(directory, filename, tocsv=False):
     """
-    Takes the run directories, results to export the data as a dataframe object
+    Takes the run directories, results to export the data as a dataframe object. Optionally exports data to csv
     params:
         directory: str  
             A string containing the directory of all runs
         filename: str
             A string containing the filename of the results
+        tocsv: bool
+            Default false. If yes exports
     """
     col = [
     "Arrangement",
@@ -60,13 +62,14 @@ def resultsDF(directory, filename):
                     if key == "Results": break
                     result[key] = d[key]
                 rows.append(result)
-            
+    df = pd.DataFrame(rows)
+    if tocsv==True:df.to_csv(os.path.join(os.getcwd(), "pairwise_data.csv"), index=False)
     return pd.DataFrame(rows)
 
 filename = 'results_run4o_discovery.json'
 directory = './Warehouse/'
 
-data = resultsDF(directory=directory, filename=filename)
+data = resultsDF(directory=directory, filename=filename, tocsv=True)
 
 print(data.head())
 
@@ -82,19 +85,3 @@ for _, row in data.iterrows():
                      })
     
 df = pd.DataFrame(pairwise)
-
-# Step 1: Initialize win counts for each player
-win_counts = pd.concat([
-    df[['P1', 'W1']].rename(columns={'P1': 'Player', 'W1': 'Wins'}),
-    df[['P2', 'W2']].rename(columns={'P2': 'Player', 'W2': 'Wins'})
-])
-
-# Step 2: Sum the wins for each player
-total_wins = win_counts.groupby('Player')['Wins'].sum()
-
-# Step 3: Rank players based on total wins
-ranking = total_wins.sort_values(ascending=False)
-
-# Step 4: Display rankings
-print("Player Rankings based on total wins:")
-print(ranking)
