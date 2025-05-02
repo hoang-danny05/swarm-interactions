@@ -1,7 +1,7 @@
 {
-  "Oppenheimer": 0,
-  "Barbie": 8,
-  "NoWins": 25,
+  "Oppenheimer": 1,
+  "Barbie": 4,
+  "NoWins": 28,
   "Compromise": 6,
   "TokenLimitExceeded": 0,
   "ConfusedIdentity": 0,
@@ -105,10 +105,120 @@
     ],
     [
       0,
+<<<<<<< HEAD
+=======
+      0,
+      0,
+      1,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      1,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      1,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      1,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      1,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      1,
+      0,
+      0
+    ],
+    [
+>>>>>>> 0ab1e82 (finished runs)
       1,
       0,
       0,
       0,
+<<<<<<< HEAD
+=======
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      1,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      1,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      1,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      1,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      1,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      1,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      1,
+      0,
+>>>>>>> 0ab1e82 (finished runs)
       0
     ],
     [
@@ -178,6 +288,7 @@
     [
       0,
       0,
+<<<<<<< HEAD
       1,
       0,
       0,
@@ -266,6 +377,8 @@
     [
       0,
       0,
+=======
+>>>>>>> 0ab1e82 (finished runs)
       0,
       1,
       0,
@@ -306,6 +419,7 @@
     [
       0,
       0,
+<<<<<<< HEAD
       0,
       1,
       0,
@@ -325,6 +439,11 @@
       0,
       1,
       0,
+=======
+      1,
+      0,
+      0,
+>>>>>>> 0ab1e82 (finished runs)
       0
     ]
   ],
@@ -339,6 +458,7 @@
     "Warehouse/AD/run4o_discovery_04_28_2025 at_11;03;53.json",
     "Warehouse/AD/run4o_discovery_04_28_2025 at_11;04;55.json",
     "Warehouse/AD/run4o_discovery_04_28_2025 at_11;05;28.json",
+<<<<<<< HEAD
     "Warehouse/AD/run4o_discovery_05_01_2025 at_09;36;41.json",
     "Warehouse/AD/run4o_discovery_05_01_2025 at_09;37;47.json",
     "Warehouse/AD/run4o_discovery_05_01_2025 at_09;38;40.json",
@@ -369,5 +489,37 @@
     "Warehouse/AD/run4o_discovery_05_01_2025 at_10;04;46.json",
     "Warehouse/AD/run4o_discovery_05_01_2025 at_10;06;08.json",
     "Warehouse/AD/run4o_discovery_05_01_2025 at_10;06;39.json"
+=======
+    "Warehouse/AD/run4o_discovery_04_29_2025 at_12;10;31.json",
+    "Warehouse/AD/run4o_discovery_04_29_2025 at_12;15;18.json",
+    "Warehouse/AD/run4o_discovery_04_29_2025 at_12;16;22.json",
+    "Warehouse/AD/run4o_discovery_04_29_2025 at_12;16;58.json",
+    "Warehouse/AD/run4o_discovery_04_29_2025 at_12;17;56.json",
+    "Warehouse/AD/run4o_discovery_04_29_2025 at_12;19;04.json",
+    "Warehouse/AD/run4o_discovery_04_29_2025 at_12;20;22.json",
+    "Warehouse/AD/run4o_discovery_04_29_2025 at_12;21;53.json",
+    "Warehouse/AD/run4o_discovery_04_29_2025 at_12;22;37.json",
+    "Warehouse/AD/run4o_discovery_04_29_2025 at_12;23;25.json",
+    "Warehouse/AD/run4o_discovery_04_29_2025 at_12;23;58.json",
+    "Warehouse/AD/run4o_discovery_04_29_2025 at_12;24;58.json",
+    "Warehouse/AD/run4o_discovery_04_29_2025 at_12;25;57.json",
+    "Warehouse/AD/run4o_discovery_04_29_2025 at_12;26;42.json",
+    "Warehouse/AD/run4o_discovery_04_29_2025 at_12;27;27.json",
+    "Warehouse/AD/run4o_discovery_04_29_2025 at_12;29;02.json",
+    "Warehouse/AD/run4o_discovery_04_29_2025 at_12;30;11.json",
+    "Warehouse/AD/run4o_discovery_04_29_2025 at_12;31;06.json",
+    "Warehouse/AD/run4o_discovery_04_29_2025 at_12;31;58.json",
+    "Warehouse/AD/run4o_discovery_04_29_2025 at_12;32;50.json",
+    "Warehouse/AD/run4o_discovery_04_29_2025 at_12;33;32.json",
+    "Warehouse/AD/run4o_discovery_04_29_2025 at_12;34;26.json",
+    "Warehouse/AD/run4o_discovery_04_29_2025 at_12;35;28.json",
+    "Warehouse/AD/run4o_discovery_04_29_2025 at_12;36;22.json",
+    "Warehouse/AD/run4o_discovery_04_29_2025 at_12;37;28.json",
+    "Warehouse/AD/run4o_discovery_04_29_2025 at_12;38;56.json",
+    "Warehouse/AD/run4o_discovery_04_29_2025 at_12;39;38.json",
+    "Warehouse/AD/run4o_discovery_04_29_2025 at_12;41;11.json",
+    "Warehouse/AD/run4o_discovery_04_29_2025 at_12;41;56.json",
+    "Warehouse/AD/run4o_discovery_04_29_2025 at_12;42;46.json"
+>>>>>>> 0ab1e82 (finished runs)
   ]
 }
