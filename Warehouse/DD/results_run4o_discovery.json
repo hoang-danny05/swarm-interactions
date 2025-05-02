@@ -1,11 +1,11 @@
 {
   "Oppenheimer": 1,
-  "Barbie": 3,
-  "NoWins": 20,
+  "Barbie": 4,
+  "NoWins": 48,
   "Compromise": 5,
   "TokenLimitExceeded": 0,
   "ConfusedIdentity": 1,
-  "Total": 29,
+  "Total": 58,
   "Results": [
     [
       0,
@@ -246,6 +246,246 @@
       0,
       0,
       0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      1,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      1,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      1,
+      0,
+      0
+    ],
+    [
+      0,
+      1,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      1,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      1,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      1,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      1,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      1,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      1,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      1,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      1,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      1,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      1,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      1,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      1,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      1,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      1,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      1,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      1,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      1,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      1,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      1,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      1,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      1,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      1,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      1,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      1,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      1,
+      0,
+      0
     ]
   ],
   "SuccessfulFiles": [
@@ -277,6 +517,36 @@
     "Warehouse/DD/run4o_discovery_04_28_2025 at_15;01;27.json",
     "Warehouse/DD/run4o_discovery_04_28_2025 at_15;02;01.json",
     "Warehouse/DD/run4o_discovery_04_28_2025 at_15;03;55.json",
-    "Warehouse/DD/run4o_discovery_04_28_2025 at_15;04;49.json"
+    "Warehouse/DD/run4o_discovery_04_28_2025 at_15;04;49.json",
+    "Warehouse/DD/run4o_discovery_05_02_2025 at_03;28;24.json",
+    "Warehouse/DD/run4o_discovery_05_02_2025 at_03;29;21.json",
+    "Warehouse/DD/run4o_discovery_05_02_2025 at_03;30;34.json",
+    "Warehouse/DD/run4o_discovery_05_02_2025 at_03;31;21.json",
+    "Warehouse/DD/run4o_discovery_05_02_2025 at_03;32;12.json",
+    "Warehouse/DD/run4o_discovery_05_02_2025 at_03;33;22.json",
+    "Warehouse/DD/run4o_discovery_05_02_2025 at_03;34;15.json",
+    "Warehouse/DD/run4o_discovery_05_02_2025 at_03;35;42.json",
+    "Warehouse/DD/run4o_discovery_05_02_2025 at_03;36;50.json",
+    "Warehouse/DD/run4o_discovery_05_02_2025 at_03;37;59.json",
+    "Warehouse/DD/run4o_discovery_05_02_2025 at_03;38;44.json",
+    "Warehouse/DD/run4o_discovery_05_02_2025 at_03;39;53.json",
+    "Warehouse/DD/run4o_discovery_05_02_2025 at_03;41;22.json",
+    "Warehouse/DD/run4o_discovery_05_02_2025 at_03;42;10.json",
+    "Warehouse/DD/run4o_discovery_05_02_2025 at_03;43;08.json",
+    "Warehouse/DD/run4o_discovery_05_02_2025 at_03;44;30.json",
+    "Warehouse/DD/run4o_discovery_05_02_2025 at_03;45;34.json",
+    "Warehouse/DD/run4o_discovery_05_02_2025 at_03;55;53.json",
+    "Warehouse/DD/run4o_discovery_05_02_2025 at_03;56;46.json",
+    "Warehouse/DD/run4o_discovery_05_02_2025 at_03;58;36.json",
+    "Warehouse/DD/run4o_discovery_05_02_2025 at_03;59;19.json",
+    "Warehouse/DD/run4o_discovery_05_02_2025 at_04;00;11.json",
+    "Warehouse/DD/run4o_discovery_05_02_2025 at_04;01;12.json",
+    "Warehouse/DD/run4o_discovery_05_02_2025 at_04;02;17.json",
+    "Warehouse/DD/run4o_discovery_05_02_2025 at_04;03;26.json",
+    "Warehouse/DD/run4o_discovery_05_02_2025 at_04;04;42.json",
+    "Warehouse/DD/run4o_discovery_05_02_2025 at_04;06;24.json",
+    "Warehouse/DD/run4o_discovery_05_02_2025 at_04;07;43.json",
+    "Warehouse/DD/run4o_discovery_05_02_2025 at_04;09;02.json",
+    "Warehouse/DD/run4o_discovery_05_02_2025 at_04;17;57.json"
   ]
 }
