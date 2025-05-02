@@ -1,11 +1,11 @@
 {
-  "Oppenheimer": 0,
-  "Barbie": 2,
-  "NoWins": 28,
+  "Oppenheimer": 1,
+  "Barbie": 3,
+  "NoWins": 24,
   "Compromise": 10,
   "TokenLimitExceeded": 0,
-  "ConfusedIdentity": 0,
-  "Total": 40,
+  "ConfusedIdentity": 1,
+  "Total": 38,
   "Results": [
     [
       0,
@@ -90,8 +90,19 @@
     [
       0,
       0,
+<<<<<<< HEAD
       1,
       0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+=======
+>>>>>>> 0ab1e82 (finished runs)
+      0,
+      1,
       0,
       0
     ],
@@ -106,48 +117,9 @@
     [
       0,
       0,
-      0,
+<<<<<<< HEAD
       1,
       0,
-      0
-    ],
-    [
-      0,
-      0,
-      1,
-      0,
-      0,
-      0
-    ],
-    [
-      0,
-      0,
-      0,
-      1,
-      0,
-      0
-    ],
-    [
-      0,
-      0,
-      1,
-      0,
-      0,
-      0
-    ],
-    [
-      0,
-      0,
-      0,
-      1,
-      0,
-      0
-    ],
-    [
-      0,
-      0,
-      0,
-      1,
       0,
       0
     ],
@@ -170,62 +142,8 @@
     [
       0,
       0,
-      0,
-      1,
-      0,
-      0
-    ],
-    [
-      0,
-      0,
-      0,
-      1,
-      0,
-      0
-    ],
-    [
-      0,
-      0,
-      0,
-      1,
-      0,
-      0
-    ],
-    [
-      0,
-      0,
-      0,
-      1,
-      0,
-      0
-    ],
-    [
-      0,
-      0,
-      0,
-      1,
-      0,
-      0
-    ],
-    [
-      0,
-      0,
-      0,
-      1,
-      0,
-      0
-    ],
-    [
-      0,
-      0,
-      0,
-      1,
-      0,
-      0
-    ],
-    [
-      0,
-      0,
+=======
+>>>>>>> 0ab1e82 (finished runs)
       0,
       1,
       0,
@@ -266,9 +184,224 @@
     [
       0,
       0,
+      0,
+      1,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      1,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      1,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+<<<<<<< HEAD
+      0,
+      1,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      1,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      1,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      1,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      1,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      1,
+=======
+      1,
+      0,
+>>>>>>> 0ab1e82 (finished runs)
+      0,
+      0
+    ],
+    [
+      0,
+      0,
       1,
       0,
       0,
+      0
+    ],
+    [
+      0,
+      0,
+<<<<<<< HEAD
+      0,
+      1,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      1,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      1,
+      0,
+      0
+    ],
+    [
+      0,
+      1,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      1,
+      0,
+      0,
+=======
+      1,
+      0,
+>>>>>>> 0ab1e82 (finished runs)
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      1,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      1,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      1,
+      0,
+      0
+    ],
+    [
+      0,
+<<<<<<< HEAD
+=======
+      1,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+>>>>>>> 0ab1e82 (finished runs)
+      0,
+      0,
+      1,
+      0,
+      0
+<<<<<<< HEAD
+=======
+    ],
+    [
+      0,
+      0,
+      0,
+      1,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      1,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      1,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      1,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      1,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      1,
       0
     ],
     [
@@ -296,10 +429,10 @@
       0
     ],
     [
-      0,
-      0,
-      0,
       1,
+      0,
+      0,
+      0,
       0,
       0
     ],
@@ -315,17 +448,10 @@
       0,
       0,
       0,
-      1,
+      0,
       0,
       0
-    ],
-    [
-      0,
-      0,
-      0,
-      1,
-      0,
-      0
+>>>>>>> 0ab1e82 (finished runs)
     ]
   ],
   "SuccessfulFiles": [
@@ -339,6 +465,7 @@
     "Warehouse/AF/run4o_discovery_04_28_2025 at_11;23;56.json",
     "Warehouse/AF/run4o_discovery_04_28_2025 at_11;26;08.json",
     "Warehouse/AF/run4o_discovery_04_28_2025 at_11;26;51.json",
+<<<<<<< HEAD
     "Warehouse/AF/run4o_discovery_05_01_2025 at_10;38;06.json",
     "Warehouse/AF/run4o_discovery_05_01_2025 at_10;39;08.json",
     "Warehouse/AF/run4o_discovery_05_01_2025 at_10;40;33.json",
@@ -369,5 +496,36 @@
     "Warehouse/AF/run4o_discovery_05_01_2025 at_11;08;02.json",
     "Warehouse/AF/run4o_discovery_05_01_2025 at_11;09;07.json",
     "Warehouse/AF/run4o_discovery_05_01_2025 at_11;10;21.json"
+=======
+    "Warehouse/AF/run4o_discovery_04_29_2025 at_13;15;08.json",
+    "Warehouse/AF/run4o_discovery_04_29_2025 at_13;16;36.json",
+    "Warehouse/AF/run4o_discovery_04_29_2025 at_13;17;34.json",
+    "Warehouse/AF/run4o_discovery_04_29_2025 at_13;18;26.json",
+    "Warehouse/AF/run4o_discovery_04_29_2025 at_13;19;30.json",
+    "Warehouse/AF/run4o_discovery_04_29_2025 at_13;20;29.json",
+    "Warehouse/AF/run4o_discovery_04_29_2025 at_13;21;20.json",
+    "Warehouse/AF/run4o_discovery_04_29_2025 at_13;22;51.json",
+    "Warehouse/AF/run4o_discovery_04_29_2025 at_13;23;57.json",
+    "Warehouse/AF/run4o_discovery_04_29_2025 at_13;24;48.json",
+    "Warehouse/AF/run4o_discovery_04_29_2025 at_13;25;53.json",
+    "Warehouse/AF/run4o_discovery_04_29_2025 at_13;26;48.json",
+    "Warehouse/AF/run4o_discovery_04_29_2025 at_13;27;50.json",
+    "Warehouse/AF/run4o_discovery_04_29_2025 at_13;28;35.json",
+    "Warehouse/AF/run4o_discovery_04_29_2025 at_13;30;05.json",
+    "Warehouse/AF/run4o_discovery_04_29_2025 at_13;31;43.json",
+    "Warehouse/AF/run4o_discovery_04_29_2025 at_13;32;40.json",
+    "Warehouse/AF/run4o_discovery_04_29_2025 at_13;33;48.json",
+    "Warehouse/AF/run4o_discovery_04_29_2025 at_13;34;34.json",
+    "Warehouse/AF/run4o_discovery_04_29_2025 at_13;35;32.json",
+    "Warehouse/AF/run4o_discovery_04_29_2025 at_13;36;36.json",
+    "Warehouse/AF/run4o_discovery_04_29_2025 at_13;37;22.json",
+    "Warehouse/AF/run4o_discovery_04_29_2025 at_13;38;09.json",
+    "Warehouse/AF/run4o_discovery_04_29_2025 at_13;39;46.json",
+    "Warehouse/AF/run4o_discovery_04_29_2025 at_13;40;52.json",
+    "Warehouse/AF/run4o_discovery_04_29_2025 at_13;41;41.json",
+    "Warehouse/AF/run4o_discovery_04_29_2025 at_13;42;48.json",
+    "Warehouse/AF/run4o_discovery_04_29_2025 at_13;44;01.json",
+    "Warehouse/AF/run4o_discovery_04_29_2025 at_13;44;41.json"
+>>>>>>> 0ab1e82 (finished runs)
   ]
 }
