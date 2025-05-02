@@ -63,7 +63,7 @@ def resultsDF(directory, filename, tocsv=False):
                     result[key] = d[key]
                 rows.append(result)
     df = pd.DataFrame(rows)
-    if tocsv==True:df.to_csv(os.path.join(os.getcwd(), "pairwise_data.csv"))
+    if tocsv==True:df.to_csv(os.path.join(os.getcwd(), "data.csv"))
     return pd.DataFrame(rows)
 
 def df_to_pairwise(data):
