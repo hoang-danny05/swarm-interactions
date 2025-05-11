@@ -2,7 +2,6 @@ import os
 import json
 import numpy as np
 import pandas as pd
-import choix
 '''
 def chitestNprint(observed):
     chi2_stat, p_value, dof, expected = stats.chi2_contingency(observed)
@@ -31,13 +30,12 @@ chi2_stat, p_value, dof, expected = chitestNprint(np.transpose(observations))
 def resultsDF(directory, filename, tocsv=False):
     """
     Takes the run directories, results to export the data as a dataframe object. Optionally exports data to csv
-    params:
-        directory: str  
-            A string containing the directory of all runs
-        filename: str
-            A string containing the filename of the results
-        tocsv: bool
-            Default false. If yes exports
+    Args:
+        directory (str): Directory of all runs.
+        filename (str): Name of the results file.
+        tocsv (bool): Whether to export to CSV. Defaults to False.
+    Returns:
+        pd.DataFrame: The result data as a DataFrame.
     """
     col = [
     "Arrangement",
@@ -55,7 +53,13 @@ def resultsDF(directory, filename, tocsv=False):
             fullfile = directory+i+'/'+filename
 
             with open(fullfile, 'r') as file:
-                d = json.load(file)
+                raw = file.read()
+                # Trim at "Results" key if present
+                if '"Results":' in raw:
+                    raw = raw.split('"Results":')[0].rstrip(', \n\t')
+                    raw += '}'
+                    
+                d = json.loads(raw)
                 result = {}
                 result["Arrangement"] = str(i)
                 for key in d:
@@ -69,7 +73,10 @@ def resultsDF(directory, filename, tocsv=False):
 def df_to_pairwise(data):
     """
     Takes a dataframe and returns a second data frame with outcomes of matches with player vs player.
-
+    Args:
+        data (pd.DataFrame): Pandas dataframe of the wins
+    Returns:
+        pd.DataFrame: Returns the pairwise dataframe to be used in bradley-terry ranking.
     """
     pairwise = []
 
@@ -87,6 +94,13 @@ def df_to_pairwise(data):
 def pairwise_to_win_matrix(df, return_players=False):
     """
     Takes a dataframe of pairwise wins, and returns a numpy win matrix, and a list of players.
+    Args:
+        df (pd.DataFrame): Pandas dataframe of the pairwise wins
+        return_players (bool): whether to return players.
+    Returns:
+        W (pd.DataFrame): Returns the pairwise dataframe to be used in bradley-terry ranking.
+        players (dict): Returns a dictionary of the players corresponding to a column index in the pairwise dataframe.
+
     """
     players = pd.unique(df[['P1', 'P2']].values.ravel())
     players.sort()
@@ -144,9 +158,8 @@ def bradley_terry_ranking(W, players, print_stats=False, max_iter=10000, tol=1e-
     rankings = {k: v for k, v in zip(players, r)}
     return rankings
 
-
 filename = 'results_run4o_discovery.json'
-directory = './Warehouse/'
+directory = 'Warehouse/'
 
 data = resultsDF(directory=directory, filename=filename, tocsv=True)
 
@@ -158,4 +171,6 @@ W, players = pairwise_to_win_matrix(df, return_players=True)
 
 rankings = bradley_terry_ranking(W, players)
 
-print(rankings)
+print("******** Rankings ********")
+for key, item in rankings.items():
+    print(f"Player {key} with {item}")
