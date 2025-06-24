@@ -28,11 +28,13 @@ done
 min=$(for key in "${!myhash[@]}"; do echo "${myhash[$key]}"; done | sort -n | head -n 1)
 max=$(for key in "${!myhash[@]}"; do echo "${myhash[$key]}"; done | sort -n | tail -n 1)
 
+echo "The min of run is: $min; The max of the runs is: $max"
+
 if [ "$min" -ne "$max" ]; then
 
     read -p "Would you like to top off the runs? 0 for yes 1 for no:   " top_off
     if [ "$top_off" == 1 ]; then
-        echo "The min of run is: $min; The max of the runs is: $max"
+        
         read -p "Enter an integer amount of runs you would like to run in this session : " user_run_info
         
         for ((i = 1; i <= user_run_info; i++)); do
