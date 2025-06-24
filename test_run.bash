@@ -36,7 +36,7 @@ if [ "$min" -ne "$max" ]; then
             # Revaluate to prioritize lowest runs
             min=$(for key in "${!myhash[@]}"; do echo "${myhash[$key]}"; done | sort -n | head -n 1)
             max=$(for key in "${!myhash[@]}"; do echo "${myhash[$key]}"; done | sort -n | tail -n 1)
-            if [ "$min" -ne "$max" ]; then
+            if [ "$min" == "$max" ]; then
                 echo "runs are now even, exiting early"
                 break
             fi
