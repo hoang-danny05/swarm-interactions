@@ -8,6 +8,16 @@ COMMENT
 
 declare -A myhash
 
+
+update_myhash(){
+    # updates the associative array 
+    for file in $(find Warehouse/ -maxdepth 2 -name "results*"); do
+        name=$(echo $file | grep -o '[A-Z]\{2\}') # extracts configuration case
+        num=$(grep '"Total"' "$file" | grep -o '[0-9]\+') # gets number of runs in each match up
+        myhash[$name]=$num
+    done
+}
+
 for file in $(find Warehouse/ -maxdepth 2 -name "results*"); do
     name=$(echo $file | grep -o '[A-Z]\{2\}') # extracts configuration case
     num=$(grep '"Total"' "$file" | grep -o '[0-9]\+') # gets number of runs in each match up
@@ -19,6 +29,7 @@ min=$(for key in "${!myhash[@]}"; do echo "${myhash[$key]}"; done | sort -n | he
 max=$(for key in "${!myhash[@]}"; do echo "${myhash[$key]}"; done | sort -n | tail -n 1)
 
 if [ "$min" -ne "$max" ]; then
+
     read -p "Would you like to top off the runs? 0 for yes 1 for no:   " top_off
     if [ "$top_off" == 1 ]; then
         echo "The min of run is:$min; The max of the runs is: $max"
@@ -34,6 +45,7 @@ if [ "$min" -ne "$max" ]; then
 
             #python assertiveness_observer.py "$foundkey" # I think this is how the positional argument works
             # Revaluate to prioritize lowest runs
+            update_myhash
             min=$(for key in "${!myhash[@]}"; do echo "${myhash[$key]}"; done | sort -n | head -n 1)
             max=$(for key in "${!myhash[@]}"; do echo "${myhash[$key]}"; done | sort -n | tail -n 1)
             if [ "$min" == "$max" ]; then
@@ -41,8 +53,12 @@ if [ "$min" -ne "$max" ]; then
                 break
             fi
         done
+    # Block where top off is carried out.
     else 
         echo # top off the runs; while {have to lowest run case populate until it equals the max; run lines 18-19 to check values finish when all are equal} 
     fi
 
+# block where if all number of runs are even, the number of runs per each matchup is carried out
+else
+    echo
 fi
