@@ -21,7 +21,7 @@ from pathlib import Path
 
 # MAX_TOKENS = 3500
 MAX_TOKENS = 350000
-RUNS_TO_DO = 30
+RUNS_TO_DO = 1 # changed to 1 for adaptability to the bash script for autocomplete
 DEBUGGING = False
 
 #################################################################3
