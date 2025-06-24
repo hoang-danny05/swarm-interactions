@@ -1,4 +1,4 @@
-# Swarm-Interactions
+# :cyclone: Swarm-Interactions
 
 I recently saw swarms and thought this would be a good idea to include to our project! Still under development, of course. Our system is of two users, alice and bob. Alice talks first, and Bob responds. 
 Both bots have the chance to end conversation by calling the end_conversation() method given to them. (yes, swarms is pretty cool, right?). 
@@ -6,7 +6,7 @@ Both bots have the chance to end conversation by calling the end_conversation() 
 All conversations are stored in the Warehouse directory. View.py allows easy parsing of each output file. 
 Note: we are using openai/swarms, but there exists an enterprise-ready version of swarms at [kyegomez/swarms](https://github.com/kyegomez/swarms).
 
-## How to setup
+## :hammer: How to setup
 
 1) Clone or download this repository
 2) Create a virtual environment and use it (OPTIONAL)
@@ -23,7 +23,7 @@ pip install -r requirements.txt
 pip install git+https://github.com/openai/swarm.git
 ```
 
-## Development Notes. (v0.3 is the latest)
+## :clipboard: Development Notes. (v0.3 is the latest)
 Making the bots play their own roles is complicated. The bots don't expect to be addressed in the third person. So, when the system prompt is added to the messages, it bugs everything out.
 
 Messages as of v0.1:
