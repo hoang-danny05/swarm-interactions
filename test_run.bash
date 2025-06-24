@@ -60,5 +60,5 @@ if [ "$min" -ne "$max" ]; then
 
 # block where if all number of runs are even, the number of runs per each matchup is carried out
 else
-    echo
+    echo # Here there should be a block to carry out the runs on each match-up
 fi
