@@ -1,0 +1,31 @@
+#!bin/bash
+
+: << 'COMMENT'
+This is a script to batch run our agent match-ups. It handels a few cases:
+1. Checks if the runs are distributed unevenly and starts to run match-ups with the lowest runs to even everything out.
+2. If all runs are the same/even the script runs an additional #number of runs per each matchup. 
+COMMENT
+
+declare -A myhash
+
+for file in $(find Warehouse/ -maxdepth 2 -name "results*"); do
+    name=$(echo $file | grep -o '[A-Z]\{2\}') # extracts configuration case
+    num=$(grep '"Total"' "$file" | grep -o '[0-9]\+') # gets number of runs in each match up
+    myhash[$name]=$num
+    echo "Number of runs for $name is: $num" # prints number of run in each match up
+done
+
+min=$(for key in "${!myhash[@]}"; do echo "${myhash[$key]}"; done | sort -n | head -n 1)
+max=$(for key in "${!myhash[@]}"; do echo "${myhash[$key]}"; done | sort -n | tail -n 1)
+
+if [ "$min" -ne "$max" ]; then
+    read -p "Would you like to top off the runs? 0 for yes 1 for no" top_off
+    if [ "$top_off" -eq 1]; then
+        echo "The min of run is:$min; The max of the runs is: $max"
+        read -p "Enter an integer amount of runs for each case leq to the max: " user_run_info
+        echo $user_run_info
+    else 
+        echo # topo off the runs; while {have to lowest run case populate until it equals the max; run lines 18-19 to check values finish when all are equal} 
+    fi
+
+fi
