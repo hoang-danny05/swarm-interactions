@@ -19,13 +19,26 @@ min=$(for key in "${!myhash[@]}"; do echo "${myhash[$key]}"; done | sort -n | he
 max=$(for key in "${!myhash[@]}"; do echo "${myhash[$key]}"; done | sort -n | tail -n 1)
 
 if [ "$min" -ne "$max" ]; then
-    read -p "Would you like to top off the runs? 0 for yes 1 for no" top_off
-    if [ "$top_off" -eq 1]; then
+    read -p "Would you like to top off the runs? 0 for yes 1 for no:   " top_off
+    if [ "$top_off" == 1 ]; then
         echo "The min of run is:$min; The max of the runs is: $max"
-        read -p "Enter an integer amount of runs for each case leq to the max: " user_run_info
-        echo $user_run_info
+        read -p "Enter an integer amount of runs you would like to run in this session : " user_run_info
+        
+        for ((i = 1; i <= user_run_info; i++)); do
+            for key in "${!myhash[@]}"; do 
+                if [ "${myhash[$key]}" == $min ]; then
+                    foundkey="$key"
+                fi
+            done 
+            echo "The key for the lowest amount of runs is: $foundkey"
+
+            #python assertiveness_observer.py "$foundkey" # I think this is how the positional argument works
+            # Revaluate to prioritize lowest runs
+            min=$(for key in "${!myhash[@]}"; do echo "${myhash[$key]}"; done | sort -n | head -n 1)
+            max=$(for key in "${!myhash[@]}"; do echo "${myhash[$key]}"; done | sort -n | tail -n 1)
+        done
     else 
-        echo # topo off the runs; while {have to lowest run case populate until it equals the max; run lines 18-19 to check values finish when all are equal} 
+        echo # top off the runs; while {have to lowest run case populate until it equals the max; run lines 18-19 to check values finish when all are equal} 
     fi
 
 fi
