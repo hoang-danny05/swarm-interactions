@@ -32,7 +32,7 @@ if [ "$min" -ne "$max" ]; then
 
     read -p "Would you like to top off the runs? 0 for yes 1 for no:   " top_off
     if [ "$top_off" == 1 ]; then
-        echo "The min of run is:$min; The max of the runs is: $max"
+        echo "The min of run is: $min; The max of the runs is: $max"
         read -p "Enter an integer amount of runs you would like to run in this session : " user_run_info
         
         for ((i = 1; i <= user_run_info; i++)); do
@@ -61,4 +61,11 @@ if [ "$min" -ne "$max" ]; then
 # block where if all number of runs are even, the number of runs per each matchup is carried out
 else
     echo # Here there should be a block to carry out the runs on each match-up
+    read -p "How many runs per match-up would you like to perform:  " user_run_info
+    for key in "${!myhash[@]}";do
+        echo " Completing runs for $key ..."
+        ((i = 1; i <= user_run_info; i++)); do
+            #python assertiveness_observer.py "$key" # I think this is how the positional argument works
+        done
+    done
 fi
