@@ -36,7 +36,7 @@ if [ "$min" -ne "$max" ]; then
     if [ "$top_off" == 1 ]; then
         
         read -p "Enter an integer amount of runs you would like to run in this session : " user_run_info
-        
+        count=1
         for ((i = 1; i <= user_run_info; i++)); do
             for key in "${!myhash[@]}"; do 
                 if [ "${myhash[$key]}" == $min ]; then
@@ -51,6 +51,7 @@ if [ "$min" -ne "$max" ]; then
             update_myhash
             min=$(for key in "${!myhash[@]}"; do echo "${myhash[$key]}"; done | sort -n | head -n 1)
             max=$(for key in "${!myhash[@]}"; do echo "${myhash[$key]}"; done | sort -n | tail -n 1)
+            echo "****************************************************** COMPLETED RUN NUMBER: $count ******************************************************"
             if [ "$min" == "$max" ]; then
                 echo "runs are now even, exiting early"
                 break
