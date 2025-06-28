@@ -64,9 +64,9 @@ if [ "$min" -ne "$max" ]; then
 else
     echo # Here there should be a block to carry out the runs on each match-up
     read -p "How many runs per match-up would you like to perform:  " user_run_info
-    for key in "${!myhash[@]}";do
+    for key in "${!myhash[@]}"; do
         echo " Completing runs for $key ..."
-        ((i = 1; i <= user_run_info; i++)); do
+        for ((i = 1; i <= user_run_info; i++)); do
             #python assertiveness_observer.py "$key" # I think this is how the positional argument works
         done
     done
