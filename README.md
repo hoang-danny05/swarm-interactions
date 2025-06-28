@@ -23,6 +23,13 @@ pip install -r requirements.txt
 pip install git+https://github.com/openai/swarm.git
 ```
 
+## Agents
+Agent configurations are stored in `CONFIG.py`. 
+
+To-do:
+  - Add default configurations: `you are stubborn`, null identity, etc. 
+
+
 ## :clipboard: Development Notes. (v0.3 is the latest)
 Making the bots play their own roles is complicated. The bots don't expect to be addressed in the third person. So, when the system prompt is added to the messages, it bugs everything out.
 
