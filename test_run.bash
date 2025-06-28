@@ -61,7 +61,25 @@ if [ "$min" -ne "$max" ]; then
         done
     # Block where top off is carried out.
     else 
-        echo # top off the runs; while {have to lowest run case populate until it equals the max; run lines 18-19 to check values finish when all are equal} 
+        count=1
+        while [ "$min" -lt "$max" ]; do
+            for key in "${!myhash[@]}"; do 
+                if [ "${myhash[$key]}" == $min ]; then
+                    foundkey="$key"
+                fi
+            done 
+            echo "The key for the lowest amount of runs is: $foundkey"
+            echo "****************************************************** STARTING RUN NUMBER: $count FOR CONFIGURATION $foundkey ******************************************************"
+
+            # run assertiveness_observer with the proper key
+            python assertiveness_observer.py "$foundkey" # I think this is how the positional argument works
+            # Revaluate to prioritize lowest runs
+            update_myhash
+            min=$(for key in "${!myhash[@]}"; do echo "${myhash[$key]}"; done | sort -n | head -n 1)
+            max=$(for key in "${!myhash[@]}"; do echo "${myhash[$key]}"; done | sort -n | tail -n 1)
+            echo "****************************************************** COMPLETED RUN NUMBER: $count ******************************************************"
+            ((count++))
+        done 
     fi
 
 # block where if all number of runs are even, the number of runs per each matchup is carried out
