@@ -45,7 +45,8 @@ if [ "$min" -ne "$max" ]; then
             done 
             echo "The key for the lowest amount of runs is: $foundkey"
 
-            #python assertiveness_observer.py "$foundkey" # I think this is how the positional argument works
+            # run assertiveness_observer with the proper key
+            python assertiveness_observer.py "$foundkey" # I think this is how the positional argument works
             # Revaluate to prioritize lowest runs
             update_myhash
             min=$(for key in "${!myhash[@]}"; do echo "${myhash[$key]}"; done | sort -n | head -n 1)
@@ -67,7 +68,8 @@ else
     for key in "${!myhash[@]}"; do
         echo " Completing runs for $key ..."
         for ((i = 1; i <= user_run_info; i++)); do
-            #python assertiveness_observer.py "$key" # I think this is how the positional argument works
+            # run assertiveness_observer with the proper key
+            python assertiveness_observer.py "$key" # I think this is how the positional argument works
         done
     done
 fi
