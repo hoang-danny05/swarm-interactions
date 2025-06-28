@@ -1,11 +1,11 @@
 {
   "Oppenheimer": 1,
   "Barbie": 2,
-  "NoWins": 8,
-  "Compromise": 9,
+  "NoWins": 10,
+  "Compromise": 10,
   "TokenLimitExceeded": 0,
   "ConfusedIdentity": 1,
-  "Total": 20,
+  "Total": 23,
   "Results": [
     [
       0,
@@ -182,6 +182,30 @@
       0,
       0,
       0
+    ],
+    [
+      0,
+      0,
+      0,
+      1,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      1,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      1,
+      0,
+      0
     ]
   ],
   "SuccessfulFiles": [
@@ -205,6 +229,9 @@
     "Warehouse/FF/run4o_discovery_04_29_2025 at_07;05;06.json",
     "Warehouse/FF/run4o_discovery_04_29_2025 at_07;05;46.json",
     "Warehouse/FF/run4o_discovery_04_29_2025 at_07;06;36.json",
-    "Warehouse/FF/run4o_discovery_04_29_2025 at_07;07;10.json"
+    "Warehouse/FF/run4o_discovery_04_29_2025 at_07;07;10.json",
+    "Warehouse/FF/run4o_discovery_06_27_2025 at_21;54;02.json",
+    "Warehouse/FF/run4o_discovery_06_27_2025 at_21;54;40.json",
+    "Warehouse/FF/run4o_discovery_06_27_2025 at_21;55;33.json"
   ]
 }
