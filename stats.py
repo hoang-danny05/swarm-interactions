@@ -139,8 +139,9 @@ directory = 'Warehouse/'
 
 data = resultsDF(directory=directory, filename=filename, tocsv=True)
 
-print(data.head())
-
+print('-'*100)
+print("Total number of runs is: "+str(data['Total'].sum()))
+print('-'*100)
 df = df_to_pairwise(data)
 
 W, players = pairwise_to_win_matrix(df, return_players=True)
