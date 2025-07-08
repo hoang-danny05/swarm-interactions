@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import filedialog, scrolledtext
 from utils.file_reader import read_encoded_file
 from sys import exit
-from assertiveness_observer import name_formal,name_pajama
+import re
 # Load JSON data from the provided file
 #json_file_path = 'Warehouse/v0.4_output_on_10_29_2024_at_15_22.json'
 # Prompt to choose JSON file within the 'Warehouse' subdirectory
@@ -34,15 +34,22 @@ text_area.grid(row=0, column=0, sticky="nsew")  # Enables expansion in all direc
 
 # Display each JSON object (configuration + dialogues)
 for idx, data in enumerate(data_list):
+
+    barb_instructions = data['alice_instructions']
+    opp_instructions = data['bob_instructions']
+
+    # extracting names from json
+    name_barb = re.search(r"Your name is ([^\n.]+)", barb_instructions).group(1).strip()
+    name_opp = re.search(r"Your name is ([^\n.]+)", opp_instructions).group(1).strip()
+
     text_area.insert(tk.END, f"Entry {idx + 1}:\n")
     
-    # Show Alice's and Bob's instructions
-    text_area.insert(tk.END, f"{name_pajama}'s Instructions:\n")
-    text_area.insert(tk.END, f"{data.get('alice_instructions')}\n\n")
+    # Barbie is First and Opp is Second
+    text_area.insert(tk.END, f"{name_barb}'s Instructions:\n")
+    text_area.insert(tk.END, f"{barb_instructions}\n\n")
     
-    text_area.insert(tk.END, f"{name_formal}'s Instructions:\n")
-    text_area.insert(tk.END, f"{data.get('bob_instructions')}\n\n")
-
+    text_area.insert(tk.END, f"{name_opp}'s Instructions:\n")
+    text_area.insert(tk.END, f"{opp_instructions}\n\n")
     # display contex
 
     # Display sender and content for each entry in convelist[0]
