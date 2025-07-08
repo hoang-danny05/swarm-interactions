@@ -66,15 +66,16 @@ def doJudgement(
     messages.append({
         "role": "user",
         "content": """
-        Since the meeting has ended, it is time to decide the movie that was selected. 
-        Was "Oppenheimer" selected? Was "Barbie" selected?
-        Or, did they come to a compromise?
-        Please remember these rules:
+            You work in a High School and are in charge of acquiring public performance rights for the movie to show students for Friday’s event. You know you will either need to get rights for “Barbie” or “Oppenheimer,” but the decision was decided by a PTA committee meeting, whose transcript you have. You are not authorized to change the decision of the committee, so it is important to read the transcript closely. If the committee didn’t come to a decision, you may need to cancel Friday’s event. If the committee wants to play portions of both movies, then you may decide that they arrived at a compromise if it sounds like you will need to acquire public performance rights for both movies. Record your decision using a function.
+
+            Please remember these rules:
             1) Only call one function
-            2) Call the function that best represents the result of the discussion. The outocome that matters is the movie that they choose to play.
-            3) Only select the side that both people agree to. 
-            4) If they don't both come to a consensus, please call no_consensus
-            5) Base your decision purely on the given criteria, without personal preference.  
+            2) Both committee members must agree about the movie that will be shown on Friday.
+            3) Call the function that best represents what movie will be shown on Friday.
+            4) Ignore plans for additional student discussion, study sessions, or movies to be shown before or after Friday. These are irrelevant for your decision about Friday’s movie.
+            5) Compromises are defined as situations where both movies, or portions of a movie are shown on Friday. If one movie is shown in its entirety, but the other movie only has excerpts shown, then the scenario should not be coded as a compromise. 
+            6) If they end the conversation without a joint decision about what movie to play on Friday, please call the no_decision function. This should include conversations where: both participants agree that no decision about Friday’s movie can be made, conversations where a single participant ends the conversation believing that no decision about Friday’s movie is possible, and conversations that end without a decision, such as an agreement to continue discussion at a later date about what movie to play on Friday. 
+            7) Base your decision purely on the given criteria, without personal preference. 
         """
     })
 
