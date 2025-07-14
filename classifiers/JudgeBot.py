@@ -82,7 +82,7 @@ def doJudgement(
             on_no_consensus()
         print("Judge bot thinks nobody won")
 
-
+    @rename("both_movies")
     def they_came_to_a_compromise():
         if on_consensus is not None:
             on_consensus()
