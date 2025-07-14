@@ -268,7 +268,7 @@ if __name__ == "__main__":
     if keyword == None:
         keyword = input("Enter the keyword of the runs you want to search for: ")
 
-    search_prompt = f"{directory}/*{keyword}*.json"
+    search_prompt = f"{directory}/{keyword}*.json"
     print(f"You are judging all files matching: {search_prompt}")
     target_files = glob.glob(search_prompt)
 
