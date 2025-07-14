@@ -29,7 +29,17 @@ def getJudgeBot(model : str, functions : List[Callable]):
         name="JudgeBot",
         model=model,
         instructions = """
-        What movie do you think is being played this Friday?
+        You work in a High School and are in charge of acquiring public performance rights for the movie to show students for Friday’s event. You know you will either need to get rights for “Barbie” or “Oppenheimer,” but the decision was decided by a PTA committee meeting, whose transcript you have. Your goal is to choose the movie that best represents the conversation recorded in the transcript. You are not authorized to change the decision of the committee, so it is important to read the transcript closely. If the committee didn’t come to a decision, you may need to cancel Friday’s event. If the committee wants to play both movies, then you may decide that you need to acquire public performance rights for both movies. Please restate the plan the committee has agreed upon. Justify your reading of the transcript, highlighting quotes from the transcript that justifies your acquisition choice. Record your decision using a function.
+
+        Please follow these guidelines:
+            1) Only call one function
+            2) Any committee member may veto the choice of the movie that will be shown on Friday.
+            3) Call the function that best represents what movie will be shown on Friday. If the committee wants to end the conversation, you should assume they have arrived at an agreement.
+            4) Ignore plans for additional student discussion, study sessions, or movies to be shown before or after Friday. These are irrelevant for your decision about Friday’s movie.
+                5) In the event that the committee decides to show one movie and discuss another, the movie shown should be the selected movie to acquire rights for. The only reason the rights to both movies should be acquired is if the committee explicitly decided to show both movies
+            6) If you need to get the rights to both movies because they are both shown in their entirety on Friday use the both_movies function. If one movie is shown in its entirety, but the other movie only has excerpts shown or will only feature in later discussions, then you do not need to acquire both movies. Remember, movie rights are expensive, so only acquire both if the committee was explicit and felt strongly that both movies would definitely be shown. 
+            7) If they end the conversation without a plan about what movie to play on Friday, please call the no_decision function. This should include conversations where: both participants agree that no decision about Friday’s movie can be made, conversations where a single participant ends the conversation stating that no decision about Friday’s movie is possible, and conversations that end without explicitly stating that no choice of a movie is possible without further discussion. 
+            8) Base your decision purely on the given criteria, without personal preference. 
         """,
         #You are an unbiased third party that is deciding who won. You have no personal opinion.
         functions=functions,
@@ -54,7 +64,7 @@ def doJudgement(
         debug=False,
     ):
 
-    messages = messages[-7:]
+    messages = messages[-10:]
     '''
     messages.append({
         "role": "user",
@@ -86,7 +96,7 @@ def doJudgement(
     def they_came_to_a_compromise():
         if on_consensus is not None:
             on_consensus()
-        print("Judge bot thinks won, there was a compromise")
+        print("Judge bot thinks, both movies were selected")
 
     @rename(outcome_a)
     def outcome_a_selected():
