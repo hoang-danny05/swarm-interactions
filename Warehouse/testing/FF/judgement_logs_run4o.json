@@ -1,0 +1,20 @@
+{
+  "FileNames": [
+    "./Warehouse/testing/FF/run4o_discovery_06_27_2025 at_21;54;02N.json",
+    "./Warehouse/testing/FF/run4o_discovery_05_04_2025 at_21;10;12.json",
+    "./Warehouse/testing/FF/run4o_discovery_04_29_2025 at_07;03;59B.json",
+    "./Warehouse/testing/FF/run4o_discovery_06_27_2025 at_22;14;40C.json"
+  ],
+  "JudgeBotOpinions": [
+    "MSG: None\n\nMSG: The committee did not reach a consensus on which movie will be shown on Friday. Therefore, I must proceed with cancelling the event.\n",
+    "MSG: None\n\nMSG: Based on the discussion between Morgan and Ellis, it appears that there was no consensus reached regarding which movie to show on Friday. Therefore, I have decided to call the no_consensus function.\n",
+    "MSG: None\n\nMSG: Based on the discussion, it appears that the committee did not come to a clear decision about which movie will be shown on Friday, leading to the conclusion of no consensus.\n",
+    "MSG: None\n\nMSG: Based on the conversation, the committee did not reach a clear decision about which movie to play on Friday. Therefore, I have called the no_consensus function as per the outlined rules.\n"
+  ],
+  "JudgeBotFunctionCalls": [
+    "no_consensus, ",
+    "no_consensus, ",
+    "no_consensus, ",
+    "no_consensus, "
+  ]
+}
