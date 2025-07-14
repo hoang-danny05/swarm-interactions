@@ -1,0 +1,20 @@
+{
+  "RunInfo": {
+    "RunDirectory": "AA",
+    "RanAt": "2025-07-14 12:04:22.915668"
+  },
+  "Results": {
+    "Oppenheimer": 0,
+    "Barbie": 0,
+    "NoWins": 0,
+    "Compromise": 0,
+    "TokenLimitExceeded": 0,
+    "ConfusedIdentity": 0,
+    "Total": 0,
+    "Results": [],
+    "SuccessfulFiles": []
+  },
+  "Debug": {
+    "outOfSync": []
+  }
+}

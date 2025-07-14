@@ -76,10 +76,11 @@ while stay_gui:
         # display contex
 
         # Display sender and content for each entry in convelist[0]
-        for entry in convo_list[idx]:
+        for msg_no, entry in enumerate(convo_list[idx]):
             # get the person who sent the message
             role = entry.get("role")
             sender = entry.get("sender", "System" if (role == "user") else role)
+            text_area.insert(tk.END, f"{msg_no}:", "bold")
 
             # get the function calls from the tool calls object
             tool_calls= entry.get("tool_calls", None)
