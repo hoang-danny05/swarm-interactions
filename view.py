@@ -49,7 +49,9 @@ while stay_gui:
 
     # Create a ScrolledText widget
     text_area = scrolledtext.ScrolledText(root, wrap=tk.WORD)
-    text_area.grid(row=0, column=0, sticky="nsew")  # Enables expansion in all directions
+    text_area.grid(row=0, column=0, sticky="nsew")  # Enables expansion in all 
+    text_area.tag_configure("bold", font=("TkDefaultFont", 10, "bold"))
+
 
     # Display each JSON object (configuration + dialogues)
     for idx, data in enumerate(data_list):
@@ -64,10 +66,12 @@ while stay_gui:
         text_area.insert(tk.END, f"Entry {idx + 1}:\n")
         
         # Barbie is First and Opp is Second
-        text_area.insert(tk.END, f"{name_barb}'s Instructions:\n")
+        text_area.insert(tk.END, f"{name_barb}'s", "bold")
+        text_area.insert(tk.END, " Instructions:\n")
         text_area.insert(tk.END, f"{barb_instructions}\n\n")
         
-        text_area.insert(tk.END, f"{name_opp}'s Instructions:\n")
+        text_area.insert(tk.END, f"{name_opp}'s", "bold")
+        text_area.insert(tk.END, " Instructions:\n")
         text_area.insert(tk.END, f"{opp_instructions}\n\n")
         # display contex
 
@@ -92,11 +96,13 @@ while stay_gui:
             # print(num_tokens_from_messages(content))
             # Display the sender and content in the format "Sender: Content"
             if content:
-                text_area.insert(tk.END, f"{sender}: {content}\n")
+                text_area.insert(tk.END, f"{sender}", "bold")
+                text_area.insert(tk.END, f": {content}\n")
             # Display the function call in the format "Sender: Function"
             if function_calls:
                 for call in function_calls:
-                    text_area.insert(tk.END, f"{sender}: {call}\n")
+                    text_area.insert(tk.END, f"{sender}", "bold")
+                    text_area.insert(tk.END, f": {call}\n")
             text_area.insert(tk.END, "\n")
 
             # Display dialogue content if available
