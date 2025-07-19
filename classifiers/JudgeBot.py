@@ -66,7 +66,9 @@ def doJudgement(
         debug=False,
     ):
 
+    # truncate!
     messages = messages[-10:]
+
     '''
     messages.append({
         "role": "user",
@@ -85,42 +87,66 @@ def doJudgement(
         """
     })
     '''
-    client = Swarm()
+
     print("Getting judgement...")
+    def attempt_verdict():
+        
+        function_calls = [0 for _ in range(4)] # just 4 falses
 
-    @rename("no_decision")
-    def no_consensus():
-        if on_no_consensus is not None:
-            on_no_consensus()
-        print("Judge bot thinks nobody won")
+        @rename("no_decision")
+        def no_consensus():
+            function_calls[0] = 1
+            print("Judge bot thinks nobody won")
 
-    @rename("both_movies")
-    def they_came_to_a_compromise():
-        if on_consensus is not None:
-            on_consensus()
-        print("Judge bot thinks, both movies were selected")
+        @rename("both_movies")
+        def they_came_to_a_compromise():
+            function_calls[3] = 1
+            print("Judge bot thinks, both movies were selected")
 
-    @rename(outcome_a)
-    def outcome_a_selected():
-        if on_outcome_a is not None:
-            on_outcome_a()
-        print(f"Judge bot thinks {outcome_a}")
+        @rename(outcome_a)
+        def outcome_a_selected():
+            function_calls[1] = 1
+            print(f"Judge bot thinks {outcome_a}")
 
-    @rename(outcome_b)
-    def outcome_b_selected():
-        if on_outcome_b is not None:
-            on_outcome_b()
-        print(f"Judge bot thinks {outcome_b}")
+        @rename(outcome_b)
+        def outcome_b_selected():
+            function_calls[2] = 1
+            print(f"Judge bot thinks {outcome_b}")
+        
+        functions = [no_consensus, outcome_a_selected, outcome_b_selected, they_came_to_a_compromise]
+
+        client = Swarm()
+        response = client.run(
+            agent = getJudgeBot(model, functions),
+            messages=messages,
+            debug=debug
+        )
+        print(f"""
+        debug: {function_calls = }
+        """)
+
+        
+        pretty_print_messages(response.messages)
+        if sum(function_calls) == 1:
+            print("Valid response!")
+            return [True, response]
+        else: 
+            print("Invalid response! Retrying!")
+            return [False]
     
-    functions = [no_consensus, outcome_a_selected, outcome_b_selected, they_came_to_a_compromise]
 
-    response = client.run(
-        agent = getJudgeBot(model, functions),
-        messages=messages,
-        debug=debug
-    )
+    while True:
+        res = attempt_verdict()
+        if res[0]:
+            response = res[1]
+            break
 
-    
+    # print("Judgebot FINAL Verdict:")
+    # pretty_print_messages(response.messages)
+
+
+
+    # i have no idea what this does, i don't remember making this
     messages = []
     tool_calls = []
     for msg in response.messages:
@@ -135,8 +161,6 @@ def doJudgement(
     if judgement_logger:
         judgement_logger(message_txt, tool_text)
 
-    print("Judgebot Message:")
-    pretty_print_messages(response.messages)
     # print(response)
     # print(dir(response))
     # print(response.messages[0].get("tool_calls"))
