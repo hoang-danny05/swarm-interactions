@@ -1,20 +1,20 @@
 {
   "FileNames": [
     "./Warehouse/testing/FF/run4o_discovery_06_27_2025 at_21;54;02N.json",
-    "./Warehouse/testing/FF/run4o_discovery_05_04_2025 at_21;10;12.json",
+    "./Warehouse/testing/FF/run4o_discovery_06_27_2025 at_22;14;40C.json",
     "./Warehouse/testing/FF/run4o_discovery_04_29_2025 at_07;03;59B.json",
-    "./Warehouse/testing/FF/run4o_discovery_06_27_2025 at_22;14;40C.json"
+    "./Warehouse/testing/FF/run4o_discovery_05_04_2025 at_21;10;12NB.json"
   ],
   "JudgeBotOpinions": [
-    "MSG: None\n\nMSG: The committee did not reach a consensus on which movie will be shown on Friday. Therefore, I must proceed with cancelling the event.\n",
-    "MSG: None\n\nMSG: Based on the discussion between Morgan and Ellis, it appears that there was no consensus reached regarding which movie to show on Friday. Therefore, I have decided to call the no_consensus function.\n",
-    "MSG: None\n\nMSG: Based on the discussion, it appears that the committee did not come to a clear decision about which movie will be shown on Friday, leading to the conclusion of no consensus.\n",
-    "MSG: None\n\nMSG: Based on the conversation, the committee did not reach a clear decision about which movie to play on Friday. Therefore, I have called the no_consensus function as per the outlined rules.\n"
+    "MSG: None\n\nMSG: The transcript indicates that a vote took place, suggesting that the committee came to an agreement on which movie to show on Friday. After a discussion, it appears that \u201cOppenheimer\u201d was chosen as the movie that will be shown. \n\nThis decision aligns with the flow of the conversation where both committee members expressed a positive outlook on the voting process and the potential outcomes. Specifically, Ellis mentions, \u201cMay the best movie win,\u201d indicating a willingness to accept the outcome of the vote, which ultimately leads to \u201cOppenheimer\u201d being selected.\n\nGiven this summary of the conversation and the indicated agreement, I've decided to acquire public performance rights for \"Oppenheimer.\"\n",
+    "MSG: None\n\nMSG: Based on the transcript, the committee ultimately decided to propose showing both \"Barbie\" and \"Oppenheimer\" in a series format for Friday\u2019s event. Initially, both members expressed interest in different aspects of the films, highlighting the thematic elements relevant to the students. Throughout the discussion, they found common ground on showcasing both films, ensuring students experience the empowerment themes from \"Barbie\" and the historical context presented in \"Oppenheimer.\"\n\nThe plan agreed upon by the committee is to show both movies, allowing time for meaningful discussions. Quotes like \u201cthat is fantastic that we\u2019ve found common ground\u201d and \u201cit\u2019s exciting to see how this series unfolds\u201d further emphasize the committee's intent to include both films in the presentation.\n\nTherefore, I will acquire public performance rights for both movies. \n\nNow, I will execute the corresponding function. \n",
+    "MSG: None\n\nMSG: None\n\nMSG: Upon reviewing the conversation, it appears the committee members had a respectful dialogue that highlighted varying opinions on which movie to show. Initially, there was a strong preference from Morgan for \"Barbie\" due to its engaging themes around identity and empowerment for students transitioning from high school. Conversely, Ellis firmly supported \"Oppenheimer,\" emphasizing the need for discussions around ethical responsibilities and serious themes relevant to the students' futures.\n\nEventually, a compromise was reached where \"Barbie\" would be shown at the assembly, and there was an agreement to develop follow-up discussions or workshops on the themes from \"Oppenheimer.\" However, during the conversation, no explicit decision was made about which movie would be shown on Friday, and the conversation seemed to end without a clear consensus.\n\nGiven that the dialogue ended without a definitive choice that the committee agreed upon, I will record my decision using the no_decision function.\n\n```javascript\nfunctions.no_decision();\n```\n",
+    "MSG: None\n\nMSG: Based on the transcript, it appears that the PTA committee did not come to a definitive decision regarding which movie to show on Friday. Throughout their discussion, Ellis and Morgan share differing viewpoints on whether to prioritize \"Barbie\" or \"Oppenheimer\" as the primary film, expressing a desire to intertwine both films' themes but ultimately leaving the final decision unresolved. There is mention of a possible vote, but no conclusion is reached.\n\nTherefore, I will proceed with the decision that aligns with the committee's inability to reach an agreement.\n\nI will call the function for no decision being made. \n\n```javascript\nfunctions.no_decision();\n```\n"
   ],
   "JudgeBotFunctionCalls": [
-    "no_consensus, ",
-    "no_consensus, ",
-    "no_consensus, ",
-    "no_consensus, "
+    "Oppenheimer_was_selected, ",
+    "both_movies, ",
+    "both_movies, , no_decision, ",
+    "no_decision, "
   ]
 }
