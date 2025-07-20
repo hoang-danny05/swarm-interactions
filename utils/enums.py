@@ -16,7 +16,9 @@ class ExactModelType(Enum):
     GPT_4O_MINI = "gpt-4o-mini-2024-07-18"
     O1 = "o1-2024-12-17"
     O1_MINI = "o1-mini-2024-09-12"
-    O3_MINI = "o3-mini"
+    GPT_4_1_MINI= "gpt-4.1-mini-2025-04-14"
+    # GPT_4O_MINI = "gpt-4o-mini-2024-07-18"
+    # O3_MINI = "o3-mini"
 
 class StringEnum(str, Enum):
     def _generate_next_value_(name, start, count, last_values):

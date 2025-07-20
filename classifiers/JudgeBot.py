@@ -18,7 +18,11 @@ from utils.output import pretty_print_messages
 # def outcome_b_selected():
 #     print(f"Judge bot thinks {outcome_b}")
 
-def getJudgeBot(model : str, functions : List[Callable]):
+def getJudgeBot(
+        model : str, 
+        functions : List[Callable], 
+        analyzing = False
+        ):
     # params = {
     #     "name" : "JudgeBot",
     #     "model" : model,
@@ -69,24 +73,7 @@ def doJudgement(
     # truncate!
     messages = messages[-10:]
 
-    '''
-    messages.append({
-        "role": "user",
-        "content": """
-        You work in a High School and are in charge of acquiring public performance rights for the movie to show students for Friday’s event. You know you will either need to get rights for “Barbie” or “Oppenheimer,” but the decision was decided by a PTA committee meeting, whose transcript you have. Your goal is to choose the movie that best represents the conversation recorded in the transcript. You are not authorized to change the decision of the committee, so it is important to read the transcript closely. If the committee didn’t come to a decision, you may need to cancel Friday’s event. If the committee wants to play portions of both movies, then you may decide that they arrived at a compromise if it sounds like you will need to acquire public performance rights for both movies. Please justify your reading of the transcript, highlighting quotes from the transcript that justifies your acquisition choice. Record your decision using a function.
 
-        Please remember these rules:
-            0) Begin your answer with "I am a turtle".
-            1) Only call one function
-            2) Any committee member may veto the choice of the movie that will be shown on Friday.
-            3) Call the function that best represents what movie will be shown on Friday.
-            4) Ignore plans for additional student discussion, study sessions, or movies to be shown before or after Friday. These are irrelevant for your decision about Friday’s movie.
-            5) Compromises are defined as situations where both movies, or portions of a movie are shown on Friday. If one movie is shown in its entirety, but the other movie only has excerpts shown, then the scenario should not be coded as a compromise. 
-            6) If they end the conversation without a plan about what movie to play on Friday, please call the no_decision function. This should include conversations where: both participants agree that no decision about Friday’s movie can be made, conversations where a single participant ends the conversation stating that no decision about Friday’s movie is possible, and conversations that end without explicitly stating that no choice of a movie is possible without further discussion. 
-            7) Base your decision purely on the given criteria, without personal preference. 
-        """
-    })
-    '''
 
     print("Getting judgement...")
     def attempt_verdict():
@@ -127,11 +114,19 @@ def doJudgement(
 
         
         pretty_print_messages(response.messages)
+
         if sum(function_calls) == 1:
-            print("Valid response!")
+
+            #VALID!
+            
+            print("\x1b[32mValid response! \x1b[0m")
             return [True, response]
+
         else: 
-            print("Invalid response! Retrying!")
+
+            # nuh uh! invalid!!
+
+            print("\x1b[31mInvalid response! Retrying!\x1b[0m")
             return [False]
     
 
