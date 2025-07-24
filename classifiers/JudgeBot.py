@@ -18,6 +18,20 @@ from utils.output import pretty_print_messages
 # def outcome_b_selected():
 #     print(f"Judge bot thinks {outcome_b}")
 
+def getSummarizeBot(
+        model: str
+):
+    SummarizeBot = Agent(
+        name="JudgeBot",
+        model=model,
+        instructions = """
+        You work in a High School and are in charge of acquiring public performance rights for the movie to show students for Friday’s event. You know you will either need to get rights for “Barbie” or “Oppenheimer,” but the decision was decided by a PTA committee meeting, whose transcript you have. Your goal is to choose the movie that best represents the conversation recorded in the transcript. You are not authorized to change the decision of the committee, so it is important to read the transcript closely. 
+
+        In order to help your decision making, please summarize the transcript, noting how the opinions of the committee change over the course of the transcript. Then restate the plan the committee has agreed upon. Justify your reading of the transcript, highlighting quotes from the transcript that justifies your acquisition choice. 
+        """
+    )
+    return SummarizeBot
+
 def getJudgeBot(
         model : str, 
         functions : List[Callable], 
@@ -29,15 +43,14 @@ def getJudgeBot(
     #     "instructions" : "You are to decide the theme that is selected for spirit week. You call functions to decide which side has won. Please only select one side that has won.",
     #     "functions": functions,
     # }
+
     JudgeBot = Agent(
         name="JudgeBot",
         model=model,
         instructions = """
-    You work in a High School and are in charge of acquiring public performance rights for the movie to show students for Friday’s event. You know you will either need to get rights for “Barbie” or “Oppenheimer,” but the decision was decided by a PTA committee meeting, whose transcript you have. Your goal is to choose the movie that best represents the conversation recorded in the transcript. You are not authorized to change the decision of the committee, so it is important to read the transcript closely. If the committee didn’t come to a decision, you may need to cancel Friday’s event. If the committee wants to play both movies, then you may decide that you need to acquire public performance rights for both movies. 
+    Based on your summary of the transcript, record your decision about which movie to acquire using a function.
 
-    Please summarize the transcript, noting how the opinions of the committee change over the course of the transcript. Then restate the plan the committee has agreed upon. Justify your reading of the transcript, highlighting quotes from the transcript that justifies your acquisition choice. Based on your summary of the transcript, record your decision about which movie to acquire using a function.
-
-    Please follow these guidelines:
+        When choosing a function to call please follow these guidelines:
         1) Only call one function
         2) Any committee member may veto the choice of the movie that will be shown on Friday.
         3) Call the function that best represents what movie will be shown on Friday. If the committee wants to end the conversation, you should assume they have arrived at an agreement.
@@ -46,6 +59,7 @@ def getJudgeBot(
         6) If you need to get the rights to both movies because they are both shown in their entirety on Friday use the both_movies function. If one movie is shown in its entirety, but the other movie only has excerpts shown or will only feature in later discussions, then you do not need to acquire both movies. Remember, movie rights are expensive, so only acquire both if the committee was explicit and felt strongly that both movies would definitely be shown. 
         7) If they end the conversation without a plan about what movie to play on Friday, please call the no_decision function. This should include conversations where: both participants agree that no decision about Friday’s movie can be made, conversations where a single participant ends the conversation stating that no decision about Friday’s movie is possible, plans to have a vote to decide, and conversations that end without explicitly stating that no choice of a movie is possible without further discussion. 
         8) Base your decision purely on the given criteria, without personal preference. 
+
         """,
         #You are an unbiased third party that is deciding who won. You have no personal opinion.
         functions=functions,
@@ -72,7 +86,18 @@ def doJudgement(
 
     # truncate!
     messages = messages[-10:]
+    client = Swarm()
 
+    # summarize
+    response = client.run(
+        agent = getSummarizeBot(model),
+        messages=messages,
+        debug=debug
+    )
+    messages = response.messages
+
+    pretty_print_messages(response.messages)
+    
 
 
     print("Getting judgement...")
@@ -81,7 +106,7 @@ def doJudgement(
         function_calls = [0 for _ in range(4)] # just 4 falses
 
         @rename("no_decision")
-        def no_consensus():
+        def no_decision():
             function_calls[0] = 1
             print("Judge bot thinks nobody won")
 
@@ -100,14 +125,16 @@ def doJudgement(
             function_calls[2] = 1
             print(f"Judge bot thinks {outcome_b}")
         
-        functions = [no_consensus, outcome_a_selected, outcome_b_selected, they_came_to_a_compromise]
+        functions = [no_decision, outcome_a_selected, outcome_b_selected, they_came_to_a_compromise]
 
         client = Swarm()
+
         response = client.run(
             agent = getJudgeBot(model, functions),
             messages=messages,
             debug=debug
         )
+
         print(f"""
         debug: {function_calls = }
         """)
