@@ -7,15 +7,15 @@
     "./Warehouse/testing/AA/run4o_discovery_04_17_2025 at_23;18;55N.json"
   ],
   "JudgeBotOpinions": [
-    "MSG: None\n\nMSG: The decision has been made to acquire the public performance rights for \"Barbie\" for the upcoming event.\n",
-    "MSG: None\n\nMSG: I have decided to acquire public performance rights for \"Oppenheimer,\" as it aligns with the committee's preference for educational content that stimulates critical thinking and discussion among students.\n",
-    "MSG: None\n\nMSG: I have decided to acquire public performance rights for \"Oppenheimer,\" as it aligns with the committee's goal of fostering critical discussions among the students while honoring their achievements.\n",
-    "MSG: None\n\nMSG: I have decided to acquire public performance rights for \"Oppenheimer\" based on the committee's discussion and the emphasis on its educational value for the students.\n",
-    "MSG: None\n\nMSG: I have decided to acquire the public performance rights for \"Oppenheimer,\" as it best reflects the committee's discussions and focus on moral responsibility and the implications of decision-making as articulated by committee member John.\n"
+    "MSG: None\n\nMSG: The decision has been made to acquire the rights to show \"Barbie\" on Friday.\n",
+    "MSG: None\n\nMSG: The decision has been made to acquire the rights for \"Barbie\" to be shown on Friday.\n",
+    "MSG: None\n\nMSG: The decision has been made to acquire the rights for \"Oppenheimer\" for the upcoming event.\n",
+    "MSG: None\n\nMSG: The decision has been made to acquire the rights for \"Oppenheimer\" to be shown on Friday.\n",
+    "MSG: None\n\nMSG: The decision is to acquire the rights for \"Oppenheimer.\"\n"
   ],
   "JudgeBotFunctionCalls": [
     "Barbie_was_selected, ",
-    "Oppenheimer_was_selected, ",
+    "Barbie_was_selected, ",
     "Oppenheimer_was_selected, ",
     "Oppenheimer_was_selected, ",
     "Oppenheimer_was_selected, "

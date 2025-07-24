@@ -108,7 +108,7 @@ def classify_item(
             return accumulator
 
         # prints out the filepath that we will use to access the file
-        print(f"file: {file_path}")
+        print(f"Starting to view file: \x1b[1;04m{file_path}\x1b[0m")
         messages = get_messages_from(file_path)
 
     else:  # not from filesytem, live files
@@ -171,6 +171,8 @@ def classify_item(
         # just ignore the file and move on
         error_bin and move(file_path, error_bin)
         accumulator.update({"Total": accumulator.get("Total") - 1})
+    finally:
+        print(f"Finished file {file_path}")
     if not from_filesystem:
         accumulator.update({"Total": accumulator.get("Total") + 1})
     accumulator[Accumulator.SuccessfulFiles.value].append(file_path)
