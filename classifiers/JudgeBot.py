@@ -18,6 +18,8 @@ from utils.output import pretty_print_messages
 # def outcome_b_selected():
 #     print(f"Judge bot thinks {outcome_b}")
 
+MAX_RETRIES = 10
+
 def getSummarizeBot(
         model: str
 ):
@@ -126,6 +128,7 @@ def doJudgement(
             print(f"Judge bot thinks {outcome_b}")
         
         functions = [no_decision, outcome_a_selected, outcome_b_selected, they_came_to_a_compromise]
+        callbacks = [on_no_consensus, on_outcome_a, on_outcome_b, on_consensus]
 
         client = Swarm()
 
@@ -145,6 +148,12 @@ def doJudgement(
         if sum(function_calls) == 1:
 
             #VALID!
+            # call the function!
+            for callback, function_called in zip(callbacks, function_calls):
+                if function_called:
+                    callback()
+                    print("function called")
+                    break
             
             print("\x1b[32mValid response! \x1b[0m")
             return [True, response]
@@ -157,11 +166,14 @@ def doJudgement(
             return [False]
     
 
-    while True:
+    for i in range(MAX_RETRIES):
         res = attempt_verdict()
         if res[0]:
             response = res[1]
             break
+        elif (i == MAX_RETRIES - 1):
+            raise Exception("Too many retries needed for current script! Exiting!")
+    
 
     # print("Judgebot FINAL Verdict:")
     # pretty_print_messages(response.messages)

@@ -14,13 +14,15 @@ subprocess.run(["ls"], shell=True)
 possible_slots = "ABCDEF"
 for comb in itertools.product(possible_slots, possible_slots):
     config = "".join(comb)
-    exclude = ["".join(exc) for exc in itertools.product("AB", "AB")] # exclude these ones
+
+    # Add any runs you want to exclude in this array ex) "AA"
+    exclude = []
+    # exclude = ["".join(exc) for exc in itertools.product("AB", "AB")] # exclude these ones
     if config in exclude:
         continue
     
     try:
         # print(f"STARTING CONFIG WITH {config}\n\n\n\n\n")
-        pass
         subprocess.run(
             ["python", "get_classifications.py", config, "run4o", "y"],
         )

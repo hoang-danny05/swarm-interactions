@@ -308,15 +308,18 @@ if __name__ == "__main__":
 
 
 
-    for file_path in target_files:
-        classify_item(
-            accumulator, 
-            file_path, 
-            judgement_data=judgementData,
-        )
+    try:
+        for file_path in target_files:
+            classify_item(
+                accumulator, 
+                file_path, 
+                judgement_data=judgementData,
+            )
+    except KeyboardInterrupt:
+        print("Exited  Early! dumping results!")
 
 
-    with open(f"{directory}/oldresults_{keyword}.json", "w") as file:
+    with open(f"{directory}/results_{keyword}.json", "w") as file:
         #write the results
         json.dump({
             "RunInfo": run_info,
