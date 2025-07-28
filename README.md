@@ -8,7 +8,7 @@ Note: we are using openai/swarms, but there exists an enterprise-ready version o
 
 ## To-do
 
-- Double runs in Testing directory
+- ~~Double runs in Testing directory~~
 - Annotate a good subset of the runs
 - Delete result json files that have improper formatting 
 
