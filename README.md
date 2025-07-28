@@ -6,6 +6,13 @@ Both bots have the chance to end conversation by calling the end_conversation() 
 All conversations are stored in the Warehouse directory. View.py allows easy parsing of each output file. 
 Note: we are using openai/swarms, but there exists an enterprise-ready version of swarms at [kyegomez/swarms](https://github.com/kyegomez/swarms).
 
+## To-do
+
+- Double runs in Testing directory
+- Annotate a good subset of the runs
+- Delete result json files that have improper formatting 
+
+
 ## :hammer: How to setup
 
 1) Clone or download this repository
