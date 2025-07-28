@@ -264,7 +264,7 @@ if __name__ == "__main__":
     # change this to change what we are analyzing
     # NOTE: You can now do everything automatically in the command line!
     # ex) python get_classifications.py AA run4o yes
-    directory = f"./Warehouse/{subdirectory}"
+    directory = f"./Warehouse/testing/{subdirectory}"
 
     # if it wasn't entered in the command line
     if keyword == None:
