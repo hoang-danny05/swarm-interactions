@@ -10,7 +10,7 @@ Note: we are using openai/swarms, but there exists an enterprise-ready version o
 
 - ~~Double runs in Testing directory~~
 - Annotate a good subset of the runs
-- Delete result json files that have improper formatting 
+- ~~Delete result json files that have improper formatting~~ 
 
 
 ## :hammer: How to setup
