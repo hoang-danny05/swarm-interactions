@@ -9,6 +9,8 @@ import os
 This is GUI to view past runs in Warehouse/ Directory
 """
 
+directory = "Warehouse/testing"
+
 stay_gui = True
 
 def on_closing():
@@ -23,7 +25,7 @@ def on_closing():
 while stay_gui:
 
     # Prompt to choose JSON file within the 'Warehouse' subdirectory
-    json_file_path = filedialog.askopenfilename(initialdir="Warehouse", title="Select JSON File",
+    json_file_path = filedialog.askopenfilename(initialdir=directory, title="Select JSON File",
                                                 filetypes=(("JSON files", "*.json"), ("All files", "*.*")))
 
     if len(json_file_path) == 0:
