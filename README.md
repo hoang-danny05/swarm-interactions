@@ -11,6 +11,7 @@ Note: we are using openai/swarms, but there exists an enterprise-ready version o
 - ~~Double runs in Testing directory~~
 - ~~Annotate a good subset of the runs~~
 - ~~Delete result json files that have improper formatting~~ 
+- In annotations add a star to show qualitatively diffrent, communication. (make it a button on view GUI)
 
 ## Notes
 
