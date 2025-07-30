@@ -14,6 +14,9 @@ directory = "Warehouse/testing"
 stay_gui = True
 
 def on_closing():
+    """
+    Quick fix for the option of keeping the window running after exit of task.
+    """
     result = messagebox.askquestion("Exit Program", "Do you want to close the program?\n\nChoose 'Yes' to close or 'No' to continue.", icon='warning')
     global stay_gui
     if result == 'yes':
