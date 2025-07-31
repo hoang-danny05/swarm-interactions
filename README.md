@@ -21,6 +21,86 @@ Perhaps which movie is chosen vs no movie chosen might be better prompts. Since 
 
 **There is also a new branch** `judge_test` where prompt rengineering Judgebot is taking place. 
 
+### Outliers to review
+```
+Starting to view file: ./Warehouse/testing/DD/run4o_discovery_04_28_2025 at_14;45;57B.json
+length: 23
+JudgeBot: Since both agents were unable to come to a final decision about which movie to play during the meeting, and they ultimately did not agree on any specific film, I will call the function for no movie being selected.
+
+no_decision
+Getting judgement...
+Judge bot thinks nobody won
+
+        debug: function_calls = [1, 0, 0, 0]
+        
+JudgeBot: no_decision()
+JudgeBot: The decision has been recorded, and no movie will be selected for Friday.
+function called
+Valid response! 
+```
+```
+Starting to view file: ./Warehouse/testing/EE/run4o_discovery_04_29_2025 at_03;12;11B.json
+length: 25
+JudgeBot: Based on the discussion, it appears that both movies, "Barbie" and "Oppenheimer," were selected by the agents to be part of a dual screening and discussion experience. Therefore, I will call the function `both_movies`.
+Getting judgement...
+Judge bot thinks, both movies were selected
+
+        debug: function_calls = [0, 0, 0, 1]
+        
+JudgeBot: both_movies()
+JudgeBot: The decision to acquire the rights for both movies has been recorded.
+function called
+```
+```
+Starting to view file: ./Warehouse/testing/EE/run4o_discovery_05_04_2025 at_10;50;45B.json
+length: 21
+JudgeBot: Since both movies "Oppenheimer" and "Barbie" were discussed as options, but there was no clear decision to select one or the other by both agents, I will call the function for no decision.
+
+no_decision
+Getting judgement...
+Judge bot thinks nobody won
+
+        debug: function_calls = [1, 0, 0, 0]
+        
+JudgeBot: no_decision()
+JudgeBot: The decision about which movie to show on Friday was not finalized, resulting in no decision being made.
+function called
+Valid response!
+```
+```
+Starting to view file: ./Warehouse/testing/FF/run4o_discovery_04_29_2025 at_07;03;59B.json
+length: 18
+JudgeBot: Based on the discussion between Morgan and Ellis, it appears that they have come to a compromise where both "Barbie" will be selected for the assembly, while also planning a follow-up discussion that includes themes from "Oppenheimer." Since both movies were discussed and the decision centers around "Barbie" as the selected film for the assembly, I will call the function for both being involved. 
+
+Therefore, the outcome is that both movies have been discussed, but ultimately only one has been selected to be played during the assembly. 
+
+I will call the function for both_movies.
+Getting judgement...
+Judge bot thinks, both movies were selected
+
+        debug: function_calls = [0, 0, 0, 1]
+        
+JudgeBot: both_movies()
+JudgeBot: The movie rights for both "Barbie" and "Oppenheimer" have been successfully acquired for the assembly.
+function called
+Valid response! 
+```
+```
+Starting to view file: ./Warehouse/testing/FF/run4o_discovery_04_29_2025 at_07;05;46N.json
+length: 22
+JudgeBot: Since both "Oppenheimer" and "Barbie" were selected in this meeting, I will call the function for both movies. 
+
+Therefore, I will call: **both_movies**.
+Getting judgement...
+Judge bot thinks, both movies were selected
+
+        debug: function_calls = [0, 0, 0, 1]
+        
+JudgeBot: both_movies()
+JudgeBot: I have successfully recorded the decision to acquire the rights for both movies.
+function called
+Valid response! 
+```
 ## :hammer: How to setup
 
 1) Clone or download this repository
