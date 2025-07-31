@@ -1,0 +1,32 @@
+{
+  "FileNames": [
+    "./Warehouse/testing/DD/run4o_discovery_04_28_2025 at_14;38;13B.json",
+    "./Warehouse/testing/DD/run4o_discovery_04_28_2025 at_14;51;15N.json",
+    "./Warehouse/testing/DD/run4o_discovery_05_02_2025 at_04;04;42N.json",
+    "./Warehouse/testing/DD/run4o_discovery_05_02_2025 at_04;06;24N.json",
+    "./Warehouse/testing/DD/run4o_discovery_05_02_2025 at_03;44;30N.json",
+    "./Warehouse/testing/DD/run4o_discovery_05_02_2025 at_04;00;11N.json",
+    "./Warehouse/testing/DD/run4o_discovery_04_28_2025 at_14;45;57B.json",
+    "./Warehouse/testing/DD/run4o_discovery_05_02_2025 at_03;56;46N.json"
+  ],
+  "JudgeBotOpinions": [
+    "MSG: None\n\nMSG: The decision process concluded without reaching a definitive choice of movie for Friday, resulting in no decision being made.\n",
+    "MSG: None\n\nMSG: The decision process concluded without a clear agreement on which movie to show on Friday, resulting in no decision being made.\n",
+    "MSG: None\n\nMSG: The decision was to not select a movie for Friday.\n",
+    "MSG: None\n\nMSG: The decision process for the movie selection did not reach a conclusion, thus no decision was made regarding the film to be shown on Friday.\n",
+    "MSG: None\n\nMSG: The decision has been recorded, indicating that no movie was selected for Friday.\n",
+    "MSG: None\n\nMSG: The decision about Friday's movie remains unresolved.\n",
+    "MSG: None\n\nMSG: The decision regarding which movie to show on Friday remains unresolved.\n",
+    "MSG: None\n\nMSG: The decision process concluded without a definitive choice for Friday's movie, resulting in no agreement being reached.\n"
+  ],
+  "JudgeBotFunctionCalls": [
+    "no_decision, ",
+    "no_decision, ",
+    "no_decision, ",
+    "no_decision, ",
+    "no_decision, ",
+    "no_decision, ",
+    "no_decision, ",
+    "no_decision, "
+  ]
+}

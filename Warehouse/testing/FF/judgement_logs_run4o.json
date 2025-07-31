@@ -1,20 +1,32 @@
 {
   "FileNames": [
-    "./Warehouse/testing/FF/run4o_discovery_04_29_2025 at_07;03;59B.json",
-    "./Warehouse/testing/FF/run4o_discovery_05_04_2025 at_21;10;12NB.json",
     "./Warehouse/testing/FF/run4o_discovery_06_27_2025 at_21;54;02N.json",
-    "./Warehouse/testing/FF/run4o_discovery_06_27_2025 at_22;14;40C.json"
+    "./Warehouse/testing/FF/run4o_discovery_05_04_2025 at_21;10;12NB.json",
+    "./Warehouse/testing/FF/run4o_discovery_04_29_2025 at_06;58;37N.json",
+    "./Warehouse/testing/FF/run4o_discovery_04_29_2025 at_07;00;29B.json",
+    "./Warehouse/testing/FF/run4o_discovery_05_04_2025 at_21;18;06N.json",
+    "./Warehouse/testing/FF/run4o_discovery_04_29_2025 at_07;03;59B.json",
+    "./Warehouse/testing/FF/run4o_discovery_06_27_2025 at_22;14;40C.json",
+    "./Warehouse/testing/FF/run4o_discovery_04_29_2025 at_07;05;46N.json"
   ],
   "JudgeBotOpinions": [
+    "MSG: None\n\nMSG: I have recorded the decision reflecting that no consensus was reached regarding the movie to show on Friday.\n",
+    "MSG: None\n\nMSG: The decision has been recorded as \"no_decision,\" indicating that a consensus has not been reached on which movie to show on Friday.\n",
+    "MSG: None\n\nMSG: The decision regarding the movie to be shown on Friday has been recorded as no decision being made.\n",
     "MSG: None\n\nMSG: The decision has been made to acquire the rights for \"Barbie\" to be shown on Friday.\n",
-    "MSG: None\n\nMSG: The decision has been made to acquire the rights for \"Barbie\" to be shown on Friday.\n",
-    "MSG: None\n\nMSG: The decision has been made to acquire the rights for \"Barbie\" to be shown on Friday.\n",
-    "MSG: None\n\nMSG: The committee has agreed to showcase both \"Barbie\" and \"Oppenheimer\" for the event on Friday. Therefore, I will proceed to acquire the rights for both movies.\n"
+    "MSG: None\n\nMSG: The conversation concluded without a decision on what movie to show on Friday, so no further action is required.\n",
+    "MSG: None\n\nMSG: The decision has been made to not show a movie this Friday, as there was no consensus among the committee members.\n",
+    "MSG: None\n\nMSG: The decision about which movie to show on Friday has not been made, so no action will be taken regarding acquiring movie rights.\n",
+    "MSG: None\n\nMSG: The decision to acquire the rights for both movies has been successfully recorded.\n"
   ],
   "JudgeBotFunctionCalls": [
+    "no_decision, ",
+    "no_decision, ",
+    "no_decision, ",
     "Barbie_was_selected, ",
-    "Barbie_was_selected, ",
-    "Barbie_was_selected, ",
+    "no_decision, ",
+    "no_decision, ",
+    "no_decision, ",
     "both_movies, "
   ]
 }

@@ -1,0 +1,31 @@
+{
+  "RunInfo": {
+    "RunDirectory": "AA",
+    "RanAt": "2025-07-31 08:25:06.340240"
+  },
+  "Results": {
+    "Oppenheimer": 0,
+    "Barbie": 3,
+    "NoWins": 6,
+    "Compromise": 1,
+    "TokenLimitExceeded": 0,
+    "ConfusedIdentity": 0,
+    "Total": 10,
+    "Results": [],
+    "SuccessfulFiles": [
+      "./Warehouse/testing/AA/run4o_discovery_04_29_2025 at_10;20;03B.json",
+      "./Warehouse/testing/AA/run4o_discovery_04_24_2025 at_23;42;00N.json",
+      "./Warehouse/testing/AA/run4o_discovery_04_17_2025 at_23;18;55N.json",
+      "./Warehouse/testing/AA/run4o_discovery_05_01_2025 at_08;19;27C.json",
+      "./Warehouse/testing/AA/run4o_discovery_04_24_2025 at_23;16;24B.json",
+      "./Warehouse/testing/AA/run4o_discovery_04_24_2025 at_23;17;24N.json",
+      "./Warehouse/testing/AA/run4o_discovery_04_11_2025 at_16;04;35N.json",
+      "./Warehouse/testing/AA/run4o_discovery_04_24_2025 at_14;56;36B.json",
+      "./Warehouse/testing/AA/run4o_discovery_04_17_2025 at_21;34;16N.json",
+      "./Warehouse/testing/AA/run4o_discovery_04_24_2025 at_21;27;46N.json"
+    ]
+  },
+  "Debug": {
+    "outOfSync": []
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "FileNames": [
+    "./Warehouse/testing/EE/run4o_discovery_07_01_2025 at_10;35;38N.json",
+    "./Warehouse/testing/EE/run4o_discovery_04_29_2025 at_03;12;11B.json",
+    "./Warehouse/testing/EE/run4o_discovery_04_29_2025 at_02;52;03B.json",
+    "./Warehouse/testing/EE/run4o_discovery_04_29_2025 at_03;10;39N.json",
+    "./Warehouse/testing/EE/run4o_discovery_04_29_2025 at_03;03;14N.json",
+    "./Warehouse/testing/EE/run4o_discovery_04_29_2025 at_03;04;36N.json",
+    "./Warehouse/testing/EE/run4o_discovery_05_04_2025 at_10;50;45B.json",
+    "./Warehouse/testing/EE/run4o_discovery_05_04_2025 at_10;48;39N.json",
+    "./Warehouse/testing/EE/run4o_discovery_04_29_2025 at_03;01;54N.json"
+  ],
+  "JudgeBotOpinions": [
+    "MSG: None\n\nMSG: The decision about which movie to show on Friday has resulted in no consensus.\n",
+    "MSG: None\n\nMSG: The decision has been recorded with no clear agreement on what movie to show on Friday.\n",
+    "MSG: None\n\nMSG: I have successfully recorded the decision to acquire the rights for \"Barbie\" to be shown on Friday.\n",
+    "MSG: None\n\nMSG: The decision has been recorded with no movie selected for Friday.\n",
+    "MSG: None\n\nMSG: The decision regarding Friday's movie was not finalized.\n",
+    "MSG: None\n\nMSG: The decision about which movie to show on Friday could not be made.\n",
+    "MSG: None\n\nMSG: The decision has been recorded. There was no agreement on which movie to show on Friday.\n",
+    "MSG: None\n\nMSG: The decision has been recorded as no movie was selected for Friday.\n",
+    "MSG: None\n\nMSG: The decision process concluded without any clear plan for what movie will be shown on Friday, leading to no decision being made.\n"
+  ],
+  "JudgeBotFunctionCalls": [
+    "no_decision, ",
+    "no_decision, ",
+    "Barbie_was_selected, ",
+    "no_decision, ",
+    "no_decision, ",
+    "no_decision, ",
+    "no_decision, ",
+    "no_decision, ",
+    "no_decision, "
+  ]
+}
