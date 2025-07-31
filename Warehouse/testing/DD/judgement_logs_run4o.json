@@ -10,17 +10,17 @@
     "./Warehouse/testing/DD/run4o_discovery_05_02_2025 at_03;56;46N.json"
   ],
   "JudgeBotOpinions": [
-    "MSG: None\n\nMSG: The decision process concluded without reaching a definitive choice of movie for Friday, resulting in no decision being made.\n",
-    "MSG: None\n\nMSG: The decision process concluded without a clear agreement on which movie to show on Friday, resulting in no decision being made.\n",
-    "MSG: None\n\nMSG: The decision was to not select a movie for Friday.\n",
-    "MSG: None\n\nMSG: The decision process for the movie selection did not reach a conclusion, thus no decision was made regarding the film to be shown on Friday.\n",
-    "MSG: None\n\nMSG: The decision has been recorded, indicating that no movie was selected for Friday.\n",
-    "MSG: None\n\nMSG: The decision about Friday's movie remains unresolved.\n",
-    "MSG: None\n\nMSG: The decision regarding which movie to show on Friday remains unresolved.\n",
-    "MSG: None\n\nMSG: The decision process concluded without a definitive choice for Friday's movie, resulting in no agreement being reached.\n"
+    "MSG: None\n\nMSG: The decision has been made to acquire the rights for \"Barbie\" to be shown on Friday.\n",
+    "MSG: None\n\nMSG: The decision has been registered, and no movie will be shown on Friday.\n",
+    "MSG: None\n\nMSG: The decision regarding the movie for Friday has not been made.\n",
+    "MSG: None\n\nMSG: The decision has been recorded, indicating that no agreement was reached on which movie to show on Friday.\n",
+    "MSG: None\n\nMSG: The decision has been recorded as no decision was made regarding the movie to be shown on Friday.\n",
+    "MSG: None\n\nMSG: The decision regarding the movie to show on Friday is recorded as a no decision.\n",
+    "MSG: None\n\nMSG: The decision has been recorded, and no movie will be selected for Friday.\n",
+    "MSG: None\n\nMSG: It seems there was no definitive choice made regarding the movie to be shown on Friday, so I must proceed with the no_decision function.\n"
   ],
   "JudgeBotFunctionCalls": [
-    "no_decision, ",
+    "Barbie_was_selected, ",
     "no_decision, ",
     "no_decision, ",
     "no_decision, ",

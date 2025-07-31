@@ -12,25 +12,25 @@
     "./Warehouse/testing/CC/run4o_discovery_05_01_2025 at_23;56;34N.json"
   ],
   "JudgeBotOpinions": [
-    "MSG: None\n\nMSG: The decision has been recorded, and \"Barbie\" has been selected for the movie shown on Friday.\n",
-    "MSG: None\n\nMSG: The decision regarding Friday's movie has not been made.\n",
-    "MSG: None\n\nMSG: The movie \"Oppenheimer\" has been successfully selected for acquisition.\n",
-    "MSG: None\n\nMSG: The decision has been recorded as no consensus was reached on which movie to show on Friday.\n",
-    "MSG: None\n\nMSG: The decision has been recorded as no decision regarding the movie for Friday was reached.\n",
-    "MSG: None\n\nMSG: The decision has been recorded: \"Barbie\" is the movie selected to acquire rights for the screening.\n",
-    "MSG: None\n\nMSG: No movie was selected in this meeting.\n",
-    "MSG: None\n\nMSG: The decision regarding the movie to show on Friday has ended without a consensus being reached.\n",
-    "MSG: None\n\nMSG: The decision has been recorded with no movie selected for Friday.\n",
-    "MSG: None\n\nMSG: The decision has been recorded as no movie was selected in this meeting.\n"
+    "MSG: None\n\nMSG: The decision to acquire the rights for \"Barbie\" has been recorded.\n",
+    "MSG: None\n\nMSG: Based on the conversation, the committee has decided to involve the rest of the PTA for input and has not come to a definitive decision about the movie to show on Friday. Therefore, I will call the no_decision function.\n",
+    "MSG: None\n\nMSG: The rights for \"Oppenheimer\" have been successfully acquired for the upcoming screening.\n",
+    "MSG: None\n\nMSG: The decision has been successfully recorded for showing \"Barbie\".\n",
+    "MSG: None\n\nMSG: The decision about which movie to show on Friday could not be finalized, leading to no selection being made.\n",
+    "MSG: None\n\nMSG: The decision has been made to acquire the rights for \"Barbie.\"\n",
+    "MSG: None\n\nMSG: I have successfully recorded the decision to acquire the rights for both movies.\n",
+    "MSG: None\n\nMSG: The decision about what movie to show on Friday has not been made.\n",
+    "MSG: None\n\nMSG: The decision about which movie to show on Friday could not be made, so no selection will be made at this time.\n",
+    "MSG: None\n\nMSG: The conversation has concluded without a decision about which movie to show on Friday.\n"
   ],
   "JudgeBotFunctionCalls": [
     "Barbie_was_selected, ",
     "no_decision, ",
     "Oppenheimer_was_selected, ",
-    "no_decision, ",
-    "no_decision, ",
     "Barbie_was_selected, ",
     "no_decision, ",
+    "Barbie_was_selected, ",
+    "both_movies, ",
     "no_decision, ",
     "no_decision, ",
     "no_decision, "

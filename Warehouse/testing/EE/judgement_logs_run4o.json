@@ -11,19 +11,19 @@
     "./Warehouse/testing/EE/run4o_discovery_04_29_2025 at_03;01;54N.json"
   ],
   "JudgeBotOpinions": [
-    "MSG: None\n\nMSG: The decision about which movie to show on Friday has resulted in no consensus.\n",
-    "MSG: None\n\nMSG: The decision has been recorded with no clear agreement on what movie to show on Friday.\n",
-    "MSG: None\n\nMSG: I have successfully recorded the decision to acquire the rights for \"Barbie\" to be shown on Friday.\n",
-    "MSG: None\n\nMSG: The decision has been recorded with no movie selected for Friday.\n",
-    "MSG: None\n\nMSG: The decision regarding Friday's movie was not finalized.\n",
-    "MSG: None\n\nMSG: The decision about which movie to show on Friday could not be made.\n",
-    "MSG: None\n\nMSG: The decision has been recorded. There was no agreement on which movie to show on Friday.\n",
-    "MSG: None\n\nMSG: The decision has been recorded as no movie was selected for Friday.\n",
-    "MSG: None\n\nMSG: The decision process concluded without any clear plan for what movie will be shown on Friday, leading to no decision being made.\n"
+    "MSG: None\n\nMSG: The decision has been recorded as no decision regarding the movie for Friday.\n",
+    "MSG: None\n\nMSG: The decision to acquire the rights for both movies has been recorded.\n",
+    "MSG: None\n\nMSG: The decision has been recorded to acquire the rights for \"Barbie.\"\n",
+    "MSG: None\n\nMSG: The committee could not reach a decision regarding the movie to be shown on Friday.\n",
+    "MSG: None\n\nMSG: The decision has been recorded, and no movie will be acquired for Friday based on the conversation.\n",
+    "MSG: None\n\nMSG: The decision-making process has concluded without a choice of movie for Friday. No movie will be selected at this time.\n",
+    "MSG: None\n\nMSG: The decision about which movie to show on Friday was not finalized, resulting in no decision being made.\n",
+    "MSG: None\n\nMSG: The decision has been recorded as no movie being selected for Friday.\n",
+    "MSG: None\n\nMSG: The conversation ended without a decision on which movie to show on Friday.\n"
   ],
   "JudgeBotFunctionCalls": [
     "no_decision, ",
-    "no_decision, ",
+    "both_movies, ",
     "Barbie_was_selected, ",
     "no_decision, ",
     "no_decision, ",

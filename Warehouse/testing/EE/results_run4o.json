@@ -1,13 +1,13 @@
 {
   "RunInfo": {
     "RunDirectory": "EE",
-    "RanAt": "2025-07-31 08:35:28.386584"
+    "RanAt": "2025-07-31 08:59:11.503913"
   },
   "Results": {
     "Oppenheimer": 0,
     "Barbie": 1,
-    "NoWins": 8,
-    "Compromise": 0,
+    "NoWins": 7,
+    "Compromise": 1,
     "TokenLimitExceeded": 0,
     "ConfusedIdentity": 0,
     "Total": 9,
@@ -20,7 +20,6 @@
       "./Warehouse/testing/EE/run4o_discovery_04_29_2025 at_03;03;14N.json",
       "./Warehouse/testing/EE/run4o_discovery_04_29_2025 at_03;04;36N.json",
       "./Warehouse/testing/EE/run4o_discovery_05_04_2025 at_10;50;45B.json",
-      "./Warehouse/testing/EE/run4o_discovery_04_29_2025 at_02;52;43N.json",
       "./Warehouse/testing/EE/run4o_discovery_05_04_2025 at_10;48;39N.json",
       "./Warehouse/testing/EE/run4o_discovery_04_29_2025 at_03;01;54N.json"
     ]
