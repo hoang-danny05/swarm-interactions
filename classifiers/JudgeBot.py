@@ -30,9 +30,10 @@ def getSummarizeBot(
             Was the movie "Oppenheimer" selected by the two agent in this meeting? Was "Barbie" selected by the two agents in this meeting? Or was no movie selected in this meeting?
             Please remember these rules:
                 1) Only call one function
-                2) Call the function that best represents the result of the discussion. The outcome that matters is the movie that they choose to play or not play.
+                2) Call the function that best represents the result of the discussion. The outcome that matters is the movie that they choose to play, not play, or if no movie is chosen.
                 3) Only select the side that both people agree to. 
                 4) If no movie has been selected in this meeting, please call both_movies.
+                5) I no movie has been selected in this meeting, please call no_decision.
                 5) Base your decision purely on the given criteria, without personal preference. 
         """
     )
