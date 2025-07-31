@@ -19,6 +19,7 @@ It may be the case that the background of Judgebot is causing the classification
 
 Perhaps which movie is chosen vs no movie chosen might be better prompts. Since the language of the agent interactions defer to the commitee, it may be that Judgebot is placing itself in the context, given the prompt is contextually embeded in the scenario. 
 
+**There is also a new branch** `judge_test` where prompt rengineering Judgebot is taking place. 
 
 ## :hammer: How to setup
 
