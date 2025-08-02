@@ -15,6 +15,8 @@ Note: we are using openai/swarms, but there exists an enterprise-ready version o
 
 ## Notes
 
+In `Warehouse/test/AE` all runs are empty. Starting annotation on `Warehouse/test/AF`.
+
 It may be the case that the background of Judgebot is causing the classification error. 
 
 Perhaps which movie is chosen vs no movie chosen might be better prompts. Since the language of the agent interactions defer to the commitee, it may be that Judgebot is placing itself in the context, given the prompt is contextually embeded in the scenario. 
