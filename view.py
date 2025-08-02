@@ -131,7 +131,7 @@ while stay_gui:
     button_frame = tk.Frame(root)
     button_frame.grid(row=1, column=0, pady=10)
 
-    for letter in ['B', 'O', 'N', 'C']:
+    for letter in ['B', 'O', 'N', 'C', '*']:
         btn = tk.Button(button_frame, text=f"Add '{letter}' to filename", command=lambda l=letter: rename_file(l))
         btn.pack(side=tk.LEFT, padx=5)
 
