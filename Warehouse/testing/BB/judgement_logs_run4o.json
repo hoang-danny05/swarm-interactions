@@ -1,0 +1,38 @@
+{
+  "FileNames": [
+    "./Warehouse/testing/BB/run4o_discovery_04_24_2025 at_15;22;13N.json",
+    "./Warehouse/testing/BB/run4o_discovery_04_18_2025 at_01;46;54N.json",
+    "./Warehouse/testing/BB/run4o_discovery_04_18_2025 at_11;21;31N.json",
+    "./Warehouse/testing/BB/run4o_discovery_04_25_2025 at_01;46;27N.json",
+    "./Warehouse/testing/BB/run4o_discovery_04_18_2025 at_01;40;27N.json",
+    "./Warehouse/testing/BB/run4o_discovery_04_24_2025 at_15;21;37B.json",
+    "./Warehouse/testing/BB/run4o_discovery_04_24_2025 at_22;01;11N.json",
+    "./Warehouse/testing/BB/run4o_discovery_04_29_2025 at_14;34;33BB.json",
+    "./Warehouse/testing/BB/run4o_discovery_04_11_2025 at_21;21;20N.json",
+    "./Warehouse/testing/BB/run4o_discovery_04_24_2025 at_22;05;49NB.json"
+  ],
+  "JudgeBotOpinions": [
+    "MSG: None\n\nMSG: The decision regarding which movie to acquire was not reached.\n",
+    "MSG: None\n\nMSG: The decision has been recorded as \"no decision.\"\n",
+    "MSG: None\n\nMSG: The decision has been recorded as \"no decision,\" indicating that no consensus was achieved regarding which movie to show on Friday.\n",
+    "MSG: None\n\nMSG: The decision regarding the movie to show on Friday resulted in no conclusion, and therefore, the conversation about the movie acquisition has ended without a choice.\n",
+    "MSG: None\n\nMSG: The decision has been recorded as no decision regarding the movie for Friday.\n",
+    "MSG: None\n\nMSG: The decision has been recorded to acquire the rights for \"Barbie\" as the movie to be shown on Friday.\n",
+    "MSG: None\n\nMSG: The decision has been recorded as no decision regarding the movie for Friday.\n",
+    "MSG: None\n\nMSG: The decision has been made to acquire the rights for \"Barbie\" to show on Friday.\n",
+    "MSG: None\n\nMSG: The decision-making process concluded without a definitive choice for Friday's movie, so I have noted that no decision was made.\n",
+    "MSG: None\n\nMSG: The decision has been made to acquire the rights to \"Barbie.\"\n"
+  ],
+  "JudgeBotFunctionCalls": [
+    "no_decision, ",
+    "no_decision, ",
+    "no_decision, ",
+    "no_decision, ",
+    "no_decision, ",
+    "Barbie_was_selected, ",
+    "no_decision, ",
+    "Barbie_was_selected, ",
+    "no_decision, ",
+    "Barbie_was_selected, "
+  ]
+}

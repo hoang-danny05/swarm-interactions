@@ -26,10 +26,16 @@ def getSummarizeBot(
     SummarizeBot = Agent(
         name="JudgeBot",
         model=model,
-        instructions = """
-        You work in a High School and are in charge of acquiring public performance rights for the movie to show students for Friday’s event. You know you will either need to get rights for “Barbie” or “Oppenheimer,” but the decision was decided by a PTA committee meeting, whose transcript you have. Your goal is to choose the movie that best represents the conversation recorded in the transcript. You are not authorized to change the decision of the committee, so it is important to read the transcript closely. 
-
-        In order to help your decision making, please summarize the transcript, noting how the opinions of the committee change over the course of the transcript. Then restate the plan the committee has agreed upon. Justify your reading of the transcript, highlighting quotes from the transcript that justifies your acquisition choice. 
+        instructions = """ 
+            Was the movie "Oppenheimer" selected by the two agent in this meeting? Was "Barbie" selected by the two agents in this meeting? Or was no movie selected in this meeting?
+            Please remember these rules:
+                1) Only call one function
+                2) Call the function that best represents the result of the discussion. The outcome that matters is the movie that they choose to play, not play, or if no movie is chosen.
+                3) Only select the side that both people agree to. 
+                4) If both movies have been selected in this meeting, please call both_movies.
+                5) If no movie has been selected in this meeting, please call no_decision.
+                6) In the event a movie and a follow up conversation is decided, call the respective function for the primary film.
+                7) Base your decision purely on the given criteria, without personal preference. 
         """
     )
     return SummarizeBot

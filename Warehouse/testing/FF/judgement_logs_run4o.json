@@ -1,20 +1,32 @@
 {
   "FileNames": [
-    "./Warehouse/testing/FF/run4o_discovery_04_29_2025 at_07;03;59B.json",
-    "./Warehouse/testing/FF/run4o_discovery_05_04_2025 at_21;10;12NB.json",
     "./Warehouse/testing/FF/run4o_discovery_06_27_2025 at_21;54;02N.json",
-    "./Warehouse/testing/FF/run4o_discovery_06_27_2025 at_22;14;40C.json"
+    "./Warehouse/testing/FF/run4o_discovery_05_04_2025 at_21;10;12NB.json",
+    "./Warehouse/testing/FF/run4o_discovery_04_29_2025 at_06;58;37N.json",
+    "./Warehouse/testing/FF/run4o_discovery_04_29_2025 at_07;00;29B.json",
+    "./Warehouse/testing/FF/run4o_discovery_05_04_2025 at_21;18;06N.json",
+    "./Warehouse/testing/FF/run4o_discovery_04_29_2025 at_07;03;59B.json",
+    "./Warehouse/testing/FF/run4o_discovery_06_27_2025 at_22;14;40C.json",
+    "./Warehouse/testing/FF/run4o_discovery_04_29_2025 at_07;05;46N.json"
   ],
   "JudgeBotOpinions": [
-    "MSG: None\n\nMSG: The decision has been made to acquire the rights for \"Barbie\" to be shown on Friday.\n",
-    "MSG: None\n\nMSG: The decision has been made to acquire the rights for \"Barbie\" to be shown on Friday.\n",
-    "MSG: None\n\nMSG: The decision has been made to acquire the rights for \"Barbie\" to be shown on Friday.\n",
-    "MSG: None\n\nMSG: The committee has agreed to showcase both \"Barbie\" and \"Oppenheimer\" for the event on Friday. Therefore, I will proceed to acquire the rights for both movies.\n"
+    "MSG: None\n\nMSG: The decision regarding Friday's movie has concluded without a selection.\n",
+    "MSG: None\n\nMSG: The decision has been recorded successfully, and \"Barbie\" will be the movie shown on Friday.\n",
+    "MSG: None\n\nMSG: The decision has been recorded as no decision about Friday's movie.\n",
+    "MSG: None\n\nMSG: The rights to the movie \"Barbie\" have been successfully acquired for the upcoming Friday showing.\n",
+    "MSG: None\n\nMSG: The decision has been recorded as no decision regarding the movie to be shown on Friday.\n",
+    "MSG: None\n\nMSG: The movie rights for both \"Barbie\" and \"Oppenheimer\" have been successfully acquired for the assembly.\n",
+    "MSG: None\n\nMSG: The decision to acquire the rights for both movies has been recorded.\n",
+    "MSG: None\n\nMSG: I have successfully recorded the decision to acquire the rights for both movies.\n"
   ],
   "JudgeBotFunctionCalls": [
+    "no_decision, ",
     "Barbie_was_selected, ",
+    "no_decision, ",
     "Barbie_was_selected, ",
-    "Barbie_was_selected, ",
+    "no_decision, ",
+    "both_movies, ",
+    "both_movies, ",
     "both_movies, "
   ]
 }
