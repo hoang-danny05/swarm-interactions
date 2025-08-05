@@ -103,6 +103,23 @@ JudgeBot: I have successfully recorded the decision to acquire the rights for bo
 function called
 Valid response! 
 ```
+```
+Starting to view file: ./Warehouse/testing/CD/run4o_discovery_04_28_2025 at_13;06;51B.json
+length: 25
+JudgeBot: Both movies have been selected in this meeting. The final outcome is to showcase "Barbie" as the primary film, followed by discussions on "Oppenheimer." 
+
+I will call the function for both movies.
+Getting judgement...
+Judge bot thinks, both movies were selected
+
+        debug: function_calls = [0, 0, 0, 1]
+        
+JudgeBot: both_movies()
+JudgeBot: The rights for both movies have been successfully acquired.
+function called
+Valid response! 
+Finished file ./Warehouse/testing/CD/run4o_discovery_04_28_2025 at_13;06;51B.json
+```
 ## :hammer: How to setup
 
 1) Clone or download this repository
