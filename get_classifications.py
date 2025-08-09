@@ -264,7 +264,7 @@ if __name__ == "__main__":
     # change this to change what we are analyzing
     # NOTE: You can now do everything automatically in the command line!
     # ex) python get_classifications.py AA run4o yes
-    directory = f"./Warehouse/testing/{subdirectory}"
+    directory = f"./Warehouse/{subdirectory}"
 
     # if it wasn't entered in the command line
     if keyword == None:
@@ -319,7 +319,7 @@ if __name__ == "__main__":
         print("Exited  Early! dumping results!")
 
 
-    with open(f"{directory}/results_{keyword}.json", "w") as file:
+    with open(f"{directory}/results_NEW_{keyword}.json", "w") as file:
         #write the results
         json.dump({
             "RunInfo": run_info,
