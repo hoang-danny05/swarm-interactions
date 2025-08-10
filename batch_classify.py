@@ -9,7 +9,7 @@ executes a batch of assertiveness observers using the given count.
 now does judgements!
 """
 
-subprocess.run(["ls"], shell=True)
+#subprocess.run(["ls"], shell=True)
 
 possible_slots = "ABCDEF"
 for comb in itertools.product(possible_slots, possible_slots):

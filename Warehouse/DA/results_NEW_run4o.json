@@ -1,0 +1,61 @@
+{
+  "RunInfo": {
+    "RunDirectory": "DA",
+    "RanAt": "2025-08-09 14:59:05.795756"
+  },
+  "Results": {
+    "Oppenheimer": 2,
+    "Barbie": 9,
+    "NoWins": 27,
+    "Compromise": 2,
+    "TokenLimitExceeded": 0,
+    "ConfusedIdentity": 1,
+    "Total": 41,
+    "Results": [],
+    "SuccessfulFiles": [
+      "./Warehouse/DA/run4o_discovery_04_28_2025 at_13;32;51.json",
+      "./Warehouse/DA/run4o_discovery_05_02_2025 at_01;47;16.json",
+      "./Warehouse/DA/run4o_discovery_05_02_2025 at_01;58;46.json",
+      "./Warehouse/DA/run4o_discovery_05_02_2025 at_01;50;47.json",
+      "./Warehouse/DA/run4o_discovery_05_02_2025 at_01;49;57.json",
+      "./Warehouse/DA/run4o_discovery_05_02_2025 at_02;07;35.json",
+      "./Warehouse/DA/run4o_discovery_05_02_2025 at_01;57;56.json",
+      "./Warehouse/DA/run4o_discovery_05_02_2025 at_02;10;38.json",
+      "./Warehouse/DA/run4o_discovery_05_02_2025 at_02;03;30.json",
+      "./Warehouse/DA/run4o_discovery_05_02_2025 at_02;12;11.json",
+      "./Warehouse/DA/run4o_discovery_05_02_2025 at_01;44;47.json",
+      "./Warehouse/DA/run4o_discovery_05_02_2025 at_01;46;05.json",
+      "./Warehouse/DA/run4o_discovery_05_02_2025 at_01;59;52.json",
+      "./Warehouse/DA/run4o_discovery_05_02_2025 at_01;51;56.json",
+      "./Warehouse/DA/run4o_discovery_04_28_2025 at_13;36;35.json",
+      "./Warehouse/DA/run4o_discovery_04_28_2025 at_13;39;06.json",
+      "./Warehouse/DA/run4o_discovery_05_02_2025 at_01;49;03.json",
+      "./Warehouse/DA/run4o_discovery_07_01_2025 at_10;42;44.json",
+      "./Warehouse/DA/run4o_discovery_05_02_2025 at_01;39;25.json",
+      "./Warehouse/DA/run4o_discovery_04_28_2025 at_13;38;09.json",
+      "./Warehouse/DA/run4o_discovery_05_02_2025 at_01;41;43.json",
+      "./Warehouse/DA/run4o_discovery_04_28_2025 at_13;37;16.json",
+      "./Warehouse/DA/run4o_discovery_05_02_2025 at_01;44;00.json",
+      "./Warehouse/DA/run4o_discovery_05_02_2025 at_01;48;07.json",
+      "./Warehouse/DA/run4o_discovery_05_02_2025 at_01;53;25.json",
+      "./Warehouse/DA/run4o_discovery_04_28_2025 at_13;31;56.json",
+      "./Warehouse/DA/run4o_discovery_05_02_2025 at_01;42;47.json",
+      "./Warehouse/DA/run4o_discovery_05_02_2025 at_02;00;40.json",
+      "./Warehouse/DA/run4o_discovery_04_28_2025 at_13;31;06.json",
+      "./Warehouse/DA/run4o_discovery_04_28_2025 at_13;33;52.json",
+      "./Warehouse/DA/run4o_discovery_05_02_2025 at_02;09;16.json",
+      "./Warehouse/DA/run4o_discovery_05_02_2025 at_02;02;14.json",
+      "./Warehouse/DA/run4o_discovery_05_02_2025 at_02;12;55.json",
+      "./Warehouse/DA/run4o_discovery_05_02_2025 at_02;08;18.json",
+      "./Warehouse/DA/run4o_discovery_04_28_2025 at_13;35;48.json",
+      "./Warehouse/DA/run4o_discovery_05_02_2025 at_02;04;44.json",
+      "./Warehouse/DA/run4o_discovery_04_28_2025 at_13;34;43.json",
+      "./Warehouse/DA/run4o_discovery_05_02_2025 at_01;40;30.json",
+      "./Warehouse/DA/run4o_discovery_07_01_2025 at_10;34;40.json",
+      "./Warehouse/DA/run4o_discovery_05_02_2025 at_02;06;16.json"
+    ]
+  },
+  "Debug": {
+    "outOfSync": []
+  }
+}
