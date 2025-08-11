@@ -1,6 +1,6 @@
 import sys
 import os 
-import glob
+import itertools
 
 """
 gets the amount of runs for each config, REMOVING all other files!
@@ -31,4 +31,9 @@ def get_run_count(config : str):
     return len(runs)
 
 if __name__ == "__main__":
-    print(get_run_count(sys.argv[1]))
+    try:
+        print(get_run_count(sys.argv[1]))
+    except Exception:
+        for comb in itertools.product("ABCDEF", "ABCDEF"):
+            config = "".join(comb)
+            print(f"{config}: {get_run_count(config)} runs")
