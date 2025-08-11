@@ -30,7 +30,7 @@ DEBUGGING = False
 
 run_configuration : RunConfiguration = None   # set this
 model = ExactModelType.GPT_4O_MINI
-version = "run4o_discovery"
+version = "NEW_run4o"
 
 
 ##################################################################
@@ -51,6 +51,11 @@ if len(sys.argv) > 1:
     except Exception:
         print(f"Invalid first argument. Should contain two chars, one for each spot. ")
         sys.exit(1)
+
+if len(sys.argv) > 2:
+    RUNS_TO_DO = int(sys.argv[2])
+else:
+    print(f"Using the default run amount: {RUNS_TO_DO = }")
 
 
 # scuffed
@@ -377,7 +382,7 @@ def run_loop(
 
     # THE LOOP HAS BEEN EXITED AT THIS POINT!!!!
     save_configs(starting_agent, responding_agent, filename)
-    classify_and_append(version, filename, messages, TOKEN_LIMIT=MAX_TOKENS)
+    #classify_and_append(version, filename, messages, TOKEN_LIMIT=MAX_TOKENS)
     with open(filename, "a") as file:
         json.dump(messages, file)
         file.write("\n\nLOOP DONE. GOING TO NEXT ITERATION\n\n")
