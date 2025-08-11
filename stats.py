@@ -2,6 +2,7 @@ import os
 import json
 import numpy as np
 import pandas as pd
+import itertools
 
 def resultsDF(directory, filename, tocsv=False) -> pd.DataFrame:
     """
@@ -24,29 +25,31 @@ def resultsDF(directory, filename, tocsv=False) -> pd.DataFrame:
     "Total",
     ]
     rows = []
-    for i in os.listdir(directory):
-        if os.path.isdir(os.path.join(directory, i)) and len(i)==2:
-            fullfile = directory+i+'/'+filename
-            print(f"Analyzing file: {fullfile}")
+    
+    # for all configs AA, AB ...
+    for comb in itertools.product("ABCDEF", "ABCDEF"):
+        config = "".join(comb)
+        fullfile = directory + config +'/'+filename
+        # print(f"Analyzing file: {fullfile}")
 
-            with open(fullfile, 'r') as file:
-                raw = json.load(file)
+        with open(fullfile, 'r') as file:
+            raw = json.load(file)
 
-                # raw = file.read()
-                # # Trim at "Results" key if present
-                # if '"Results":' in raw:
-                #     raw = raw.split('"Results":')[0].rstrip(', \n\t')
-                #     raw += '}'
-                    
-                # the result data
-                d = raw["Results"]
-                result = dict()
-                result["Arrangement"] = str(i)
-                for key in d:
-                    if key == "Results": break 
-                    if key == "SuccessfulFiles": break # skip successful files
-                    result[key] = d[key]
-                rows.append(result)
+            # raw = file.read()
+            # # Trim at "Results" key if present
+            # if '"Results":' in raw:
+            #     raw = raw.split('"Results":')[0].rstrip(', \n\t')
+            #     raw += '}'
+                
+            # the result data
+            d = raw["Results"]
+            result = dict()
+            result["Arrangement"] = str(config)
+            for key in d:
+                if key == "Results": break 
+                if key == "SuccessfulFiles": break # skip successful files
+                result[key] = d[key]
+            rows.append(result)
     df = pd.DataFrame(rows)
     if tocsv==True:df.to_csv(os.path.join(os.getcwd(), "data.csv"))
     return pd.DataFrame(rows)
