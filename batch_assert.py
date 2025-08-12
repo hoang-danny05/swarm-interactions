@@ -12,7 +12,7 @@ now does judgements!
 will do enough runs to get to the MINIMUN_RUNS
 """
 
-MINIMUM_RUNS = 60
+MINIMUM_RUNS = 70
 
 
 subprocess.run(["ls"], shell=True)
