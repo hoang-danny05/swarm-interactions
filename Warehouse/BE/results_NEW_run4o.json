@@ -1,13 +1,13 @@
 {
   "RunInfo": {
     "RunDirectory": "BE",
-    "RanAt": "2025-08-09 14:28:34.494760"
+    "RanAt": "2025-08-17 16:29:27.985386"
   },
   "Results": {
-    "Oppenheimer": 3,
-    "Barbie": 15,
-    "NoWins": 42,
-    "Compromise": 7,
+    "Oppenheimer": 2,
+    "Barbie": 17,
+    "NoWins": 39,
+    "Compromise": 9,
     "TokenLimitExceeded": 0,
     "ConfusedIdentity": 0,
     "Total": 67,
