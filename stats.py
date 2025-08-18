@@ -2,6 +2,7 @@ import os
 import json
 import numpy as np
 import pandas as pd
+import scipy
 import itertools
 
 def resultsDF(directory, filename, tocsv=False) -> pd.DataFrame:
@@ -159,3 +160,39 @@ rankings = bradley_terry_ranking(W, players)
 print("******** Rankings ********")
 for key, item in rankings.items():
     print(f"Player {key} with {item}")
+
+
+# 96 * log( A over B)
+
+print(players)
+print(W)
+
+gathered_strengths = list(rankings.values())
+
+def calculate_log_likelihood(strengths):
+    sum = 0
+    for i in range(len(players)):
+        for j in range(len(players)):
+            if i != j:
+                # wins of I over J * probability I wins over J
+                sum += W[i][j] * np.log((strengths[i])/(strengths[i]+strengths[j]))
+    return sum
+
+print("NULL")
+null_sum = calculate_log_likelihood(np.ones(6)/6)
+
+print("DATA")
+data_sum = calculate_log_likelihood(gathered_strengths)
+
+# chi^2 sample statistic
+g2 = 2*(data_sum-null_sum)
+
+print(f"{g2 = }")
+df = 5
+
+pvalue = scipy.stats.chi2.cdf(g2, df)
+
+print(f"{pvalue = }")
+
+
+
