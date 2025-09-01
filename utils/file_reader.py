@@ -1,6 +1,7 @@
 # The model of the GUI
 import json
 from typing import List, Optional
+import os
 
 def read_encoded_file(json_file_path : str) -> tuple[List, List]:
     """
@@ -71,3 +72,23 @@ def identities_known(messages : List) -> bool:
         if not prefix == sender:
             return False
     return True
+
+
+
+def get_runs_from_config(config: str):
+    assert len(config) == 2, "Invalid Config!"
+
+    directory = f"Warehouse/{config}"
+    items = os.listdir(directory)
+    runs = []
+    for entry in items:
+        if os.path.isdir(os.path.join(directory, entry)):
+            continue
+        if "results" in entry:
+            continue
+        if "logs" in entry:
+            continue
+        runs.append(entry)
+    # print(runs) # only when debug
+    return runs
+

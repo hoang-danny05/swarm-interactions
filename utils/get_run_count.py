@@ -1,6 +1,7 @@
 import sys
 import os 
 import itertools
+from file_reader import get_runs_from_config
 
 """
 gets the amount of runs for each config, REMOVING all other files!
@@ -16,19 +17,7 @@ USAGE:
 """
 
 def get_run_count(config : str):
-    directory = f"Warehouse/{config}"
-    items = os.listdir(directory)
-    runs = []
-    for entry in items:
-        if os.path.isdir(os.path.join(directory, entry)):
-            continue
-        if "results" in entry:
-            continue
-        if "logs" in entry:
-            continue
-        runs.append(entry)
-    # print(runs) # only when debug
-    return len(runs)
+    return len(get_runs_from_config)
 
 if __name__ == "__main__":
     try:
