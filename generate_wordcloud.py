@@ -104,8 +104,8 @@ def main():
         frequency_manager.reset_config_dict()
 
         # for now, only do BD for debug purposes
-        if not config == "DF":
-            continue
+        #if not config == "DF":
+        #    continue
         
         runs = get_runs_from_config(config)
 
