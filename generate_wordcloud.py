@@ -58,8 +58,9 @@ class freqencyDict():
     def generate_config_wordcloud(self, config):
         self.display_dict(self.config_dict)
         wc = WordCloud(width=500, height=400, margin=10, random_state=1, max_words=1000)
-        wc.generate_from_frequencies(self.config_dict, max_font_size=64)
+        wc.generate_from_frequencies(self.config_dict)
 
+        plt.get_current_fig_manager().set_window_title(f"Wordcloud for config: {config}")
         plt.imshow(wc, interpolation='bilinear')
         plt.axis("off")
         plt.show()
@@ -71,9 +72,11 @@ class freqencyDict():
         wc = WordCloud(width=500, height=400, margin=10, random_state=1, max_words=1000)
         wc.generate_from_frequencies(self.full_dict)
 
+        plt.get_current_fig_manager().set_window_title("Summary Wordcloud")
         plt.imshow(wc, interpolation='bilinear')
         plt.axis("off")
         plt.show()
+
         path = f"./wordclouds/FULL.png"
         wc.to_file(path)
 
@@ -161,7 +164,7 @@ def main():
                 print(message)
 
             # we only do this once for testing reasons
-            break
+            #break
 
         frequency_manager.generate_config_wordcloud(config)
     frequency_manager.generate_full_wordcloud()
