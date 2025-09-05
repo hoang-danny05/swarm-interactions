@@ -12,7 +12,13 @@ Note: we are using openai/swarms, but there exists an enterprise-ready version o
 - ~~Annotate a good subset of the runs~~
 - ~~Delete result json files that have improper formatting~~ 
 - ~~In annotations add a star to show qualitatively diffrent, communication. (make it a button on view GUI)~~
-
+- Modify word cloud to include words that only have high variance with respect to the dialogue compared to the other agents. 
+        - in nlp, it is standard to get rid of `and`'s and `the`
+        - Pull out words for each angent config to make clouds for each agent. 
+        - maybe make some without barbie and oppenheimer
+        - do some log probability between the whole entire corpus
+                - pull out the high variability between a specific agent and corpus.
+                - implies pulling out barbie and oppenhiemer (not manually)
 ## Notes
 
 In `Warehouse/test/AE` all runs are empty. Starting annotation on `Warehouse/test/AF`.
