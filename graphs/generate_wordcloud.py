@@ -1,12 +1,20 @@
 #!/usr/bin/env python
 import itertools
 import os
-import json
+import inspect
 import sys
+
+currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+parentdir = os.path.dirname(currentdir)
+sys.path.insert(0, parentdir)
+
+os.chdir("..")
+
 from utils.file_reader import get_runs_from_config, get_messages_from
 
 from wordcloud import WordCloud, STOPWORDS
 import matplotlib.pyplot as plt
+
 
 
 # TASK: generate word cloud of the different, unique words that each bot says
@@ -56,7 +64,7 @@ class freqencyDict():
         self.config_dict = dict()
 
     def generate_config_wordcloud(self, config):
-        self.display_dict(self.config_dict)
+        #self.display_dict(self.config_dict)
         wc = WordCloud(width=500, height=400, margin=10, random_state=1, max_words=1000)
         wc.generate_from_frequencies(self.config_dict)
 
@@ -66,7 +74,7 @@ class freqencyDict():
         plt.show()
 
         path = f"./wordclouds/{config}.png"
-        wc.to_file(path)
+        #wc.to_file(path)
 
     def generate_full_wordcloud(self):
         wc = WordCloud(width=500, height=400, margin=10, random_state=1, max_words=1000)
@@ -78,7 +86,7 @@ class freqencyDict():
         plt.show()
 
         path = f"./wordclouds/FULL.png"
-        wc.to_file(path)
+        #wc.to_file(path)
 
     def display_dict(self, dict):
         for k, v in dict.items():
