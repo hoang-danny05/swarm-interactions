@@ -139,6 +139,20 @@ class freqencyDict():
             with open(f"./graphs/csv/{char}.csv", "w") as file:
                 writer = csv.writer(file)
                 writer.writerows(frq)
+
+    def generate_agent_wordclouds(self):
+        for char in "ABCDEF":
+            wc = WordCloud(width=500, height=400, margin=10, random_state=1, max_words=1000)
+            wc.generate_from_frequencies(self.agent_dicts[char])
+
+            plt.get_current_fig_manager().set_window_title(f"Wordcloud for Agent {char}")
+            plt.imshow(wc, interpolation='bilinear')
+            plt.axis("off")
+            plt.show()
+
+            path = f"./graphs/wordclouds/{char}_Cloud.png"
+            wc.to_file(path)
+
             
 
     def display_dict(self, dict):
@@ -234,6 +248,7 @@ def main():
         #frequency_manager.generate_config_wordcloud(config)
     #frequency_manager.generate_full_wordcloud()
     frequency_manager.export_agent_frequencies()
+    frequency_manager.generate_agent_wordclouds()
 
 
         
