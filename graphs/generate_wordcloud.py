@@ -4,6 +4,7 @@ import os
 import inspect
 import sys
 import csv
+import re
 
 currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 parentdir = os.path.dirname(currentdir)
@@ -20,7 +21,13 @@ import matplotlib.pyplot as plt
 STOPWORDS.add("i")
 STOPWORDS.add("barbie")
 STOPWORDS.add("oppenheimer")
+STOPWORDS.add("")
 
+for char in "ABDCEF":
+    for config_name in config_dict[char]["names"]:
+        full_name = config_name.lower().split()
+        for n in full_name:
+            STOPWORDS.add(n)
 
 def get_sender_config(name) -> str:
     for char in "ABDCEF":
@@ -80,9 +87,9 @@ class freqencyDict():
 
     def append_to_config(self, char:str, text):
         #print(f"ADDDING {text}, \n\nSPLIT: {text.split()}\n......")
-        for word in text.split():
-            word = word.rstrip(",!.?\"")
-            word = word.lstrip(",!.?\"")
+        for word in re.split(r'[,;:\-\s\—\"]+', text):
+            word = word.rstrip(r",!.?\"\'”“*-((")
+            word = word.lstrip(r",!.?\"\'”“*-)")
             word = word.lower()
             if word in STOPWORDS:
                 continue
