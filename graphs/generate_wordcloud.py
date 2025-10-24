@@ -134,6 +134,7 @@ class freqencyDict():
             #while True:
             #    print(eval(input("> ")))
             frq = list(zip(self.agent_dicts[char].keys(), self.agent_dicts[char].values()))
+            frq = sorted(frq, key=lambda x:x[1], reverse=True)
             print(frq)
             with open(f"./graphs/csv/{char}.csv", "w") as file:
                 writer = csv.writer(file)
