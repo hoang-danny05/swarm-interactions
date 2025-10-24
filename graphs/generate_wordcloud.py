@@ -3,6 +3,7 @@ import itertools
 import os
 import inspect
 import sys
+import csv
 
 currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 parentdir = os.path.dirname(currentdir)
@@ -11,12 +12,22 @@ sys.path.insert(0, parentdir)
 os.chdir("..")
 
 from utils.file_reader import get_runs_from_config, get_messages_from
+from CONFIG import config_dict
 
 from wordcloud import WordCloud, STOPWORDS
 import matplotlib.pyplot as plt
 
+STOPWORDS.add("i")
+STOPWORDS.add("barbie")
+STOPWORDS.add("oppenheimer")
 
 
+def get_sender_config(name) -> str:
+    for char in "ABDCEF":
+        for config_name in config_dict[char]["names"]:
+            if name.lower() == config_name.lower():
+                return char
+    raise Exception(f"Did not find name {name}")
 # TASK: generate word cloud of the different, unique words that each bot says
 
 # 1) parse conversatoins and extract what a each person says
@@ -36,6 +47,15 @@ class freqencyDict():
         self.full_dict = {}
         self.config_dict = {}
 
+        self.agent_dicts = {
+            "A": dict(),
+            "B": dict(),
+            "C": dict(),
+            "D": dict(),
+            "E": dict(),
+            "F": dict(),
+        }
+
     def append(self, text:str):
         """
         Appends to the full dict and the single configuration dictionary.
@@ -44,19 +64,33 @@ class freqencyDict():
         for word in text.split():
             word = word.rstrip(",!.?\"")
             word = word.lstrip(",!.?\"")
+            word = word.lower()
             if word in STOPWORDS:
                 continue
             print(word)
             # add to dicts
-            val = self.full_dict.get(word.lower(), 0)
-            self.full_dict[word.lower()] = val + 1
-            val = self.config_dict.get(word.lower(), 0)
-            self.config_dict[word.lower()] = val + 1
+            val = self.full_dict.get(word, 0)
+            self.full_dict[word] = val + 1
+            val = self.config_dict.get(word, 0)
+            self.config_dict[word] = val + 1
         print("\n.....")
         #for key in temp_dict:
         #    self.full_dict[key] += temp_dict[key]
         #    self.config_dict[key] += temp_dict[key]
 
+    def append_to_config(self, char:str, text):
+        #print(f"ADDDING {text}, \n\nSPLIT: {text.split()}\n......")
+        for word in text.split():
+            word = word.rstrip(",!.?\"")
+            word = word.lstrip(",!.?\"")
+            word = word.lower()
+            if word in STOPWORDS:
+                continue
+            #print(word)
+            # add to dicts
+            val = self.agent_dicts[char].get(word, 0)
+            self.agent_dicts[char][word] = val + 1
+ 
     def reset_config_dict(self):
         """
         Resets the current dictionary keeping track of the current configuration.
@@ -87,6 +121,17 @@ class freqencyDict():
 
         path = f"./wordclouds/FULL.png"
         #wc.to_file(path)
+
+    def export_agent_frequencies(self):
+        for char in "ABCDEF":
+            #while True:
+            #    print(eval(input("> ")))
+            frq = list(zip(self.agent_dicts[char].keys(), self.agent_dicts[char].values()))
+            print(frq)
+            with open(f"./graphs/csv/{char}.csv", "w") as file:
+                writer = csv.writer(file)
+                writer.writerows(frq)
+            
 
     def display_dict(self, dict):
         for k, v in dict.items():
@@ -164,18 +209,23 @@ def main():
                     sender = message["sender"]
                     content = message["content"]
 
+                    # TODO: detect who the sender is and append to appropriate dict
+
                     # trim sender prefix
                     content = content[len(sender)+1:]
                     print(sender)
                     print(content)
-                    frequency_manager.append(content)
+                    char = get_sender_config(sender)
+                    frequency_manager.append_to_config(char, content)
+                    #frequency_manager.append(content)
                 print(message)
 
             # we only do this once for testing reasons
             #break
 
-        frequency_manager.generate_config_wordcloud(config)
-    frequency_manager.generate_full_wordcloud()
+        #frequency_manager.generate_config_wordcloud(config)
+    #frequency_manager.generate_full_wordcloud()
+    frequency_manager.export_agent_frequencies()
 
 
         
