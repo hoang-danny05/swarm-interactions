@@ -17,7 +17,7 @@ USAGE:
 """
 
 def get_run_count(config : str):
-    return len(get_runs_from_config)
+    return len(get_runs_from_config(config))
 
 if __name__ == "__main__":
     try:
