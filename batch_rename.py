@@ -26,6 +26,7 @@ for comb in itertools.product(possible_slots, possible_slots):
             path[-1] = path[-1][4:]
             new_path = "/".join(path)
             print(new_path)
+            os.rename(run, new_path)
     except Exception:
         traceback.print_exc()
         break
