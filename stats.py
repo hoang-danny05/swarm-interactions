@@ -5,10 +5,6 @@ import pandas as pd
 import scipy
 import itertools
 
-'''
-Use get_run_count.py, to get run data and redo counts
-'''
-
 def resultsDF(directory, filename, tocsv=False) -> pd.DataFrame:
     """
     Takes the run directories, results to export the data as a dataframe object. Optionally exports data to csv
@@ -91,7 +87,6 @@ def pairwise_to_win_matrix(df, return_players=False, tocsv=False):
     Returns:
         W (pd.DataFrame): Returns the pairwise dataframe to be used in bradley-terry ranking.
         players (dict): Returns a dictionary of the players corresponding to a column index in the pairwise dataframe.
-
     """
     players = pd.unique(df[['P1', 'P2']].values.ravel())
     players.sort()
