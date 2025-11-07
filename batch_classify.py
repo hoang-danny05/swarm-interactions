@@ -17,7 +17,7 @@ for comb in itertools.product(possible_slots, possible_slots):
     config = "".join(comb)
 
     # Add any runs you want to exclude in this array ex) "AA"
-    exclude = []
+    exclude = ["AA", "AB", "BA", "CA", "CB", "CC", "FF"]
     # exclude = ["".join(exc) for exc in itertools.product("AB", "AB")] # exclude these ones
     if config in exclude:
         continue
@@ -29,6 +29,7 @@ for comb in itertools.product(possible_slots, possible_slots):
     
     try:
         # print(f"STARTING CONFIG WITH {config}\n\n\n\n\n")
+        # print(config)
         subprocess.run(
             ["python", "get_classifications.py", config, "run4o", "y"],
         )

@@ -1,7 +1,7 @@
 import sys
 import os 
 import itertools
-from file_reader import get_runs_from_config
+from utils.file_reader import get_runs_from_config
 
 """
 gets the amount of runs for each config, REMOVING all other files!
