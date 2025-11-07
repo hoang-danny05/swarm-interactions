@@ -187,8 +187,10 @@ def classify_and_append(
     """
     An easy way to update the judgement file from assertiveness_observer.py
     """
+
     directory = "/".join(file_path.split("/")[:-1])
     accum_path = f"{directory}/results_{version}.json"
+
     if (os.path.exists(accum_path)):
         print(f"File exists! reading: {accum_path}")
         with open(accum_path, "r") as file:
