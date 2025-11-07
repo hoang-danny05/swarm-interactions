@@ -111,8 +111,9 @@ def pairwise_to_win_matrix(df, return_players=False, tocsv=False):
         W[j, i] += w2  # P2 beats P1 w2 times
     
     if tocsv==True:
-        W.columns = ["A","B","C","D","E","F"]
-        W.to_csv(os.path.join(os.getcwd(), f"stats_data/win_matrix.csv"))
+        df = pd.DataFrame(W)
+        df.columns = ["A","B","C","D","E","F"]
+        df.to_csv(os.path.join(os.getcwd(), f"stats_data/win_matrix.csv"))
     if return_players: return W, players
     else: return W
 
@@ -152,7 +153,7 @@ def bradley_terry_ranking(W, players, print_stats=False, tocsv=False, max_iter=1
             break
 
     rankings = {k: v for k, v in zip(players, r)}
-    print(rankings)
+
     if tocsv==True:
         df = pd.DataFrame(list(rankings.items()), columns=["Key", "Value"])
         df.to_csv(os.path.join(os.getcwd(), f"stats_data/bradley_terry_rankings.csv"))
@@ -161,17 +162,17 @@ def bradley_terry_ranking(W, players, print_stats=False, tocsv=False, max_iter=1
 filename = 'results_NEW_run4o.json'
 directory = 'Warehouse/'
 
-#data = resultsDF(directory=directory, filename=filename, tocsv=True)
-data = resultsDF(directory=directory, filename=filename)
+data = resultsDF(directory=directory, filename=filename, tocsv=True)
+
 
 print('-'*100)
 print("Total number of runs is: "+str(data['Total'].sum()))
 print('-'*100)
 df = df_to_pairwise(data)
 
-W, players = pairwise_to_win_matrix(df, return_players=True)
+W, players = pairwise_to_win_matrix(df, return_players=True, tocsv=True)
 
-rankings = bradley_terry_ranking(W, players, print_stats=True)
+rankings = bradley_terry_ranking(W, players, print_stats=True, tocsv=True)
 
 print("******** Rankings ********")
 for key, item in rankings.items():
