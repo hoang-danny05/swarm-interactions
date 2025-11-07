@@ -5,6 +5,10 @@ import pandas as pd
 import scipy
 import itertools
 
+'''
+Use get_run_count.py, to get run data and redo counts
+'''
+
 def resultsDF(directory, filename, tocsv=False) -> pd.DataFrame:
     """
     Takes the run directories, results to export the data as a dataframe object. Optionally exports data to csv
@@ -52,14 +56,15 @@ def resultsDF(directory, filename, tocsv=False) -> pd.DataFrame:
                 result[key] = d[key]
             rows.append(result)
     df = pd.DataFrame(rows)
-    if tocsv==True:df.to_csv(os.path.join(os.getcwd(), "data.csv"))
+    if tocsv==True:df.to_csv(os.path.join(os.getcwd(), f"stats_data/data.csv"))
     return pd.DataFrame(rows)
 
-def df_to_pairwise(data):
+def df_to_pairwise(data, tocsv=False) -> pd.DataFrame:
     """
     Takes a dataframe and returns a second data frame with outcomes of matches with player vs player.
     Args:
         data (pd.DataFrame): Pandas dataframe of the wins
+        tocsv (bool): Whether to export to CSV. Defaults to False.
     Returns:
         pd.DataFrame: Returns the pairwise dataframe to be used in bradley-terry ranking.
     """
@@ -73,15 +78,16 @@ def df_to_pairwise(data):
                         "W1": row['Oppenheimer'],
                         "W2": row['Barbie']
                         })
-        
+    if tocsv==True:df.to_csv(os.path.join(os.getcwd(), f"stats_data/pair_wise_data.csv"))
     return pd.DataFrame(pairwise)
 
-def pairwise_to_win_matrix(df, return_players=False):
+def pairwise_to_win_matrix(df, return_players=False, tocsv=False):
     """
     Takes a dataframe of pairwise wins, and returns a numpy win matrix, and a list of players.
     Args:
         df (pd.DataFrame): Pandas dataframe of the pairwise wins
         return_players (bool): whether to return players.
+        tocsv (bool): Whether to export to CSV. Defaults to false. 
     Returns:
         W (pd.DataFrame): Returns the pairwise dataframe to be used in bradley-terry ranking.
         players (dict): Returns a dictionary of the players corresponding to a column index in the pairwise dataframe.
@@ -103,10 +109,14 @@ def pairwise_to_win_matrix(df, return_players=False):
         i, j = player_indices[p1], player_indices[p2]
         W[i, j] += w1  # P1 beats P2 w1 times
         W[j, i] += w2  # P2 beats P1 w2 times
+    
+    if tocsv==True:
+        W.columns = ["A","B","C","D","E","F"]
+        W.to_csv(os.path.join(os.getcwd(), f"stats_data/win_matrix.csv"))
     if return_players: return W, players
     else: return W
 
-def bradley_terry_ranking(W, players, print_stats=False, max_iter=10000, tol=1e-6):
+def bradley_terry_ranking(W, players, print_stats=False, tocsv=False, max_iter=10000, tol=1e-6):
     """
     Perform Bradley-Terry ranking from a win matrix W.
 
@@ -114,6 +124,7 @@ def bradley_terry_ranking(W, players, print_stats=False, max_iter=10000, tol=1e-
         W (ndarray): A square numpy array where W[i, j] is number of wins of i over j.
         players (array): A string array of players to rank.
         print_stats (bool): Option to print how many iterations to converge.
+        tocsv (bool): Whether to export to CSV. Defaults to false.  
         max_iter (int): Maximum number of iterations.
         tol (float): Convergence tolerance.
 
@@ -141,12 +152,17 @@ def bradley_terry_ranking(W, players, print_stats=False, max_iter=10000, tol=1e-
             break
 
     rankings = {k: v for k, v in zip(players, r)}
+    print(rankings)
+    if tocsv==True:
+        df = pd.DataFrame(list(rankings.items()), columns=["Key", "Value"])
+        df.to_csv(os.path.join(os.getcwd(), f"stats_data/bradley_terry_rankings.csv"))
     return rankings
 
 filename = 'results_NEW_run4o.json'
 directory = 'Warehouse/'
 
-data = resultsDF(directory=directory, filename=filename, tocsv=True)
+#data = resultsDF(directory=directory, filename=filename, tocsv=True)
+data = resultsDF(directory=directory, filename=filename)
 
 print('-'*100)
 print("Total number of runs is: "+str(data['Total'].sum()))
@@ -155,7 +171,7 @@ df = df_to_pairwise(data)
 
 W, players = pairwise_to_win_matrix(df, return_players=True)
 
-rankings = bradley_terry_ranking(W, players)
+rankings = bradley_terry_ranking(W, players, print_stats=True)
 
 print("******** Rankings ********")
 for key, item in rankings.items():
