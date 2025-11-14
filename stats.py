@@ -105,6 +105,7 @@ def pairwise_to_win_matrix(df, return_players=False, tocsv=False):
         W[i, j] += w1  # P1 beats P2 w1 times
         W[j, i] += w2  # P2 beats P1 w2 times
     
+    np.fill_diagonal(W, 0)
     if tocsv==True:
         df = pd.DataFrame(W)
         df.columns = ["A","B","C","D","E","F"]
